@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brhcfru0365vn"
-path="res://.godot/imported/tilemap_suelo.png-c2244558e8844d2e2c64c62af1e50afc.ctex"
+uid="uid://1txub16cbc2q"
+path="res://.godot/imported/jugador_correr.png-cd36f923621b750bdb00b5087df7070b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kenney_pixel-platformer/Tilemap/tilemap_suelo.png"
-dest_files=["res://.godot/imported/tilemap_suelo.png-c2244558e8844d2e2c64c62af1e50afc.ctex"]
+source_file="res://assets/personaje/jugador_correr.png"
+dest_files=["res://.godot/imported/jugador_correr.png-cd36f923621b750bdb00b5087df7070b.ctex"]
 
 [params]
 

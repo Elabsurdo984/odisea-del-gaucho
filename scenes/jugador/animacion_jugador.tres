@@ -1,0 +1,32 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://b0188hgob6lh1"]
+
+[ext_resource type="Texture2D" uid="uid://b1cbd481u0a5e" path="res://assets/personaje/gaucho_run.png" id="1_p3tex"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71ie0"]
+atlas = ExtResource("1_p3tex")
+region = Rect2(0, 0, 66, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tnws"]
+atlas = ExtResource("1_p3tex")
+region = Rect2(66, 0, 66, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raqac"]
+atlas = ExtResource("1_p3tex")
+region = Rect2(132, 0, 66, 128)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71ie0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tnws")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raqac")
+}],
+"loop": true,
+"name": &"correr",
+"speed": 5.0
+}]

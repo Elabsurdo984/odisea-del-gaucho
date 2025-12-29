@@ -8,3 +8,5 @@
 [node name="Node2D" parent="." instance=ExtResource("1_e1xdh")]
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_aeo3s")]
+
+[node name="Camera2D" type="Camera2D" parent="."]

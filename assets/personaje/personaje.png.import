@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://u3edmodsdou4"
-path="res://.godot/imported/tilemap.png-06d17e0f155bb72aa9e1508d840554e2.ctex"
+uid="uid://cgn75kp8wndqb"
+path="res://.godot/imported/personaje.png-002f321a8858b2d11b8d3b8c55ffc453.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/kenney_pixel-platformer/Tilemap/tilemap.png"
-dest_files=["res://.godot/imported/tilemap.png-06d17e0f155bb72aa9e1508d840554e2.ctex"]
+source_file="res://assets/personaje/personaje.png"
+dest_files=["res://.godot/imported/personaje.png-002f321a8858b2d11b8d3b8c55ffc453.ctex"]
 
 [params]
 
