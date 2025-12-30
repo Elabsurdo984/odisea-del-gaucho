@@ -1,7 +1,68 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8t72ifsktwrn"]
+[gd_scene load_steps=13 format=3 uid="uid://c8t72ifsktwrn"]
 
 [ext_resource type="Script" uid="uid://dwdwbiiu5wp3l" path="res://scenes/obstaculo/obstacle.gd" id="1_jewi0"]
+[ext_resource type="Texture2D" uid="uid://cmme5cnah0lpg" path="res://assets/obstaculos/obstaculo_arbusto.png" id="2_jbj3t"]
 [ext_resource type="Texture2D" uid="uid://bbjlvcr1npayb" path="res://assets/obstaculos/obstaculo_cactus.png" id="2_kdl0i"]
+[ext_resource type="Texture2D" uid="uid://crmfry6hjbfdj" path="res://assets/obstaculos/obstaculo_piedra.png" id="4_5mshb"]
+[ext_resource type="Texture2D" uid="uid://4mmon736brrn" path="res://assets/obstaculos/tero/tero_anim.png" id="5_6pjrq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvouv"]
+atlas = ExtResource("2_jbj3t")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4mrxl"]
+atlas = ExtResource("2_kdl0i")
+region = Rect2(0, 0, 18, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5euh"]
+atlas = ExtResource("4_5mshb")
+region = Rect2(0, 0, 63, 38)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g73j"]
+atlas = ExtResource("5_6pjrq")
+region = Rect2(135, 0, 135, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yojs4"]
+atlas = ExtResource("5_6pjrq")
+region = Rect2(0, 0, 135, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jewi0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvouv")
+}],
+"loop": true,
+"name": &"arbusto",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4mrxl")
+}],
+"loop": true,
+"name": &"cactus",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5euh")
+}],
+"loop": true,
+"name": &"piedra",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5g73j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yojs4")
+}],
+"loop": true,
+"name": &"tero",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wewfg"]
 size = Vector2(16, 58)
@@ -11,10 +72,13 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_jewi0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(9.999999, -9.500001)
-scale = Vector2(3.222222, 3.2777777)
-texture = ExtResource("2_kdl0i")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10, -9.5)
+scale = Vector2(3.22, 3.28)
+sprite_frames = SubResource("SpriteFrames_jewi0")
+animation = &"tero"
+frame = 1
+frame_progress = 0.9796153
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(10, -9)
