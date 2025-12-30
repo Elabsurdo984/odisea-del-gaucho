@@ -4,7 +4,7 @@
 [ext_resource type="SpriteFrames" uid="uid://b0188hgob6lh1" path="res://scenes/jugador/animacion_jugador.tres" id="2_6bcbl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wb3s"]
-size = Vector2(34.5, 92)
+size = Vector2(34.5, 85)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 2
@@ -15,11 +15,10 @@ texture_filter = 1
 position = Vector2(-495.5, 241)
 scale = Vector2(0.89393973, 0.78125)
 sprite_frames = ExtResource("2_6bcbl")
-animation = &"correr"
-autoplay = "correr"
-frame = 1
-frame_progress = 0.8972335
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.7322884
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-497, 241)
+position = Vector2(-495, 243)
 shape = SubResource("RectangleShape2D_8wb3s")

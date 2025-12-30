@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=4 uid="uid://5eguxhvy5hfk"]
 
-[ext_resource type="TileSet" uid="uid://0keh0cf0dre6" path="res://tile/suelo.tres" id="1_h6yjj"]
+[ext_resource type="TileSet" uid="uid://0keh0cf0dre6" path="res://scenes/suelo/suelo.tres" id="1_h6yjj"]
 [ext_resource type="Script" uid="uid://bqadrmb1e6ptv" path="res://scenes/suelo/suelo.gd" id="2_4it4e"]
 
 [node name="Suelo" type="TileMapLayer"]

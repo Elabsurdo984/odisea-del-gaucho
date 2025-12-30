@@ -4,15 +4,15 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71ie0"]
 atlas = ExtResource("1_p3tex")
-region = Rect2(0, 0, 66, 128)
+region = Rect2(0, 0, 123, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1tnws"]
 atlas = ExtResource("1_p3tex")
-region = Rect2(66, 0, 66, 128)
+region = Rect2(123, 0, 123, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_raqac"]
 atlas = ExtResource("1_p3tex")
-region = Rect2(132, 0, 66, 128)
+region = Rect2(246, 0, 123, 128)
 
 [resource]
 animations = [{
@@ -27,6 +27,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_raqac")
 }],
 "loop": true,
-"name": &"correr",
+"name": &"new_animation",
 "speed": 5.0
 }]
