@@ -1,6 +1,20 @@
-[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://b0188hgob6lh1"]
+[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://b0188hgob6lh1"]
 
+[ext_resource type="Texture2D" uid="uid://bbtgdybvbhnjy" path="res://assets/personaje/gaucho_agache.png" id="1_1tnws"]
 [ext_resource type="Texture2D" uid="uid://b1cbd481u0a5e" path="res://assets/personaje/gaucho_run.png" id="1_p3tex"]
+[ext_resource type="Texture2D" uid="uid://bjt5inoewty4h" path="res://assets/personaje/gaucho_salto.png" id="2_71ie0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f10g5"]
+atlas = ExtResource("1_1tnws")
+region = Rect2(266, 0, 133, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0dty"]
+atlas = ExtResource("1_1tnws")
+region = Rect2(133, 0, 133, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkxqj"]
+atlas = ExtResource("1_1tnws")
+region = Rect2(266, 0, 133, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_71ie0"]
 atlas = ExtResource("1_p3tex")
@@ -14,8 +28,30 @@ region = Rect2(123, 0, 123, 128)
 atlas = ExtResource("1_p3tex")
 region = Rect2(246, 0, 123, 128)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a0tb"]
+atlas = ExtResource("2_71ie0")
+region = Rect2(0, 0, 135, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gibk5"]
+atlas = ExtResource("2_71ie0")
+region = Rect2(135, 0, 135, 128)
+
 [resource]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f10g5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0dty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkxqj")
+}],
+"loop": true,
+"name": &"agacharse",
+"speed": 12.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_71ie0")
@@ -27,6 +63,17 @@ animations = [{
 "texture": SubResource("AtlasTexture_raqac")
 }],
 "loop": true,
-"name": &"new_animation",
+"name": &"correr",
 "speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a0tb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gibk5")
+}],
+"loop": true,
+"name": &"salto",
+"speed": 3.0
 }]

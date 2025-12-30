@@ -12,13 +12,13 @@ script = ExtResource("1_02n2h")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-495.5, 241)
+position = Vector2(-495.55298, 186)
 scale = Vector2(0.89393973, 0.78125)
 sprite_frames = ExtResource("2_6bcbl")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.90943694
+animation = &"agacharse"
+autoplay = "correr"
+frame_progress = 0.86734116
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-495, 243)
+position = Vector2(-495.05298, 188)
 shape = SubResource("RectangleShape2D_8wb3s")
