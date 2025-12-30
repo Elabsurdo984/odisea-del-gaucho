@@ -1,7 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo6qsr3xp5wro"]
+[gd_scene load_steps=3 format=3 uid="uid://bo6qsr3xp5wro"]
 
+[ext_resource type="PackedScene" uid="uid://c8t72ifsktwrn" path="res://scenes/obstaculo/obstacle.tscn" id="2_qnah2"]
 [ext_resource type="PackedScene" uid="uid://5eguxhvy5hfk" path="res://scenes/suelo/suelo.tscn" id="2_uktl7"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Suelo" parent="." instance=ExtResource("2_uktl7")]
+
+[node name="Obstacle" parent="." instance=ExtResource("2_qnah2")]

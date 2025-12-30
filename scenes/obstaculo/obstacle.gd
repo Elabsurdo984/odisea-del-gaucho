@@ -1,16 +1,22 @@
-# obstaculo.gd
 extends Area2D
 
-# Señal para cuando el jugador muere
 signal jugador_muerto
 
+@export var speed := 200.0  # Misma velocidad que el suelo
+
 func _ready():
-	# Conectar la señal solo si no está conectada
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
 
+func _process(delta):
+	# Mover el obstáculo hacia la izquierda
+	position.x -= speed * delta
+	
+	# Eliminar el obstáculo cuando salga de la pantalla
+	if position.x < -580:
+		queue_free()
+
 func _on_body_entered(body):
-	# Verificar si es el jugador
-	if body.is_in_group("jugador"):
+	if body.is_in_group("player"):
 		jugador_muerto.emit()
 		body.morir()
