@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://yqwoy367o3ji"]
+[gd_scene load_steps=3 format=3 uid="uid://yqwoy367o3ji"]
 
 [ext_resource type="Script" uid="uid://dw6s2myjornlv" path="res://scenes/puntaje/ui_puntaje.gd" id="1_t7i70"]
+[ext_resource type="FontFile" uid="uid://csjjboqkpecpn" path="res://assets/fonts/Steelflight.ttf" id="2_bpbd7"]
 
 [node name="UiPuntaje" type="Control" node_paths=PackedStringArray("contador")]
 layout_mode = 3
@@ -20,5 +21,6 @@ contador = NodePath("Label")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_bpbd7")
 theme_override_font_sizes/font_size = 40
 text = "Mates: "

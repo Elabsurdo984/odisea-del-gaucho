@@ -50,21 +50,25 @@ func manejar_agachado():
 	if Input.is_action_pressed("agacharse") and is_on_floor():
 		if not esta_agachado:
 			agacharse()
+		# Si ya está agachado y la animación terminó, mantenerlo en el último frame
+		elif not animacion.is_playing() and animacion.animation == "agacharse":
+			# Asegurarse de que está en el último frame
+			animacion.frame = animacion.sprite_frames.get_frame_count("agacharse") - 1
 	else:
 		if esta_agachado:
 			levantarse()
 
 func agacharse():
 	esta_agachado = true
-	
-	# Cambiar a animación de agacharse
+
+	# Cambiar a animación de agacharse (sin loop)
 	animacion.animation = "agacharse"
 	animacion.play()
-	
+
 	# Reducir el tamaño de la colisión
 	var collision = $CollisionShape2D
 	collision.shape.size.y = collision_shape_original_size.y * crouch_collision_reduction
-	
+
 	# Ajustar la posición de la colisión para que quede en el suelo
 	var offset_y = collision_shape_original_size.y * (1 - crouch_collision_reduction) / 2
 	collision.position.y = collision_shape_original_position.y + offset_y

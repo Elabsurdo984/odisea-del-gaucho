@@ -18,7 +18,8 @@ scale = Vector2(0.89393973, 0.78125)
 sprite_frames = ExtResource("2_6bcbl")
 animation = &"agacharse"
 autoplay = "correr"
-frame_progress = 0.9368105
+frame = 2
+frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-495.05298, 239)
