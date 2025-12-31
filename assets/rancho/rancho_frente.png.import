@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7ykdf33nwg2h"
-path="res://.godot/imported/mate.png-e8238b0e446744ad4a14e4573aecea6a.ctex"
+uid="uid://d3pvjosw4f1gm"
+path="res://.godot/imported/rancho_frente.png-5f07dbe2782024b3aafae80661f17700.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/personajes/mate/mate.png"
-dest_files=["res://.godot/imported/mate.png-e8238b0e446744ad4a14e4573aecea6a.ctex"]
+source_file="res://assets/rancho/rancho_frente.png"
+dest_files=["res://.godot/imported/rancho_frente.png-5f07dbe2782024b3aafae80661f17700.ctex"]
 
 [params]
 

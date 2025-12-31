@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dys5in3dtdjvy"
+
+[deps]
+
+files=["res://data/dialogues/transicion_rancho.text.translation"]
+
+source_file="res://data/dialogues/transicion_rancho.csv"
+dest_files=["res://data/dialogues/transicion_rancho.text.translation"]
+
+[params]
+
+compress=true
+delimiter=0

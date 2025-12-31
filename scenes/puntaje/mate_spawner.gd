@@ -12,22 +12,27 @@ var distance_since_last_spawn := 0.0
 var next_spawn_distance := 0.0
 var spawn_intentos := 0
 var max_intentos := 3  # Intentos máximos antes de posponer
+var spawning_activo := true  # Flag para controlar si se sigue spawneando
 
 func _ready():
 	if mate_scene == null:
 		push_error("⚠️ Asigna la escena del mate en el inspector!")
 		return
-	
+
 	# Calcular primera distancia aleatoria
 	next_spawn_distance = randf_range(spawn_min_distance, spawn_max_distance)
 
+	# Conectar señal de transición del GameManager
+	if GameManager:
+		GameManager.iniciar_transicion_rancho.connect(_on_transicion_iniciada)
+
 func _process(delta):
-	if mate_scene == null:
+	if mate_scene == null or not spawning_activo:
 		return
-	
+
 	# Acumular distancia recorrida
 	distance_since_last_spawn += speed * delta
-	
+
 	# Verificar si es momento de spawnear
 	if distance_since_last_spawn >= next_spawn_distance:
 		if intentar_spawn_mate():
@@ -83,5 +88,10 @@ func spawn_mate(spawn_x: float):
 	# Registrar el spawn
 	if SpawnCoordinator:
 		SpawnCoordinator.registrar_spawn_mate(spawn_x)
-	
+
 	print("🧉 Mate spawneado en X: ", spawn_x, " Y: ", ground_y)
+
+# ==================== CALLBACKS ====================
+func _on_transicion_iniciada():
+	print("🛑 MateSpawner: Deteniendo spawning por transición")
+	spawning_activo = false

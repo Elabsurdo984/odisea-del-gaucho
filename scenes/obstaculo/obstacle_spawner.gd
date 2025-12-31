@@ -8,6 +8,7 @@ extends Node2D
 @export var spawn_offset := 200.0  # A qué distancia adelante del borde derecho spawner
 
 var distance_since_last_spawn := 0.0
+var spawning_activo := true  # Flag para controlar si se sigue spawneando
 
 func _ready():
 	if obstacle_scene == null:
@@ -17,8 +18,12 @@ func _ready():
 	# Primer obstáculo pronto
 	distance_since_last_spawn = spawn_distance - 100.0
 
+	# Conectar señal de transición del GameManager
+	if GameManager:
+		GameManager.iniciar_transicion_rancho.connect(_on_transicion_iniciada)
+
 func _process(delta):
-	if obstacle_scene == null:
+	if obstacle_scene == null or not spawning_activo:
 		return
 
 	# Acumular distancia recorrida
@@ -57,5 +62,10 @@ func spawn_obstacle():
 	
 	# Agregarlo a la escena
 	get_parent().add_child(obstacle)
-	
+
 	print("🎯 Obstáculo spawneado en X: ", spawn_x, " Y: ", ground_y)
+
+# ==================== CALLBACKS ====================
+func _on_transicion_iniciada():
+	print("🛑 ObstacleSpawner: Deteniendo spawning por transición")
+	spawning_activo = false

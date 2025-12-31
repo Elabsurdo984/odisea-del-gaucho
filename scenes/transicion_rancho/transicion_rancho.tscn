@@ -1,0 +1,128 @@
+[gd_scene load_steps=6 format=3 uid="uid://cd0ydfl8vbpiw"]
+
+[ext_resource type="Script" uid="uid://dhs6hxsqd4ahh" path="res://scripts/dialogue_manager.gd" id="1_dialogue"]
+[ext_resource type="Script" uid="uid://tuhka7wgte74" path="res://scenes/transicion_rancho/transicion_rancho.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d3pvjosw4f1gm" path="res://assets/rancho/rancho_frente.png" id="2_f64kd"]
+[ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
+[ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
+
+[node name="TransicionRancho" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Fondo" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Cielo" type="ColorRect" parent="Fondo"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.95, 0.7, 0.4, 1)
+
+[node name="CieloGradiente" type="ColorRect" parent="Fondo"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3, 0.5, 0.8, 1)
+
+[node name="Pasto" type="ColorRect" parent="Fondo"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -180.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.2, 0.3, 0.15, 1)
+
+[node name="Rancho" type="Sprite2D" parent="Fondo"]
+position = Vector2(542, 296)
+texture = ExtResource("2_f64kd")
+
+[node name="Personajes" type="Node2D" parent="."]
+
+[node name="Gaucho" type="Sprite2D" parent="Personajes"]
+position = Vector2(200, 450)
+scale = Vector2(2, 2)
+texture = ExtResource("2_gaucho")
+
+[node name="Muerte" type="Sprite2D" parent="Personajes"]
+position = Vector2(829.99994, 417)
+scale = Vector2(0.586, 0.6)
+texture = ExtResource("3_muerte")
+
+[node name="DialogoUI" type="CanvasLayer" parent="."]
+
+[node name="PanelDialogo" type="Panel" parent="DialogoUI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = -200.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="DialogoUI/PanelDialogo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DialogoUI/PanelDialogo/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NombreLabel" type="Label" parent="DialogoUI/PanelDialogo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 24
+text = "GAUCHO"
+
+[node name="TextoLabel" type="Label" parent="DialogoUI/PanelDialogo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "¿Y el rancho?"
+autowrap_mode = 3
+
+[node name="ContinuarIndicador" type="Label" parent="DialogoUI/PanelDialogo"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -35.0
+offset_right = -20.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "▼ Continuar"
+horizontal_alignment = 2
+
+[node name="DialogueManager" type="Node" parent="." node_paths=PackedStringArray("name_label", "text_label", "continue_indicator")]
+script = ExtResource("1_dialogue")
+name_label = NodePath("../DialogoUI/PanelDialogo/MarginContainer/VBoxContainer/NombreLabel")
+text_label = NodePath("../DialogoUI/PanelDialogo/MarginContainer/VBoxContainer/TextoLabel")
+continue_indicator = NodePath("../DialogoUI/PanelDialogo/ContinuarIndicador")
