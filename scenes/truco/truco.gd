@@ -54,6 +54,14 @@ enum EstadoTruco { NINGUNO, TRUCO, RETRUCO, VALE_CUATRO }
 var estado_truco: EstadoTruco = EstadoTruco.NINGUNO
 var truco_cantado_por_jugador := false  # Para saber quién puede subir la apuesta
 
+# Estado del envido
+var envido_ya_cantado := false
+var puntos_envido_jugador := 0
+var puntos_envido_muerte := 0
+
+# Mano (quién empieza)
+var es_mano_jugador := true  # Al inicio, el jugador es mano
+
 # ==================== INICIALIZACIÓN ====================
 func _ready():
 	print("🎴 Iniciando partida de truco contra la Muerte...")
@@ -82,11 +90,16 @@ func iniciar_nueva_mano():
 	carta_jugada_jugador = null
 	carta_jugada_muerte = null
 	puntos_en_juego = 1
-	es_turno_jugador = true
+	es_turno_jugador = es_mano_jugador  # El mano empieza
 
 	# Resetear truco
 	estado_truco = EstadoTruco.NINGUNO
 	truco_cantado_por_jugador = false
+
+	# Resetear envido
+	envido_ya_cantado = false
+	if btn_envido:
+		btn_envido.disabled = false  # Habilitar envido para nueva mano
 
 	# Limpiar cartas anteriores
 	limpiar_cartas()
@@ -100,27 +113,48 @@ func iniciar_nueva_mano():
 	# Repartir 3 cartas a la muerte
 	repartir_cartas_muerte()
 
+	# Calcular puntos de envido
+	puntos_envido_jugador = calcular_envido(cartas_jugador)
+	puntos_envido_muerte = calcular_envido(cartas_muerte)
+
+	print("📊 Envido - Jugador: %d | Muerte: %d" % [puntos_envido_jugador, puntos_envido_muerte])
+
 	actualizar_ui()
-	mostrar_mensaje("Ronda %d - Tu turno" % ronda_actual)
+
+	# Si la Muerte es mano, ella juega primero
+	if not es_mano_jugador:
+		mostrar_mensaje("Ronda %d - Turno de la Muerte (es mano)" % ronda_actual)
+		await get_tree().create_timer(1.0).timeout
+		turno_muerte()
+	else:
+		mostrar_mensaje("Ronda %d - Tu turno (sos mano)" % ronda_actual)
 
 func limpiar_cartas():
-	# Limpiar cartas del jugador
-	for carta in cartas_jugador:
-		if carta:
-			carta.queue_free()
-	cartas_jugador.clear()
-
-	# Limpiar cartas de la muerte
-	for carta in cartas_muerte:
-		if carta:
-			carta.queue_free()
-	cartas_muerte.clear()
-
-	# Limpiar contenedores visuales
+	# Limpiar TODOS los hijos de los contenedores visuales inmediatamente
 	for child in jugador_cartas_container.get_children():
 		child.queue_free()
 	for child in muerte_cartas_container.get_children():
 		child.queue_free()
+
+	# Limpiar arrays
+	cartas_jugador.clear()
+	cartas_muerte.clear()
+
+	# Limpiar cartas de la mesa si quedaron
+	if carta_jugada_jugador:
+		carta_jugada_jugador.queue_free()
+		carta_jugada_jugador = null
+	if carta_jugada_muerte:
+		carta_jugada_muerte.queue_free()
+		carta_jugada_muerte = null
+
+	# Limpiar cartas restantes en los contenedores de mesa
+	for child in mesa_jugador.get_children():
+		if child != placeholder_jugador:
+			child.queue_free()
+	for child in mesa_muerte.get_children():
+		if child != placeholder_muerte:
+			child.queue_free()
 
 func repartir_cartas_jugador():
 	var cartas_data = mazo.repartir_cartas(3)
@@ -183,6 +217,10 @@ func jugar_carta_jugador(carta: Carta):
 
 	# Remover del array (pero no destruir, solo reparentar)
 	cartas_jugador.erase(carta)
+
+	# Deshabilitar envido después de jugar primera carta
+	if ronda_actual == 1:
+		btn_envido.disabled = true
 
 	# Desactivar todas las cartas del jugador mientras espera
 	for c in cartas_jugador:
@@ -358,8 +396,15 @@ func siguiente_ronda():
 	for c in cartas_jugador:
 		c.hacer_clickeable(true)
 
-	es_turno_jugador = true
-	mostrar_mensaje("Ronda %d - Tu turno" % ronda_actual)
+	es_turno_jugador = es_mano_jugador  # El mano empieza cada ronda
+
+	# Si la Muerte es mano, ella juega primero
+	if not es_mano_jugador:
+		mostrar_mensaje("Ronda %d - Turno de la Muerte" % ronda_actual)
+		await get_tree().create_timer(1.0).timeout
+		turno_muerte()
+	else:
+		mostrar_mensaje("Ronda %d - Tu turno" % ronda_actual)
 
 func verificar_mano_terminada() -> bool:
 	# Contar rondas ganadas
@@ -416,9 +461,11 @@ func resolver_mano_ganada(ganador: int):
 	if ganador == 1:
 		puntos_jugador += puntos_en_juego
 		mostrar_mensaje("¡Ganaste %d punto(s)!" % puntos_en_juego)
+		es_mano_jugador = true  # Jugador es mano en la siguiente
 	else:
 		puntos_muerte += puntos_en_juego
 		mostrar_mensaje("Muerte gana %d punto(s)" % puntos_en_juego)
+		es_mano_jugador = false  # Muerte es mano en la siguiente
 
 	actualizar_ui()
 
@@ -432,9 +479,15 @@ func resolver_mano_ganada(ganador: int):
 
 # ==================== CALLBACKS BOTONES ====================
 func _on_envido_pressed():
-	print("🗣️ Jugador canta: ¡Envido!")
-	mostrar_mensaje("Cantaste Envido")
-	# TODO: Lógica de envido
+	if envido_ya_cantado:
+		mostrar_mensaje("El envido ya fue cantado")
+		return
+
+	if ronda_actual > 1:
+		mostrar_mensaje("No se puede cantar envido después de la primera carta")
+		return
+
+	cantar_envido_jugador()
 
 func _on_truco_pressed():
 	# Determinar qué cantar según el estado actual
@@ -451,6 +504,86 @@ func _on_truco_pressed():
 func _on_mazo_pressed():
 	print("🚪 Jugador se va al mazo")
 	irse_al_mazo_jugador()
+
+# ==================== SISTEMA DE ENVIDO ====================
+func calcular_envido(cartas: Array) -> int:
+	# Agrupar cartas por palo
+	var cartas_por_palo = {
+		Carta.Palo.ORO: [],
+		Carta.Palo.COPA: [],
+		Carta.Palo.ESPADA: [],
+		Carta.Palo.BASTO: []
+	}
+
+	for carta in cartas:
+		cartas_por_palo[carta.palo].append(carta)
+
+	var max_envido = 0
+
+	# Para cada palo, calcular envido
+	for palo in cartas_por_palo:
+		var cartas_palo = cartas_por_palo[palo]
+
+		if cartas_palo.size() >= 2:
+			# Ordenar por valor de envido (descendente)
+			cartas_palo.sort_custom(func(a, b): return a.obtener_valor_envido() > b.obtener_valor_envido())
+
+			# Tomar las 2 más altas
+			var valor1 = cartas_palo[0].obtener_valor_envido()
+			var valor2 = cartas_palo[1].obtener_valor_envido()
+
+			var envido = 20 + valor1 + valor2
+			max_envido = max(max_envido, envido)
+		elif cartas_palo.size() == 1:
+			# Solo 1 carta de este palo
+			var valor = cartas_palo[0].obtener_valor_envido()
+			max_envido = max(max_envido, valor)
+
+	return max_envido
+
+func cantar_envido_jugador():
+	print("🗣️ Jugador canta: ¡ENVIDO!")
+	envido_ya_cantado = true
+	mostrar_mensaje("¡ENVIDO! (Vale 2 puntos) - Tenés: %d" % puntos_envido_jugador)
+
+	# Desactivar botón
+	btn_envido.disabled = true
+
+	# Esperar y que la Muerte responda
+	await get_tree().create_timer(1.0).timeout
+	muerte_responde_envido()
+
+func muerte_responde_envido():
+	# IA: Si tiene 25+ puntos, acepta. Si no, 50% de probabilidad
+	var acepta = puntos_envido_muerte >= 25 or randf() < 0.5
+
+	if acepta:
+		print("💀 Muerte: ¡Quiero!")
+		mostrar_mensaje("Muerte acepta - Tiene: %d" % puntos_envido_muerte)
+
+		await get_tree().create_timer(1.5).timeout
+
+		# Comparar puntos
+		if puntos_envido_jugador > puntos_envido_muerte:
+			print("✅ Jugador gana el envido!")
+			mostrar_mensaje("¡Ganás el envido! (+2 puntos)")
+			puntos_jugador += 2
+		elif puntos_envido_muerte > puntos_envido_jugador:
+			print("💀 Muerte gana el envido")
+			mostrar_mensaje("Muerte gana el envido (+2 puntos)")
+			puntos_muerte += 2
+		else:
+			# Empate - gana el mano (jugador por ahora)
+			print("🤝 Empate - Gana el mano (Jugador)")
+			mostrar_mensaje("Empate - Ganás vos (sos mano) (+2 puntos)")
+			puntos_jugador += 2
+
+		actualizar_ui()
+	else:
+		print("💀 Muerte: No quiero")
+		mostrar_mensaje("Muerte rechaza - Ganás 1 punto")
+		puntos_jugador += 1
+		actualizar_ui()
 
 # ==================== SISTEMA DE TRUCO ====================
 func cantar_truco_jugador():

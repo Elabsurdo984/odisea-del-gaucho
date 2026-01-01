@@ -25,6 +25,10 @@ SpawnCoordinator="*res://scripts/spawn_coordinator.gd"
 window/size/mode=3
 window/stretch/mode="viewport"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/rubonnek.dialogue_engine/plugin.cfg")
+
 [input]
 
 salto={
