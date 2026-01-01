@@ -442,10 +442,10 @@ func _on_truco_pressed():
 		EstadoTruco.NINGUNO:
 			cantar_truco_jugador()
 		EstadoTruco.TRUCO:
-			if not truco_cantado_por_jugador:
+			if not truco_cantado_por_jugador:  # La Muerte cantó, puedo subir
 				cantar_retruco_jugador()
 		EstadoTruco.RETRUCO:
-			if truco_cantado_por_jugador:
+			if not truco_cantado_por_jugador:  # La Muerte cantó, puedo subir
 				cantar_vale_cuatro_jugador()
 
 func _on_mazo_pressed():
