@@ -1,8 +1,8 @@
 [gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://b0188hgob6lh1"]
 
-[ext_resource type="Texture2D" uid="uid://bbtgdybvbhnjy" path="res://assets/personaje/gaucho_agache.png" id="1_1tnws"]
-[ext_resource type="Texture2D" uid="uid://b1cbd481u0a5e" path="res://assets/personaje/gaucho_run.png" id="1_p3tex"]
-[ext_resource type="Texture2D" uid="uid://bjt5inoewty4h" path="res://assets/personaje/gaucho_salto.png" id="2_71ie0"]
+[ext_resource type="Texture2D" uid="uid://bbtgdybvbhnjy" path="res://assets/personajes/gaucho/gaucho_agache.png" id="1_1tnws"]
+[ext_resource type="Texture2D" uid="uid://b1cbd481u0a5e" path="res://assets/personajes/gaucho/gaucho_run.png" id="1_p3tex"]
+[ext_resource type="Texture2D" uid="uid://bjt5inoewty4h" path="res://assets/personajes/gaucho/gaucho_salto.png" id="2_71ie0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f10g5"]
 atlas = ExtResource("1_1tnws")

@@ -136,17 +136,15 @@ func limpiar_cartas():
 	for child in muerte_cartas_container.get_children():
 		child.queue_free()
 
-	# Limpiar arrays
-	cartas_jugador.clear()
-	cartas_muerte.clear()
-
-	# Limpiar cartas de la mesa si quedaron
-	if carta_jugada_jugador:
+	# Limpiar cartas de la mesa si quedaron (ANTES de limpiar los arrays)
+	if carta_jugada_jugador and is_instance_valid(carta_jugada_jugador):
 		carta_jugada_jugador.queue_free()
-		carta_jugada_jugador = null
-	if carta_jugada_muerte:
+	if carta_jugada_muerte and is_instance_valid(carta_jugada_muerte):
 		carta_jugada_muerte.queue_free()
-		carta_jugada_muerte = null
+	
+	# Ahora sí, establecer a null
+	carta_jugada_jugador = null
+	carta_jugada_muerte = null
 
 	# Limpiar cartas restantes en los contenedores de mesa
 	for child in mesa_jugador.get_children():
@@ -155,6 +153,10 @@ func limpiar_cartas():
 	for child in mesa_muerte.get_children():
 		if child != placeholder_muerte:
 			child.queue_free()
+
+	# Limpiar arrays AL FINAL
+	cartas_jugador.clear()
+	cartas_muerte.clear()
 
 func repartir_cartas_jugador():
 	var cartas_data = mazo.repartir_cartas(3)
@@ -396,15 +398,29 @@ func siguiente_ronda():
 	for c in cartas_jugador:
 		c.hacer_clickeable(true)
 
-	es_turno_jugador = es_mano_jugador  # El mano empieza cada ronda
+	# Determinar quién empieza según quién ganó la ronda anterior
+	var resultado_ronda_anterior = 0
+	if ronda_actual == 2:
+		resultado_ronda_anterior = resultado_ronda_1
+	elif ronda_actual == 3:
+		resultado_ronda_anterior = resultado_ronda_2
 
-	# Si la Muerte es mano, ella juega primero
-	if not es_mano_jugador:
-		mostrar_mensaje("Ronda %d - Turno de la Muerte" % ronda_actual)
+	# El que ganó la ronda anterior empieza
+	if resultado_ronda_anterior == 1:
+		es_turno_jugador = true  # Jugador ganó, empieza
+	elif resultado_ronda_anterior == 2:
+		es_turno_jugador = false  # Muerte ganó, empieza ella
+	else:
+		# Empate o primera ronda: empieza el mano
+		es_turno_jugador = es_mano_jugador
+
+	# Si no es turno del jugador, la Muerte juega primero
+	if not es_turno_jugador:
+		mostrar_mensaje("Ronda %d - Turno de la Muerte (ganó la anterior)" % ronda_actual)
 		await get_tree().create_timer(1.0).timeout
 		turno_muerte()
 	else:
-		mostrar_mensaje("Ronda %d - Tu turno" % ronda_actual)
+		mostrar_mensaje("Ronda %d - Tu turno (ganaste la anterior)" % ronda_actual)
 
 func verificar_mano_terminada() -> bool:
 	# Contar rondas ganadas

@@ -1,0 +1,403 @@
+{
+	"categories": [
+		{
+			"uuid": "935d4093-8e55-4e86-b761-785faac801f5",
+			"title": "Gameplay - Nivel Endless",
+			"color": "70bafa"
+		},
+		{
+			"uuid": "3585a9e0-b76e-4071-87f1-6cf277c8bc0e",
+			"title": "Bugs",
+			"color": "8fe208"
+		},
+		{
+			"uuid": "96054c33-ac23-43e2-b0af-d9dec937e76e",
+			"title": "Correcciones Tecnicas",
+			"color": "2b25e5"
+		},
+		{
+			"uuid": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"title": "Gameplay - Truco",
+			"color": "d00000"
+		},
+		{
+			"uuid": "8ee4c720-2168-414c-8d71-313516eb0feb",
+			"title": "Audio",
+			"color": "db01b0"
+		},
+		{
+			"uuid": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"title": "UI",
+			"color": "1a39b7"
+		},
+		{
+			"uuid": "b2e17ed6-84d3-4a7a-a83d-56a0b50bbfee",
+			"title": "Progresion",
+			"color": "d8f70c"
+		}
+	],
+	"stages": [
+		{
+			"uuid": "3741bb86-ff8c-4b18-a9aa-4da48df2c06f",
+			"title": "Backlog",
+			"tasks": [
+				"27c06727-e8fa-46f4-a378-01cb28b5cdde",
+				"90d2dd0a-76a8-4bbc-97f8-68e02d11d82d",
+				"9e001ad2-382c-4cc3-a009-fbca90e53290",
+				"64e7c673-a0c9-4488-a30d-17ad24cc1a0a",
+				"fc59f536-ff00-49a6-a199-f2a56fe22344",
+				"033348e9-409d-4d88-b4d1-23794d1c49e2",
+				"a6d49ca4-cf51-4ffe-acac-7d08cb0b409a"
+			]
+		},
+		{
+			"uuid": "efc8ec00-1696-46a1-bcf2-1651bd819881",
+			"title": "Por Hacer",
+			"tasks": [
+				"3287962b-d46c-4555-abe9-7891ab6496be",
+				"ed853261-8fb3-435a-b3d9-9da27053563a",
+				"806ff832-b6df-489e-ad46-709df79c2e56",
+				"ea3e3253-cd93-44bc-ab9f-f446b1331a98",
+				"9294f712-8fd7-482a-96bd-2ef827afaacc",
+				"24745c5b-9e11-4208-8ed9-c00ef4de131d",
+				"71fd13db-a7ba-4c8c-9c6c-7a1d408a344f",
+				"568034f0-f5b1-494d-8659-0185dfdf11b1",
+				"40bbafe2-1a4b-42ee-b280-3df8a094e196",
+				"1ca19318-52e5-49d0-87df-2156ebd95035",
+				"3075a5ee-b2b7-4063-a62a-e7b8f7d57ef4",
+				"e0dbb2f0-efd3-4e91-bfb4-5d7bdab69c13",
+				"05d618e6-2382-4400-8535-77bf4a438bc7"
+			]
+		},
+		{
+			"uuid": "2ed150c5-40b0-4591-a38c-ca3de0f6e620",
+			"title": "En progreso",
+			"tasks": [
+				"931f79b3-d25a-429c-b22a-21e1af1ed5a0"
+			]
+		},
+		{
+			"uuid": "0441af4a-a930-458d-9889-9f9d9881c10b",
+			"title": "Testing",
+			"tasks": []
+		},
+		{
+			"uuid": "c0c7e902-b120-4c4f-bb2b-b4d7b7bb20bf",
+			"title": "Completado",
+			"tasks": [
+				"8ff69300-4608-4122-a8a1-9f2666f19cde"
+			]
+		}
+	],
+	"tasks": [
+		{
+			"uuid": "8ff69300-4608-4122-a8a1-9f2666f19cde",
+			"title": "Arreglar error del turno luego de una partida ganada",
+			"description": "",
+			"category": "3585a9e0-b76e-4071-87f1-6cf277c8bc0e",
+			"steps": []
+		},
+		{
+			"uuid": "27c06727-e8fa-46f4-a378-01cb28b5cdde",
+			"title": "Menu Principal",
+			"description": "",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": [
+				{
+					"details": "Boton \"Jugar\"",
+					"done": false
+				},
+				{
+					"details": "Boton \"Como Jugar\"",
+					"done": false
+				},
+				{
+					"details": "Boton \"Configuracion\"",
+					"done": false
+				},
+				{
+					"details": "Boton \"Salir\"",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "9294f712-8fd7-482a-96bd-2ef827afaacc",
+			"title": "Sistema de vidas",
+			"description": "Mueres Luego de 3 golpes",
+			"category": "935d4093-8e55-4e86-b761-785faac801f5",
+			"steps": [
+				{
+					"details": "Programar sistema ",
+					"done": false
+				},
+				{
+					"details": "UI para mostrar las vidas (Corazones)",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "90d2dd0a-76a8-4bbc-97f8-68e02d11d82d",
+			"title": "Sistema de guardado",
+			"description": "",
+			"category": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"steps": [
+				{
+					"details": "Guardar Partida",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "1ca19318-52e5-49d0-87df-2156ebd95035",
+			"title": "Musica y Sonidos",
+			"description": "",
+			"category": "8ee4c720-2168-414c-8d71-313516eb0feb",
+			"steps": [
+				{
+					"details": "Musica Argentina para menu",
+					"done": false
+				},
+				{
+					"details": "SFX para mate recogido",
+					"done": false
+				},
+				{
+					"details": "SFX para dialogos",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "3075a5ee-b2b7-4063-a62a-e7b8f7d57ef4",
+			"title": "Pantalla de \"Como Jugar\"",
+			"description": "",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": [
+				{
+					"details": "Controles",
+					"done": false
+				},
+				{
+					"details": "Reglas del truco",
+					"done": false
+				},
+				{
+					"details": "Valores del truco",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "9e001ad2-382c-4cc3-a009-fbca90e53290",
+			"title": "Pantalla de \"Configuracion\"",
+			"description": "",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": [
+				{
+					"details": "Ajustar Musica y SFX",
+					"done": false
+				},
+				{
+					"details": "Personalizar Controles",
+					"done": false
+				},
+				{
+					"details": "Pantalla completa on/off",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "64e7c673-a0c9-4488-a30d-17ad24cc1a0a",
+			"title": "Menu de Pausa",
+			"description": "Durante el Runner. Durante Las cinematicas. Durante el Truco\n\n",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": [
+				{
+					"details": "Pausar con ESC",
+					"done": false
+				},
+				{
+					"details": "Opciones: Reanudar, Reiniciar, Salir",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "ed853261-8fb3-435a-b3d9-9da27053563a",
+			"title": "Dificultad Progresiva",
+			"description": "Aumentar velocidad cada 10 mates",
+			"category": "935d4093-8e55-4e86-b761-785faac801f5",
+			"steps": []
+		},
+		{
+			"uuid": "24745c5b-9e11-4208-8ed9-c00ef4de131d",
+			"title": "IA Inteligente para el truco",
+			"description": "Que considere:",
+			"category": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"steps": [
+				{
+					"details": "Fuerza de sus cartas",
+					"done": false
+				},
+				{
+					"details": "Puntos actuales",
+					"done": false
+				},
+				{
+					"details": "Si va ganando o perdiendo",
+					"done": false
+				},
+				{
+					"details": "Cuando cantar",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "3287962b-d46c-4555-abe9-7891ab6496be",
+			"title": "Arreglar error de ganador",
+			"description": "",
+			"category": "3585a9e0-b76e-4071-87f1-6cf277c8bc0e",
+			"steps": []
+		},
+		{
+			"uuid": "931f79b3-d25a-429c-b22a-21e1af1ed5a0",
+			"title": "Arreglar Error de busqueda de carta",
+			"description": "",
+			"category": "3585a9e0-b76e-4071-87f1-6cf277c8bc0e",
+			"steps": []
+		},
+		{
+			"uuid": "806ff832-b6df-489e-ad46-709df79c2e56",
+			"title": "Power-Ups Temporales",
+			"description": "Se activan con la E",
+			"category": "935d4093-8e55-4e86-b761-785faac801f5",
+			"steps": [
+				{
+					"details": "Invencibilidad",
+					"done": false
+				},
+				{
+					"details": "Iman de Mates",
+					"done": false
+				},
+				{
+					"details": "Super Salto",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "ea3e3253-cd93-44bc-ab9f-f446b1331a98",
+			"title": "Balancear frecuencia de spawn",
+			"description": "Entre mate y Obstaculo",
+			"category": "935d4093-8e55-4e86-b761-785faac801f5",
+			"steps": []
+		},
+		{
+			"uuid": "71fd13db-a7ba-4c8c-9c6c-7a1d408a344f",
+			"title": "Añadir animaciones a las cartas",
+			"description": "",
+			"category": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"steps": []
+		},
+		{
+			"uuid": "568034f0-f5b1-494d-8659-0185dfdf11b1",
+			"title": "Añadir funcionalidades",
+			"description": "",
+			"category": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"steps": [
+				{
+					"details": "Falta envido",
+					"done": false
+				},
+				{
+					"details": "Real envido",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "40bbafe2-1a4b-42ee-b280-3df8a094e196",
+			"title": "Historial de rondas ganadas visualmente",
+			"description": "",
+			"category": "d088597c-be9f-4d70-a13f-0cffa4482a0f",
+			"steps": []
+		},
+		{
+			"uuid": "e0dbb2f0-efd3-4e91-bfb4-5d7bdab69c13",
+			"title": "Tutorial para el juego",
+			"description": "Como saltar, agacharse, tutorial opcional",
+			"category": "935d4093-8e55-4e86-b761-785faac801f5",
+			"steps": []
+		},
+		{
+			"uuid": "fc59f536-ff00-49a6-a199-f2a56fe22344",
+			"title": "Logros",
+			"description": "",
+			"category": "b2e17ed6-84d3-4a7a-a83d-56a0b50bbfee",
+			"steps": [
+				{
+					"details": "Recolecta 1000 mates",
+					"done": false
+				},
+				{
+					"details": "Gana el truco con la muerte",
+					"done": false
+				}
+			]
+		},
+		{
+			"uuid": "033348e9-409d-4d88-b4d1-23794d1c49e2",
+			"title": "Skins para el gaucho",
+			"description": "",
+			"category": "b2e17ed6-84d3-4a7a-a83d-56a0b50bbfee",
+			"steps": []
+		},
+		{
+			"uuid": "a6d49ca4-cf51-4ffe-acac-7d08cb0b409a",
+			"title": "Mapa de argentina",
+			"description": "Con la pampa desbloqueada",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": []
+		},
+		{
+			"uuid": "05d618e6-2382-4400-8535-77bf4a438bc7",
+			"title": "Estadisticas",
+			"description": "",
+			"category": "051ccf5a-0016-44fe-82ed-10de4df787e1",
+			"steps": [
+				{
+					"details": "Mates totales recolectados",
+					"done": false
+				},
+				{
+					"details": "Partidas ganadas",
+					"done": false
+				}
+			]
+		}
+	],
+	"layout": {
+		"columns": [
+			[
+				"3741bb86-ff8c-4b18-a9aa-4da48df2c06f"
+			],
+			[
+				"efc8ec00-1696-46a1-bcf2-1651bd819881"
+			],
+			[
+				"2ed150c5-40b0-4591-a38c-ca3de0f6e620"
+			],
+			[
+				"0441af4a-a930-458d-9889-9f9d9881c10b"
+			],
+			[
+				"c0c7e902-b120-4c4f-bb2b-b4d7b7bb20bf"
+			]
+		]
+	}
+}
