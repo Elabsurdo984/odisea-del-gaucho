@@ -26,7 +26,7 @@ const CARTA_SCENE = preload("res://scenes/truco/carta.tscn")
 @onready var muerte_sprite = $Personajes/Muerte
 
 # ==================== CONFIGURACIÓN ====================
-const PUNTOS_PARA_GANAR = 15
+const PUNTOS_PARA_GANAR = 1
 
 # ==================== ESTADO DEL JUEGO ====================
 var puntos_jugador := 0
@@ -502,7 +502,7 @@ func resolver_mano_ganada(ganador: int):
 
 	# Verificar victoria
 	await get_tree().create_timer(2.0).timeout
-	if verificar_victoria():
+	if await verificar_victoria():
 		return
 
 	# Nueva mano
@@ -745,7 +745,7 @@ func irse_al_mazo_jugador():
 
 	await get_tree().create_timer(2.0).timeout
 
-	if verificar_victoria():
+	if await verificar_victoria():
 		return
 
 	iniciar_nueva_mano()
@@ -753,10 +753,10 @@ func irse_al_mazo_jugador():
 # ==================== VICTORIA ====================
 func verificar_victoria() -> bool:
 	if puntos_jugador >= PUNTOS_PARA_GANAR:
-		victoria_jugador()
+		await victoria_jugador()
 		return true
 	elif puntos_muerte >= PUNTOS_PARA_GANAR:
-		derrota_jugador()
+		await derrota_jugador()
 		return true
 	return false
 
