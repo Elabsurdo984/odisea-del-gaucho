@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://csldrx7lxoc66"]
+[gd_scene load_steps=5 format=3 uid="uid://csldrx7lxoc66"]
 
 [ext_resource type="Script" uid="uid://dwuiplns4t0d3" path="res://scenes/truco/truco.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
+[ext_resource type="PackedScene" uid="uid://d2vh8nx8yx5uw" path="res://scenes/pause_menu/pause_menu.tscn" id="4_pause"]
 
 [node name="Truco" type="Control"]
 layout_mode = 3
@@ -191,3 +192,5 @@ theme_override_font_sizes/font_size = 24
 text = "Nueva mano"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]

@@ -46,28 +46,24 @@
 			"uuid": "3741bb86-ff8c-4b18-a9aa-4da48df2c06f",
 			"title": "Backlog",
 			"tasks": [
-				"90d2dd0a-76a8-4bbc-97f8-68e02d11d82d",
-				"9e001ad2-382c-4cc3-a009-fbca90e53290",
-				"43bb2aeb-3b13-4e37-840e-b43cfa9d643f",
-				"64e7c673-a0c9-4488-a30d-17ad24cc1a0a",
+				"806ff832-b6df-489e-ad46-709df79c2e56",
 				"fc59f536-ff00-49a6-a199-f2a56fe22344",
-				"033348e9-409d-4d88-b4d1-23794d1c49e2"
+				"033348e9-409d-4d88-b4d1-23794d1c49e2",
+				"24745c5b-9e11-4208-8ed9-c00ef4de131d",
+				"90d2dd0a-76a8-4bbc-97f8-68e02d11d82d",
+				"43bb2aeb-3b13-4e37-840e-b43cfa9d643f"
 			]
 		},
 		{
 			"uuid": "efc8ec00-1696-46a1-bcf2-1651bd819881",
 			"title": "Por Hacer",
 			"tasks": [
-				"806ff832-b6df-489e-ad46-709df79c2e56",
-				"ea3e3253-cd93-44bc-ab9f-f446b1331a98",
 				"9294f712-8fd7-482a-96bd-2ef827afaacc",
-				"24745c5b-9e11-4208-8ed9-c00ef4de131d",
+				"1ca19318-52e5-49d0-87df-2156ebd95035",
+				"e0dbb2f0-efd3-4e91-bfb4-5d7bdab69c13",
 				"71fd13db-a7ba-4c8c-9c6c-7a1d408a344f",
 				"568034f0-f5b1-494d-8659-0185dfdf11b1",
 				"40bbafe2-1a4b-42ee-b280-3df8a094e196",
-				"1ca19318-52e5-49d0-87df-2156ebd95035",
-				"3075a5ee-b2b7-4063-a62a-e7b8f7d57ef4",
-				"e0dbb2f0-efd3-4e91-bfb4-5d7bdab69c13",
 				"05d618e6-2382-4400-8535-77bf4a438bc7",
 				"540827ac-525e-4991-a027-f14260fcae17",
 				"25dc6337-e94c-4805-8c9d-151a5823196b"
@@ -77,7 +73,10 @@
 			"uuid": "2ed150c5-40b0-4591-a38c-ca3de0f6e620",
 			"title": "En progreso",
 			"tasks": [
-				"ed853261-8fb3-435a-b3d9-9da27053563a"
+				"64e7c673-a0c9-4488-a30d-17ad24cc1a0a",
+				"ea3e3253-cd93-44bc-ab9f-f446b1331a98",
+				"3075a5ee-b2b7-4063-a62a-e7b8f7d57ef4",
+				"9e001ad2-382c-4cc3-a009-fbca90e53290"
 			]
 		},
 		{
@@ -96,7 +95,8 @@
 				"3287962b-d46c-4555-abe9-7891ab6496be",
 				"2e7aee62-ac1b-4ad8-bbe1-b8a1b44b4262",
 				"a3f60df8-c34e-4969-a4f7-be8c5a486305",
-				"27c06727-e8fa-46f4-a378-01cb28b5cdde"
+				"27c06727-e8fa-46f4-a378-01cb28b5cdde",
+				"ed853261-8fb3-435a-b3d9-9da27053563a"
 			]
 		}
 	],
