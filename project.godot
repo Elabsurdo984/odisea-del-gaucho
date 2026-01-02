@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="gaucholand"
-run/main_scene="uid://upalmee8y0v7"
+run/main_scene="res://scenes/menu_principal/menu_principal.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
