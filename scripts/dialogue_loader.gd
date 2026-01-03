@@ -5,7 +5,7 @@
 class_name DialogueLoader
 extends RefCounted
 
-# ==================== MÉTODOS PÚBLICOS ====================
+#region MÉTODOS PÚBLICOS
 
 ## Carga diálogos desde un archivo CSV
 ## Formato esperado: character,text
@@ -116,3 +116,4 @@ static func validate_dialogues(dialogues: Array) -> bool:
             return false
 
     return true
+#endregion

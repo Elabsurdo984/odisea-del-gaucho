@@ -1,20 +1,23 @@
 # cinematica_inicio.gd
 extends Control
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @export var muerte_sprite: Sprite2D
 @export var gaucho_sprite: Sprite2D
 @export var dialogue_ui_scene: CanvasLayer
 
 var dialogue_manager: Node  # Referencia al DialogueManager dentro de la escena
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACIÓN
 @export_file("*.csv") var dialogue_file: String = "res://data/dialogues/cinematica_inicio.csv"
+#endregion
 
-# ==================== DIÁLOGOS ====================
+#region DIÁLOGOS
 var dialogos: Array = []
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _ready():
     # Asegurar que el tiempo esté normal
     Engine.time_scale = 1.0
@@ -53,8 +56,9 @@ func _ready():
 
     # Empezar la secuencia
     iniciar_cinematica()
+#endregion
 
-# ==================== SECUENCIA DE CINEMÁTICA ====================
+#region SECUENCIA DE CINEMÁTICA
 func iniciar_cinematica():
     # Esperar un momento antes de empezar
     await get_tree().create_timer(1.0).timeout
@@ -83,8 +87,9 @@ func aparecer_muerte():
     else:
         # Si no hay sprite, esperar el tiempo equivalente
         await get_tree().create_timer(1.5).timeout
+#endregion
 
-# ==================== CALLBACKS DEL DIALOGUE MANAGER ====================
+#region CALLBACKS DEL DIALOGUE MANAGER
 func _on_dialogue_line_started(character_name: String, text: String):
     print("💬 ", character_name, ": ", text)
 
@@ -100,3 +105,4 @@ func _on_dialogue_ended():
 
     # Transición al gameplay
     get_tree().change_scene_to_file("res://scenes/nivel_pampa/nivel_pampa.tscn")
+#endregion

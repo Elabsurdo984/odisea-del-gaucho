@@ -3,14 +3,15 @@
 # Contiene el panel visual y el DialogueManager
 extends CanvasLayer
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var panel_dialogo = $PanelDialogo
 @onready var nombre_label = $PanelDialogo/MarginContainer/VBoxContainer/NombreLabel
 @onready var texto_label = $PanelDialogo/MarginContainer/VBoxContainer/TextoLabel
 @onready var continuar_indicador = $PanelDialogo/ContinuarIndicador
 @onready var dialogue_manager = $DialogueManager
+#endregion
 
-# ==================== MÉTODOS PÚBLICOS ====================
+#region MÉTODOS PÚBLICOS
 
 ## Obtiene el DialogueManager
 func get_dialogue_manager() -> Node:
@@ -27,3 +28,4 @@ func ocultar() -> void:
 ## Verifica si el panel está visible
 func esta_visible() -> bool:
     return panel_dialogo.visible
+#endregion

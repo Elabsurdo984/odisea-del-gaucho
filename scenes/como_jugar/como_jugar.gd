@@ -2,18 +2,21 @@
 # Pantalla de instrucciones del juego
 extends Control
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var btn_volver = $BtnVolver
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _ready():
     # Conectar botón volver
     if btn_volver:
         btn_volver.pressed.connect(_on_volver_pressed)
 
     print("📖 Pantalla Como Jugar cargada")
+#endregion
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_volver_pressed():
     print("🏠 Volviendo al menú principal...")
     get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
+#endregion

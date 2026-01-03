@@ -2,7 +2,7 @@
 # Pantalla de configuración del juego
 extends Control
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var slider_musica = $ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/MusicaControl/SliderMusica
 @onready var label_musica = $ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/MusicaControl/LabelValor
 @onready var slider_efectos = $ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/EfectosControl/SliderEfectos
@@ -10,8 +10,9 @@ extends Control
 @onready var check_pantalla_completa = $ScrollContainer/VBoxContainer/VideoPanel/MarginContainer/VBox/PantallaCompleta/CheckPantallaCompleta
 @onready var btn_volver = $BtnVolver
 @onready var btn_restablecer = $ScrollContainer/VBoxContainer/BtnRestablecer
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACIÓN
 const CONFIG_FILE = "user://settings.cfg"
 var config = ConfigFile.new()
 
@@ -19,8 +20,9 @@ var config = ConfigFile.new()
 const DEFAULT_VOLUMEN_MUSICA = 80
 const DEFAULT_VOLUMEN_EFECTOS = 80
 const DEFAULT_PANTALLA_COMPLETA = false
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _ready():
 	# Cargar configuración guardada
 	cargar_configuracion()
@@ -41,8 +43,9 @@ func _ready():
 	actualizar_labels()
 
 	print("⚙️ Pantalla de Configuración cargada")
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region MÉTODOS DE CONFIGURACIÓN
 func cargar_configuracion():
 	var err = config.load(CONFIG_FILE)
 
@@ -85,8 +88,9 @@ func actualizar_labels():
 		label_musica.text = str(int(slider_musica.value)) + "%"
 	if label_efectos and slider_efectos:
 		label_efectos.text = str(int(slider_efectos.value)) + "%"
+#endregion
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_musica_changed(value: float):
 	if label_musica:
 		label_musica.text = str(int(value)) + "%"
@@ -129,3 +133,4 @@ func _on_restablecer_pressed():
 func _on_volver_pressed():
 	print("🏠 Volviendo al menú principal...")
 	get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
+#endregion

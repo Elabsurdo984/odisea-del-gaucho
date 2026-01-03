@@ -2,21 +2,24 @@
 # Mini-cinemática cuando el jugador llega a 100 mates
 extends Control
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var muerte_sprite = $Personajes/Muerte
 @onready var gaucho_sprite = $Personajes/Gaucho
 @onready var rancho_sprite = $Fondo/Rancho
 @onready var dialogue_ui_scene = $DialogueUI
 
 var dialogue_manager: Node  # Referencia al DialogueManager dentro de la escena
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACION
 @export_file("*.csv") var dialogue_file: String = "res://data/dialogues/transicion_rancho.csv"
+#endregion
 
-# ==================== DIÁLOGOS ====================
+#region DIALOGOS
 var dialogos: Array = []
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACION
 func _ready():
     # Asegurar que el tiempo esté normal
     Engine.time_scale = 1.0
@@ -59,8 +62,9 @@ func _ready():
 
     # Empezar la secuencia
     iniciar_transicion()
+#endregion
 
-# ==================== SECUENCIA DE TRANSICIÓN ====================
+#region SECUENCIA DE TRANSICION
 func iniciar_transicion():
     # 1. Esperar un momento
     await get_tree().create_timer(0.5).timeout
@@ -91,8 +95,9 @@ func aparecer_muerte():
     if muerte_sprite and is_instance_valid(muerte_sprite):
         var tween = create_tween()
         tween.tween_property(muerte_sprite, "modulate:a", 1.0, 1.5)
+#endregion
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_dialogue_line_started(character_name: String, text: String):
     print("💬 ", character_name, ": ", text)
 
@@ -107,3 +112,4 @@ func _on_dialogue_ended():
     # Ir a la escena del truco
     await get_tree().create_timer(0.5).timeout
     get_tree().change_scene_to_file("res://scenes/truco/truco.tscn")
+#endregion

@@ -4,23 +4,25 @@
 
 extends Node
 
-# ==================== SIGNALS ====================
+#region SIGNALS
 signal dialogue_started()
 signal dialogue_line_started(character_name: String, text: String)
 signal dialogue_line_finished()
 signal dialogue_ended()
 signal typing_started()
 signal typing_finished()
+#endregion
 
-# ==================== ENUMS ====================
+#region ENUMS
 enum State {
     IDLE,           # Sin diálogo activo
     TYPING,         # Escribiendo texto
     WAITING_INPUT,  # Esperando que el jugador continúe
     FINISHED        # Conversación terminada
 }
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACIÓN
 @export_group("Typewriter Settings")
 @export var typing_speed: float = 50.0  # Caracteres por segundo
 @export var can_skip_typing: bool = true  # Permitir saltar el typing
@@ -33,8 +35,9 @@ enum State {
 @export var name_label: Label  # Label del nombre del personaje
 @export var text_label: Label  # Label del texto
 @export var continue_indicator: Label  # Indicador de "continuar"
+#endregion
 
-# ==================== VARIABLES PRIVADAS ====================
+#region VARIABLES PRIVADAS
 var _dialogues: Array = []  # Array de diálogos
 var _current_index: int = -1  # Índice actual
 var _current_state: State = State.IDLE
@@ -42,8 +45,9 @@ var _current_text: String = ""  # Texto completo de la línea actual
 var _displayed_text: String = ""  # Texto mostrado actualmente
 var _typing_timer: float = 0.0
 var _char_index: int = 0
+#endregion
 
-# ==================== MÉTODOS PÚBLICOS ====================
+#region MÉTODOS PÚBLICOS
 
 ## Configura el sistema con un array de diálogos
 ## dialogues: Array de Dictionaries con {character: String, text: String}
@@ -99,8 +103,9 @@ func is_waiting_for_input() -> bool:
 ## Retorna si está escribiendo
 func is_typing() -> bool:
     return _current_state == State.TYPING
+#endregion
 
-# ==================== MÉTODOS PRIVADOS ====================
+#region MÉTODOS PRIVADOS
 
 func _show_line(index: int) -> void:
     var dialogue = _dialogues[index]
@@ -188,3 +193,4 @@ func _end_dialogue() -> void:
 
     dialogue_ended.emit()
     print("✅ DialogueManager: Conversación terminada")
+#endregion

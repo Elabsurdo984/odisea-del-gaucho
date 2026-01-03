@@ -2,13 +2,14 @@
 # Menú principal del juego
 extends Control
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var btn_jugar = $BotonesPanel/VBoxContainer/BtnJugar
 @onready var btn_como_jugar = $BotonesPanel/VBoxContainer/BtnComoJugar
 @onready var btn_configuracion = $BotonesPanel/VBoxContainer/BtnConfiguracion
 @onready var btn_salir = $BotonesPanel/VBoxContainer/BtnSalir
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _ready():
 	# Conectar botones
 	if btn_jugar:
@@ -21,8 +22,9 @@ func _ready():
 		btn_salir.pressed.connect(_on_salir_pressed)
 
 	print("🎮 Menú principal cargado")
+#endregion
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_jugar_pressed():
 	print("▶️ Iniciando juego...")
 	# Ir a la cinemática de inicio
@@ -39,8 +41,10 @@ func _on_configuracion_pressed():
 func _on_salir_pressed():
 	print("👋 Saliendo del juego...")
 	get_tree().quit()
+#endregion
 
-# ==================== HELPER ====================
+#region HELPER
 func mostrar_mensaje(texto: String):
 	# Por ahora solo imprime, luego se puede agregar un popup
 	print("💬 ", texto)
+#endregion

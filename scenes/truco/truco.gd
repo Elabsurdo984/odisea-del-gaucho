@@ -2,10 +2,11 @@
 # Juego de truco argentino contra la Muerte
 extends Control
 
-# ==================== RECURSOS ====================
+#region RECURSOS
 const CARTA_SCENE = preload("res://scenes/truco/carta.tscn")
+#endregion
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var jugador_cartas_container = $JugadorCartas
 @onready var muerte_cartas_container = $MuerteCartas
 @onready var mesa_jugador = $Mesa/CartaJugador
@@ -24,11 +25,13 @@ const CARTA_SCENE = preload("res://scenes/truco/carta.tscn")
 
 @onready var gaucho_sprite = $Personajes/Gaucho
 @onready var muerte_sprite = $Personajes/Muerte
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACION
 const PUNTOS_PARA_GANAR = 1
+#endregion
 
-# ==================== ESTADO DEL JUEGO ====================
+#region ESTADO DEL JUEGO
 var puntos_jugador := 0
 var puntos_muerte := 0
 
@@ -61,8 +64,9 @@ var puntos_envido_muerte := 0
 
 # Mano (quién empieza)
 var es_mano_jugador := true  # Al inicio, el jugador es mano
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACION
 func _ready():
     print("🎴 Iniciando partida de truco contra la Muerte...")
 
@@ -77,8 +81,9 @@ func _ready():
     # Iniciar partida
     await get_tree().create_timer(1.0).timeout
     iniciar_nueva_mano()
+#endregion
 
-# ==================== FLUJO DEL JUEGO ====================
+#region FLUJO DEL JUEGO
 func iniciar_nueva_mano():
     print("🃏 Nueva mano - Repartiendo cartas...")
 
@@ -298,8 +303,9 @@ func mostrar_mensaje(texto: String):
     if mensaje_label:
         mensaje_label.text = texto
     print("💬 ", texto)
+#endregion
 
-# ==================== TURNO DE LA MUERTE ====================
+#region TURNO DE LA MUERTE
 func turno_muerte():
     mostrar_mensaje("Turno de la Muerte...")
 
@@ -348,8 +354,9 @@ func jugar_carta_muerte(carta: Carta):
         for c in cartas_jugador:
             c.hacer_clickeable(true)
         mostrar_mensaje("Tu turno")
+#endregion
 
-# ==================== COMPARACIÓN Y RESOLUCIÓN ====================
+#region COMPARACION Y RESOLUCION
 func comparar_cartas():
     if not carta_jugada_jugador or not carta_jugada_muerte:
         push_error("❌ Faltan cartas para comparar!")
@@ -507,8 +514,9 @@ func resolver_mano_ganada(ganador: int):
 
     # Nueva mano
     iniciar_nueva_mano()
+#endregion
 
-# ==================== CALLBACKS BOTONES ====================
+#region CALLBACK BOTONES
 func _on_envido_pressed():
     if envido_ya_cantado:
         mostrar_mensaje("El envido ya fue cantado")
@@ -535,8 +543,9 @@ func _on_truco_pressed():
 func _on_mazo_pressed():
     print("🚪 Jugador se va al mazo")
     irse_al_mazo_jugador()
+#endregion
 
-# ==================== SISTEMA DE ENVIDO ====================
+#region SISTEMA DE ENVIDO
 func calcular_envido(cartas: Array) -> int:
     # Agrupar cartas por palo
     var cartas_por_palo = {
@@ -615,8 +624,9 @@ func muerte_responde_envido():
         mostrar_mensaje("Muerte rechaza - Ganás 1 punto")
         puntos_jugador += 1
         actualizar_ui()
+#endregion
 
-# ==================== SISTEMA DE TRUCO ====================
+#region SISTEMA DE TRUCO
 func cantar_truco_jugador():
     print("🗣️ Jugador canta: ¡TRUCO!")
     estado_truco = EstadoTruco.TRUCO
@@ -749,8 +759,9 @@ func irse_al_mazo_jugador():
         return
 
     iniciar_nueva_mano()
+#endregion
 
-# ==================== VICTORIA ====================
+#region VICTORIA
 func verificar_victoria() -> bool:
     if puntos_jugador >= PUNTOS_PARA_GANAR:
         await victoria_jugador()
@@ -771,3 +782,4 @@ func derrota_jugador():
     mostrar_mensaje("DERROTA - La Muerte gana")
     await get_tree().create_timer(3.0).timeout
     get_tree().quit()
+#endregion

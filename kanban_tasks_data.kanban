@@ -58,7 +58,6 @@
 			"uuid": "efc8ec00-1696-46a1-bcf2-1651bd819881",
 			"title": "Por Hacer",
 			"tasks": [
-				"9294f712-8fd7-482a-96bd-2ef827afaacc",
 				"1ca19318-52e5-49d0-87df-2156ebd95035",
 				"e0dbb2f0-efd3-4e91-bfb4-5d7bdab69c13",
 				"71fd13db-a7ba-4c8c-9c6c-7a1d408a344f",
@@ -73,7 +72,7 @@
 			"uuid": "2ed150c5-40b0-4591-a38c-ca3de0f6e620",
 			"title": "En progreso",
 			"tasks": [
-				"ea3e3253-cd93-44bc-ab9f-f446b1331a98"
+				"9294f712-8fd7-482a-96bd-2ef827afaacc"
 			]
 		},
 		{
@@ -304,13 +303,6 @@
 					"done": false
 				}
 			]
-		},
-		{
-			"uuid": "ea3e3253-cd93-44bc-ab9f-f446b1331a98",
-			"title": "Balancear frecuencia de spawn",
-			"description": "Entre mate y Obstaculo",
-			"category": "935d4093-8e55-4e86-b761-785faac801f5",
-			"steps": []
 		},
 		{
 			"uuid": "71fd13db-a7ba-4c8c-9c6c-7a1d408a344f",

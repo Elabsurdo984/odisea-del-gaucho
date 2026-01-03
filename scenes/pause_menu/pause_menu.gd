@@ -2,18 +2,20 @@
 # Menú de pausa reutilizable para todas las escenas del juego
 extends CanvasLayer
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @onready var panel_pausa = $PanelPausa
 @onready var btn_reanudar = $PanelPausa/VBoxContainer/BtnReanudar
 @onready var btn_reiniciar = $PanelPausa/VBoxContainer/BtnReiniciar
 @onready var btn_menu_principal = $PanelPausa/VBoxContainer/BtnMenuPrincipal
+#endregion
 
-# ==================== CONFIGURACIÓN ====================
+#region CONFIGURACIÓN
 @export var pausar_con_esc := true
 
 var esta_pausado := false
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _ready():
 	# Ocultar menú al inicio
 	visible = false
@@ -40,8 +42,9 @@ func _input(event):
 			pausar()
 		# Consumir el evento para que no se propague
 		get_viewport().set_input_as_handled()
+#endregion
 
-# ==================== MÉTODOS PÚBLICOS ====================
+#region MÉTODOS PÚBLICOS
 func pausar():
 	if esta_pausado:
 		return
@@ -64,8 +67,9 @@ func reanudar():
 
 func esta_en_pausa() -> bool:
 	return esta_pausado
+#endregion
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_reanudar_pressed():
 	print("▶️ Reanudando...")
 	reanudar()
@@ -93,3 +97,4 @@ func _on_menu_principal_pressed():
 
 	# Volver al menú principal
 	get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
+#endregion

@@ -3,25 +3,29 @@
 class_name Carta
 extends Control
 
-# ==================== ENUMS ====================
+#region ENUMS
 enum Palo { ORO, COPA, ESPADA, BASTO }
+#endregion
 
-# ==================== PROPIEDADES ====================
+#region PROPIEDADES
 var numero: int  # 1-7, 10-12 (no hay 8 ni 9)
 var palo: Palo
 var boca_arriba: bool = false
+#endregion
 
-# ==================== REFERENCIAS ====================
+#region REFERENCIAS
 @export var carta_frente: Panel
 @export var carta_dorso: Panel
 @export var numero_label: Label 
 @export var palo_label: Label
 @export var boton: Button
+#endregion
 
-# ==================== SEÑALES ====================
+#region SEÑALES
 signal carta_clickeada(carta: Carta)
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACION
 func _ready():
     if boton:
         boton.pressed.connect(_on_carta_pressed)
@@ -32,8 +36,9 @@ func setup(num: int, p: Palo):
     palo = p
     if is_node_ready():
         actualizar_visual()
+#endregion
 
-# ==================== VISUAL ====================
+#region VISUAL
 func actualizar_visual():
     if boca_arriba:
         mostrar_frente()
@@ -74,8 +79,9 @@ func obtener_color_palo() -> Color:
         Palo.ESPADA: return Color(0.2, 0.2, 0.8)  # Azul
         Palo.BASTO: return Color(0.3, 0.6, 0.3)  # Verde
     return Color.WHITE
+#endregion
 
-# ==================== LÓGICA DEL TRUCO ====================
+#region LOGICA DEL TRUCO
 func obtener_valor_truco() -> int:
     # Jerarquía del truco (mayor número = carta más fuerte)
     # 14: 1 de espadas
@@ -133,8 +139,9 @@ func obtener_valor_envido() -> int:
         return 0
     # Las demás cartas valen su número
     return numero
+#endregion
 
-# ==================== INTERACCIÓN ====================
+#region INTERACCION
 func hacer_clickeable(clickeable: bool):
     if boton:
         boton.disabled = not clickeable
@@ -143,10 +150,12 @@ func hacer_clickeable(clickeable: bool):
 func _on_carta_pressed():
     if boca_arriba:
         carta_clickeada.emit(self)
+#endregion
 
-# ==================== UTILIDAD ====================
+#region UTILIDAD
 func obtener_nombre_completo() -> String:
     return "%d de %s" % [numero, obtener_simbolo_palo()]
 
 func es_mismo_palo(otra_carta: Carta) -> bool:
     return palo == otra_carta.palo
+#endregion

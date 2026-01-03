@@ -3,10 +3,11 @@
 class_name Mazo
 extends RefCounted
 
-# ==================== VARIABLES ====================
+#region VARIABLES 
 var cartas_disponibles: Array = []
+#endregion
 
-# ==================== INICIALIZACIÓN ====================
+#region INICIALIZACIÓN
 func _init():
     crear_mazo()
     barajar()
@@ -29,8 +30,9 @@ func crear_mazo():
 func barajar():
     cartas_disponibles.shuffle()
     print("🔀 Mazo barajado")
+#endregion
 
-# ==================== REPARTIR ====================
+#region REPARTIR
 func repartir_cartas(cantidad: int) -> Array:
     var cartas_repartidas: Array = []
 
@@ -46,8 +48,10 @@ func repartir_cartas(cantidad: int) -> Array:
 
 func cartas_restantes() -> int:
     return cartas_disponibles.size()
+#endregion
 
-# ==================== RESETEAR ====================
+#region RESETEAR
 func resetear():
     crear_mazo()
     barajar()
+#endregion
