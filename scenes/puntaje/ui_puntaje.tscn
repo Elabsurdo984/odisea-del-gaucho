@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dw6s2myjornlv" path="res://scenes/puntaje/ui_puntaje.gd" id="1_t7i70"]
 [ext_resource type="FontFile" uid="uid://csjjboqkpecpn" path="res://assets/fonts/Steelflight.ttf" id="2_bpbd7"]
 
-[node name="UiPuntaje" type="Control" node_paths=PackedStringArray("contador")]
+[node name="UiPuntaje" type="Control" node_paths=PackedStringArray("contador", "hearts_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t7i70")
 contador = NodePath("Label")
+hearts_container = NodePath("HeartsContainer")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -28,3 +29,11 @@ theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_bpbd7")
 theme_override_font_sizes/font_size = 40
 text = "Mates: "
+
+[node name="HeartsContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 58.0
+theme_override_constants/separation = 5

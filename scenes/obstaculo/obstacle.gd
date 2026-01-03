@@ -78,5 +78,10 @@ func _process(delta):
 
 func _on_body_entered(body):
     if body.is_in_group("player"):
-        jugador_muerto.emit()
-        body.morir()
+        if body.has_method("recibir_dano"):
+            body.recibir_dano()
+        else:
+            body.morir()
+        
+        # Opcional: Destruir obstáculo al chocar si no mata
+        # queue_free() 

@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 var esta_vivo := true
 var esta_agachado := false
+var invencible := false
 var collision_shape_original_size: Vector2
 var collision_shape_original_position: Vector2
 
@@ -85,6 +86,34 @@ func levantarse():
     var collision = $CollisionShape2D
     collision.shape.size = collision_shape_original_size
     collision.position = collision_shape_original_position
+
+func recibir_dano():
+    if not esta_vivo or invencible:
+        return
+        
+    # Intentar descontar vida en el GameManager
+    if GameManager and "vidas" in GameManager:
+        if GameManager.descontar_vida():
+            # Todavía tiene vidas
+            iniciar_invencibilidad()
+        else:
+            # Sin vidas
+            morir()
+    else:
+        # Fallback si no hay sistema de vidas
+        morir()
+
+func iniciar_invencibilidad():
+    invencible = true
+    
+    # Feedback visual (parpadeo)
+    var tween = create_tween()
+    tween.set_loops(6) # 6 parpadeos
+    tween.tween_property($AnimatedSprite2D, "modulate:a", 0.5, 0.1)
+    tween.tween_property($AnimatedSprite2D, "modulate:a", 1.0, 0.1)
+    
+    await tween.finished
+    invencible = false
 
 func morir():
     if not esta_vivo:

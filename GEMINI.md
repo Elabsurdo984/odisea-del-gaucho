@@ -30,7 +30,7 @@ The project follows a component-based architecture with a global manager.
 
 ### 1. Global Management
 *   **GameManager (`scripts/game_manager.gd`):** A Singleton (Autoload) that handles:
-    *   Global state (mates collected, current speed).
+    *   Global state (mates collected, lives, current speed).
     *   Game flow (transitions between menu, gameplay, cinematic, truco).
     *   Difficulty progression (velocity increases).
     *   Configuration loading (audio/video).
@@ -47,6 +47,10 @@ The project follows a component-based architecture with a global manager.
 ### 3. Core Mechanics
 *   **Infinite Scrolling:** `scenes/suelo/suelo.gd` moves the ground texture and loops it.
 *   **Obstacle Spawning:** `obstacle_spawner.gd` spawns `obstacle.tscn` (Area2D) based on distance.
+*   **Life System:**
+    *   Player has 3 lives (managed by `GameManager`).
+    *   **UI:** Displayed as hearts (`ui_puntaje.gd`) using texture assets.
+    *   **Invincibility:** Player blinks and is invincible for 1.5s after taking damage.
 *   **Dialogue System:**
     *   `DialogueManager` (`scripts/dialogue_manager.gd`): Handles text display, typewriter effect, and state.
     *   `DialogueLoader` (`scripts/dialogue_loader.gd`): Loads text from CSV files in `data/dialogues/`.

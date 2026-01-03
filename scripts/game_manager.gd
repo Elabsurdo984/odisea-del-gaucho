@@ -1,6 +1,7 @@
 extends Node
 
 signal mates_cambiados(nuevos_mates)
+signal vidas_cambiadas(nuevas_vidas)
 signal objetivo_alcanzado  # Nueva señal para cuando llegues a 100
 signal iniciar_transicion_rancho  # Señal para iniciar mini-cinemática
 signal velocidad_cambiada(nueva_velocidad)  # Señal para dificultad progresiva
@@ -9,6 +10,10 @@ var mates_totales := 0
 var objetivo := 100 # Mates necesarios para ganar
 var objetivo_alcanzado_flag := false  # Para que solo se active una vez
 var en_transicion := false  # Flag para saber si está en transición
+
+# Sistema de vidas
+const MAX_VIDAS = 3
+var vidas = MAX_VIDAS
 
 # Sistema de dificultad progresiva
 const VELOCIDAD_BASE := 200.0
@@ -43,6 +48,12 @@ func cargar_y_aplicar_configuracion():
         print("✅ Configuración aplicada desde GameManager")
     else:
         print("📝 No se encontró configuración guardada, usando valores por defecto")
+
+func descontar_vida() -> bool:
+    vidas -= 1
+    vidas_cambiadas.emit(vidas)
+    print("💔 Vida perdida. Restantes: ", vidas)
+    return vidas > 0
 
 func agregar_mates(cantidad: int):
     mates_totales += cantidad
@@ -96,10 +107,12 @@ func aumentar_velocidad():
 
 func reiniciar_mates():
     mates_totales = 0
+    vidas = MAX_VIDAS
     objetivo_alcanzado_flag = false
     ultimo_nivel_velocidad = 0
     velocidad_actual = VELOCIDAD_BASE
     mates_cambiados.emit(mates_totales)
+    vidas_cambiadas.emit(vidas)
     velocidad_cambiada.emit(velocidad_actual)
 
 func obtener_mates() -> int:
