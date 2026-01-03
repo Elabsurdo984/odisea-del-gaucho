@@ -78,10 +78,27 @@ func _process(delta):
 
 func _on_body_entered(body):
     if body.is_in_group("player"):
+        # Obtener el nombre de la causa según el tipo
+        var nombre_causa = obtener_nombre_causa()
+
         if body.has_method("recibir_dano"):
-            body.recibir_dano()
+            body.recibir_dano(nombre_causa)
         else:
-            body.morir()
-        
+            body.morir(nombre_causa)
+
         # Opcional: Destruir obstáculo al chocar si no mata
-        # queue_free() 
+        # queue_free()
+
+func obtener_nombre_causa() -> String:
+    # Mapear el tipo de obstáculo a la causa de muerte esperada por game_over
+    match tipo:
+        TipoObstaculo.CACTUS_ALTO:
+            return "cactus"
+        TipoObstaculo.PIEDRA_BAJA:
+            return "piedra"
+        TipoObstaculo.ARBUSTO_MEDIO:
+            return "arbusto"
+        TipoObstaculo.TERO:
+            return "tero"
+        _:
+            return "desconocido" 

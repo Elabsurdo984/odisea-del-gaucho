@@ -14,6 +14,7 @@ var en_transicion := false  # Flag para saber si está en transición
 # Sistema de vidas
 const MAX_VIDAS = 3
 var vidas = MAX_VIDAS
+var causa_muerte: String = "" # Razón del último Game Over
 
 # Sistema de dificultad progresiva
 const VELOCIDAD_BASE := 200.0
