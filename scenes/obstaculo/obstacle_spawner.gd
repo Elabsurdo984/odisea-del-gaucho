@@ -11,71 +11,72 @@ var distance_since_last_spawn := 0.0
 var spawning_activo := true  # Flag para controlar si se sigue spawneando
 
 func _ready():
-	if obstacle_scene == null:
-		push_error("⚠️ Asigna la escena del obstáculo en el inspector!")
-		return
+    if obstacle_scene == null:
+        push_error("⚠️ Asigna la escena del obstáculo en el inspector!")
+        return
 
-	# Primer obstáculo pronto
-	distance_since_last_spawn = spawn_distance - 100.0
+    # Primer obstáculo pronto
+    distance_since_last_spawn = spawn_distance - 100.0
 
-	# Conectar señales del GameManager
-	if GameManager:
-		GameManager.iniciar_transicion_rancho.connect(_on_transicion_iniciada)
-		GameManager.velocidad_cambiada.connect(_on_velocidad_cambiada)
-		# Sincronizar con la velocidad actual al inicio
-		speed = GameManager.obtener_velocidad_actual()
+    # Conectar señales del GameManager
+    if GameManager:
+        GameManager.iniciar_transicion_rancho.connect(_on_transicion_iniciada)
+        GameManager.velocidad_cambiada.connect(_on_velocidad_cambiada)
+        # Sincronizar con la velocidad actual al inicio
+        speed = GameManager.obtener_velocidad_actual()
 
 func _process(delta):
-	if obstacle_scene == null or not spawning_activo:
-		return
+    if obstacle_scene == null or not spawning_activo:
+        return
 
-	# Acumular distancia recorrida
-	distance_since_last_spawn += speed * delta
+    # Acumular distancia recorrida
+    distance_since_last_spawn += speed * delta
 
-	# Verificar si es momento de spawnear
-	if distance_since_last_spawn >= spawn_distance:
-		spawn_obstacle()
-		distance_since_last_spawn = 0.0
+    # Verificar si es momento de spawnear
+    if distance_since_last_spawn >= spawn_distance:
+        spawn_obstacle()
+        distance_since_last_spawn = 0.0
 
 func spawn_obstacle():
-	# Crear el obstáculo
-	var obstacle = obstacle_scene.instantiate()
+    # Crear el obstáculo
+    var obstacle = obstacle_scene.instantiate()
 
-	# Configurar tipo aleatorio ANTES de agregar a la escena
-	obstacle.set_tipo_aleatorio()
+    # Configurar tipo aleatorio ANTES de agregar a la escena
+    obstacle.set_tipo_aleatorio()
 
-	# Configurar velocidad del obstáculo
-	obstacle.speed = speed
+    # Configurar velocidad del obstáculo
+    obstacle.speed = speed
 
-	# Obtener la cámara
-	var camera = get_viewport().get_camera_2d()
-	var spawn_x = 0.0
+    # Obtener la cámara
+    var camera = get_viewport().get_camera_2d()
+    var spawn_x = 0.0
 
-	if camera:
-		# Spawnear justo afuera del borde derecho de la cámara
-		var camera_pos = camera.get_screen_center_position()
-		var viewport_width = get_viewport_rect().size.x
-		spawn_x = camera_pos.x + (viewport_width / 2.0) + spawn_offset
-		print("📷 Cámara en X: ", camera_pos.x, " | Viewport width: ", viewport_width)
-	else:
-		# Fallback si no hay cámara
-		spawn_x = get_viewport_rect().size.x + spawn_offset
-		print("⚠️ No se encontró cámara, usando fallback")
+    if camera:
+        # Spawnear justo afuera del borde derecho de la cámara
+        var camera_pos = camera.get_screen_center_position()
+        var viewport_width = get_viewport_rect().size.x
+        spawn_x = camera_pos.x + (viewport_width / 2.0) + spawn_offset
+        print("📷 Cámara en X: ", camera_pos.x, " | Viewport width: ", viewport_width)
+    else:
+        # Fallback si no hay cámara
+        spawn_x = get_viewport_rect().size.x + spawn_offset
+        print("⚠️ No se encontró cámara, usando fallback")
 
-	# Posicionarlo
-	obstacle.position.x = spawn_x
-	obstacle.position.y = ground_y
+    # Posicionarlo
+    obstacle.position.x = spawn_x
+    obstacle.position.y = ground_y
 
-	# Agregarlo a la escena
-	get_parent().add_child(obstacle)
+    # Agregarlo a la escena
+    get_parent().add_child(obstacle)
 
-	print("🎯 Obstáculo spawneado en X: ", spawn_x, " Y: ", ground_y)
+    print("🎯 Obstáculo spawneado en X: ", spawn_x, " Y: ", ground_y)
 
-# ==================== CALLBACKS ====================
+#region CALLBACKS
 func _on_transicion_iniciada():
-	print("🛑 ObstacleSpawner: Deteniendo spawning por transición")
-	spawning_activo = false
+    print("🛑 ObstacleSpawner: Deteniendo spawning por transición")
+    spawning_activo = false
 
 func _on_velocidad_cambiada(nueva_velocidad: float):
-	speed = nueva_velocidad
-	print("🎯 ObstacleSpawner: Velocidad actualizada a ", speed)
+    speed = nueva_velocidad
+    print("🎯 ObstacleSpawner: Velocidad actualizada a ", speed)
+#endregion

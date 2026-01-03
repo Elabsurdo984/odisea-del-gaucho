@@ -14,16 +14,16 @@ extends CanvasLayer
 
 ## Obtiene el DialogueManager
 func get_dialogue_manager() -> Node:
-	return dialogue_manager
+    return dialogue_manager
 
 ## Muestra el panel de diálogo
 func mostrar() -> void:
-	panel_dialogo.visible = true
+    panel_dialogo.visible = true
 
 ## Oculta el panel de diálogo
 func ocultar() -> void:
-	panel_dialogo.visible = false
+    panel_dialogo.visible = false
 
 ## Verifica si el panel está visible
 func esta_visible() -> bool:
-	return panel_dialogo.visible
+    return panel_dialogo.visible

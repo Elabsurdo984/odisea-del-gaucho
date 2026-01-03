@@ -13,98 +13,98 @@ var collision_shape_original_size: Vector2
 var collision_shape_original_position: Vector2
 
 func _ready() -> void:
-	add_to_group("player")
-	
-	# Guardar tamaño y posición original de la colisión
-	var collision = $CollisionShape2D
-	collision_shape_original_size = collision.shape.size
-	collision_shape_original_position = collision.position
+    add_to_group("player")
+    
+    # Guardar tamaño y posición original de la colisión
+    var collision = $CollisionShape2D
+    collision_shape_original_size = collision.shape.size
+    collision_shape_original_position = collision.position
 
 func _physics_process(delta):
-	if not esta_vivo:
-		return
-	
-	# Gravedad
-	velocity.y += gravity * delta
+    if not esta_vivo:
+        return
+    
+    # Gravedad
+    velocity.y += gravity * delta
 
-	# Agacharse
-	manejar_agachado()
+    # Agacharse
+    manejar_agachado()
 
-	# Salto (solo si está en el suelo y NO está agachado)
-	if is_on_floor() and Input.is_action_just_pressed("salto") and not esta_agachado:
-		velocity.y = jump_force
-		$SonidoSalto.play()
+    # Salto (solo si está en el suelo y NO está agachado)
+    if is_on_floor() and Input.is_action_just_pressed("salto") and not esta_agachado:
+        velocity.y = jump_force
+        $SonidoSalto.play()
 
-	# Actualizar animaciones solo si NO está agachado
-	if not esta_agachado:
-		if not is_on_floor():
-			if animacion.animation != "salto":
-				animacion.play("salto")
-		else:
-			if animacion.animation != "correr":
-				animacion.play("correr")
+    # Actualizar animaciones solo si NO está agachado
+    if not esta_agachado:
+        if not is_on_floor():
+            if animacion.animation != "salto":
+                animacion.play("salto")
+        else:
+            if animacion.animation != "correr":
+                animacion.play("correr")
 
-	move_and_slide()
+    move_and_slide()
 
 func manejar_agachado():
-	# Detectar si se presiona la tecla de agacharse
-	if Input.is_action_pressed("agacharse") and is_on_floor():
-		if not esta_agachado:
-			agacharse()
-		# Si ya está agachado y la animación terminó, mantenerlo en el último frame
-		elif not animacion.is_playing() and animacion.animation == "agacharse":
-			# Asegurarse de que está en el último frame
-			animacion.frame = animacion.sprite_frames.get_frame_count("agacharse") - 1
-	else:
-		if esta_agachado:
-			levantarse()
+    # Detectar si se presiona la tecla de agacharse
+    if Input.is_action_pressed("agacharse") and is_on_floor():
+        if not esta_agachado:
+            agacharse()
+        # Si ya está agachado y la animación terminó, mantenerlo en el último frame
+        elif not animacion.is_playing() and animacion.animation == "agacharse":
+            # Asegurarse de que está en el último frame
+            animacion.frame = animacion.sprite_frames.get_frame_count("agacharse") - 1
+    else:
+        if esta_agachado:
+            levantarse()
 
 func agacharse():
-	esta_agachado = true
+    esta_agachado = true
 
-	# Cambiar a animación de agacharse (sin loop)
-	animacion.animation = "agacharse"
-	animacion.play()
+    # Cambiar a animación de agacharse (sin loop)
+    animacion.animation = "agacharse"
+    animacion.play()
 
-	# Reducir el tamaño de la colisión
-	var collision = $CollisionShape2D
-	collision.shape.size.y = collision_shape_original_size.y * crouch_collision_reduction
+    # Reducir el tamaño de la colisión
+    var collision = $CollisionShape2D
+    collision.shape.size.y = collision_shape_original_size.y * crouch_collision_reduction
 
-	# Ajustar la posición de la colisión para que quede en el suelo
-	var offset_y = collision_shape_original_size.y * (1 - crouch_collision_reduction) / 2
-	collision.position.y = collision_shape_original_position.y + offset_y
+    # Ajustar la posición de la colisión para que quede en el suelo
+    var offset_y = collision_shape_original_size.y * (1 - crouch_collision_reduction) / 2
+    collision.position.y = collision_shape_original_position.y + offset_y
 
 func levantarse():
-	esta_agachado = false
-	
-	# Volver a la animación de correr
-	$AnimatedSprite2D.animation = "correr"
-	$AnimatedSprite2D.play()
-	
-	# Restaurar el tamaño original de la colisión
-	var collision = $CollisionShape2D
-	collision.shape.size = collision_shape_original_size
-	collision.position = collision_shape_original_position
+    esta_agachado = false
+    
+    # Volver a la animación de correr
+    $AnimatedSprite2D.animation = "correr"
+    $AnimatedSprite2D.play()
+    
+    # Restaurar el tamaño original de la colisión
+    var collision = $CollisionShape2D
+    collision.shape.size = collision_shape_original_size
+    collision.position = collision_shape_original_position
 
 func morir():
-	if not esta_vivo:
-		return
+    if not esta_vivo:
+        return
 
-	# Si estamos en transición al rancho, no hacer nada (dejar que la transición continue)
-	if GameManager and GameManager.en_transicion:
-		print("⚠️ Muerte durante transición - ignorando")
-		return
+    # Si estamos en transición al rancho, no hacer nada (dejar que la transición continue)
+    if GameManager and GameManager.en_transicion:
+        print("⚠️ Muerte durante transición - ignorando")
+        return
 
-	esta_vivo = false
+    esta_vivo = false
 
-	# Reproducir sonido de muerte
-	$SonidoMorir.play()
+    # Reproducir sonido de muerte
+    $SonidoMorir.play()
 
-	$AnimatedSprite2D.modulate = Color.RED
+    $AnimatedSprite2D.modulate = Color.RED
 
-	set_physics_process(false)
-	get_tree().paused = true
+    set_physics_process(false)
+    get_tree().paused = true
 
-	await get_tree().create_timer(1.0).timeout
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+    await get_tree().create_timer(1.0).timeout
+    get_tree().paused = false
+    get_tree().reload_current_scene()

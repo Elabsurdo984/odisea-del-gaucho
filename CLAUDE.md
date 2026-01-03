@@ -4,56 +4,184 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Gaucholand** is a Godot 4.5 endless runner game built with GDScript. The game features a player character that runs automatically while jumping over obstacles in a side-scrolling environment.
+**Gaucholand** is a Godot 4.5 endless runner game built with GDScript. The game features a player character that runs automatically while jumping over obstacles and collecting mates in a side-scrolling environment. After collecting 100 mates, the player experiences a cinematic transition to a rancho where they face "La Muerte" (Death) in a Truco card game.
 
 ## Running the Game
 
-This is a Godot project. Open it in Godot Editor (version 4.5+) and press F5 to run. The main scene is automatically configured in `project.godot`.
+This is a Godot project. Open it in Godot Editor (version 4.5+) and press F5 to run. The main scene is `scenes/menu_principal/menu_principal.tscn`.
+
+## Game Flow
+
+1. **Main Menu** → Player selects "Jugar"
+2. **Opening Cinematic** (`cinematica_inicio.tscn`) → Dialogue between Gaucho and La Muerte
+3. **Gameplay** (`nivel_pampa.tscn`) → Endless runner with obstacles and mates
+4. **Transition Cinematic** (`transicion_rancho.tscn`) → When 100 mates collected
+5. **Truco Card Game** (`truco.tscn`) → Final challenge against La Muerte
 
 ## Project Architecture
 
 ### Scene Hierarchy
 
-The game uses a nested scene structure:
+**Main Menu**: `scenes/menu_principal/menu_principal.tscn`
+- Entry point with options: Jugar, Como Jugar, Configuración, Salir
+- Styled with pampa-themed visuals
+- "Jugar" button loads the opening cinematic
 
-- **Main Scene**: `scenes/nivel_pampa/nivel_pampa.tscn`
-  - Instantiates the base level scene (`scenes/nivel/nivel.tscn`)
-  - Adds the player character
-  - Adds a Camera2D for following the action
+**Opening Cinematic**: `scenes/cinematica/cinematica_inicio.tscn`
+- Introduces the story with dialogue between characters
+- Features fade-in effects and typewriter text
+- Loads dialogues from `data/dialogues/cinematica_inicio.csv`
+- Transitions to gameplay after dialogue ends
 
-- **Base Level**: `scenes/nivel/nivel.tscn`
-  - Contains the scrolling ground (`Suelo`)
-  - Contains the obstacle spawner system
-  - May contain a static obstacle instance for reference
+**Gameplay Scene**: `scenes/nivel_pampa/nivel_pampa.tscn`
+- Instantiates the base level scene (`scenes/nivel/nivel.tscn`)
+- Adds the player character
+- Adds Camera2D for following the action
+- Includes pause menu and score UI
+
+**Base Level**: `scenes/nivel/nivel.tscn`
+- Contains the scrolling ground (`Suelo`)
+- Contains ObstacleSpawner and MateSpawner (independent systems)
+- No central coordinator - spawners work independently
+
+**Transition Cinematic**: `scenes/transicion_rancho/transicion_rancho.tscn`
+- Triggered when player collects 100 mates
+- Rancho appears in background with fade-in
+- La Muerte appears during dialogue
+- Loads dialogues from `data/dialogues/transicion_rancho.csv`
+- Transitions to Truco card game
+
+**Truco Card Game**: `scenes/truco/truco.tscn`
+- Turn-based card game against "La Muerte"
+- Uses Argentine Truco rules
+- Victory condition: First to 30 points wins
 
 ### Core Systems
 
-**1. Infinite Scrolling Ground** (`scenes/suelo/`)
-- Uses `TileMapLayer` that moves left at constant speed
-- Implements looping by resetting position when moved too far left
-- Speed synchronized with obstacles (default: 200 pixels/second)
-- Loop width configurable via `@export var loop_width`
+**1. GameManager (Singleton)** (`scripts/game_manager.gd`)
+- Autoloaded singleton managing global game state
+- Tracks mates collected and game objective (100 mates)
+- **Progressive Difficulty System**:
+  - Base velocity: 200 px/s
+  - Increases by 10 px/s every 10 mates collected
+  - Emits `velocidad_cambiada` signal for synchronized speed updates
+  - Emits `mates_cambiados` signal for UI updates
+- **Transition Management**:
+  - Handles slow-motion effect (Engine.time_scale = 0.3) when reaching 100 mates
+  - Emits `iniciar_transicion_rancho` to stop spawners
+  - Changes scene to transition cinematic
+  - Sets `en_transicion` flag to prevent player death during transition
+- **Configuration Loading**: Applies saved audio and video settings on startup
+- **Key Methods**:
+  - `agregar_mates(cantidad)`: Adds mates and checks for velocity increase and objective
+  - `iniciar_secuencia_transicion()`: Handles the complete transition sequence
+  - `aumentar_velocidad()`: Increases game speed based on difficulty tier
+  - `reiniciar_mates()`: Resets game state
+  - `obtener_velocidad_actual()`: Returns current game speed
 
-**2. Obstacle Spawning System** (`scenes/obstaculo/`)
-- **Spawner** (`obstacle_spawner.gd`): Spawns obstacles at regular intervals
-  - Calculates spawn position relative to camera viewport edge
-  - Uses distance-based spawning (accumulates distance traveled)
-  - Spawns obstacles off-screen to the right with configurable offset
-  - Key exports: `spawn_distance`, `ground_y`, `speed`, `spawn_offset`
+**2. Dialogue System** (`scripts/dialogue_*.gd`, `scenes/dialogue_ui/`)
 
-- **Obstacles** (`obstacle.gd`): Individual obstacle instances
-  - Move left at synchronized speed with ground
-  - Auto-delete when off-screen (x < -580)
-  - Emit `jugador_muerto` signal on collision
-  - Use Area2D with collision_mask = 2 (player layer)
+**DialogueManager** (`scripts/dialogue_manager.gd`):
+- Manages dialogue flow and presentation
+- **Typewriter Effect**: Characters appear one by one at configurable speed
+- **State Machine**: IDLE → TYPING → WAITING_INPUT → FINISHED
+- Can skip typing by pressing advance key
+- Punctuation delay for natural pacing
+- Signals: `dialogue_started`, `dialogue_line_started`, `dialogue_line_finished`, `dialogue_ended`
+- References: name_label, text_label, continue_indicator
 
-**3. Player Character** (`scenes/jugador/`)
-- CharacterBody2D with jump-only controls
+**DialogueLoader** (`scripts/dialogue_loader.gd`):
+- Loads dialogues from CSV files
+- Format: `character,text` (header row followed by dialogue lines)
+- Static methods: `load_from_csv()`, `load_multiple_csvs()`, `save_to_csv()`, `validate_dialogues()`
+- Returns Array of Dictionaries: `[{character: String, text: String}, ...]`
+
+**DialogueUI** (`scenes/dialogue_ui/dialogue_ui.tscn`):
+- Visual representation of dialogue box
+- Contains DialogueManager node
+- Methods: `mostrar()`, `ocultar()`, `get_dialogue_manager()`
+- Used by both cinematics
+
+**3. Obstacle Spawning System** (`scenes/obstaculo/`)
+
+**Spawner** (`obstacle_spawner.gd`):
+- Independent distance-based spawner (no coordinator)
+- Spawns obstacles when accumulated distance >= spawn_distance
+- Key exports: `obstacle_scene`, `spawn_distance` (300px), `ground_y` (251.0), `speed` (200.0), `spawn_offset` (200px)
+- Listens to GameManager signals:
+  - `iniciar_transicion_rancho`: Sets `spawning_activo = false`
+  - `velocidad_cambiada`: Updates speed
+- Camera-based spawning: spawn_x = camera.x + (viewport_width / 2) + spawn_offset
+- Sets obstacle type and speed before adding to scene
+
+**Obstacles** (`obstacle.gd`):
+- Area2D with four types: CACTUS_ALTO, PIEDRA_BAJA, ARBUSTO_MEDIO, TERO (flying)
+- Each type has unique configuration: animation, scale, collision size, y-offset
+- `set_tipo_aleatorio()`: Randomly selects obstacle type
+- `configurar_tipo()`: Applies type configuration to sprite and collision
+- Moves left at synchronized speed
+- Auto-deletes when x < -580
+- Emits `jugador_muerto` signal on player collision
+
+**4. Collectibles Spawning System** (`scenes/puntaje/`)
+
+**Spawner** (`mate_spawner.gd`):
+- Independent spawner with randomized distances
+- Spawns when accumulated distance >= next_spawn_distance
+- Key exports: `mate_scene`, `spawn_min_distance` (150px), `spawn_max_distance` (400px), `ground_y` (200.0), `speed` (200.0), `spawn_offset` (200px)
+- Randomizes `next_spawn_distance` after each spawn for variety
+- Listens to `GameManager.iniciar_transicion_rancho`
+- Retry logic: max 3 attempts before postponing spawn
+
+**Mates** (`mate.gd`):
+- Area2D collectible items
+- Awards 1 point to GameManager when collected
+- Auto-deletes when off-screen or collected
+
+**5. Infinite Scrolling Ground** (`scenes/suelo/suelo.gd`)
+- TileMapLayer that moves left at current game speed
+- Implements looping: when position.x <= -loop_width, position.x += loop_width
+- Speed synchronized via GameManager's `velocidad_cambiada` signal
+- Loop width configurable via `@export var loop_width` (2000px default)
+
+**6. Player Character** (`scenes/jugador/jugador.gd`)
+- CharacterBody2D with jump and crouch mechanics
 - Automatically added to "player" group in `_ready()`
-- Gravity and jump physics via `_physics_process()`
-- Input action: "salto" (mapped to Space and Up Arrow)
-- Death sequence: red tint, pause, reload scene after 1 second
+- Physics: gravity (1000), jump_force (-420)
+- Input actions:
+  - "salto" (Space/Up): Jump when on floor and not crouching
+  - "agacharse" (S/Down): Crouch with reduced collision and animation
+- Crouch mechanics:
+  - Plays "agacharse" animation (non-looping)
+  - Reduces collision height by 50%
+  - Adjusts collision position to keep player on ground
+  - Cannot jump while crouching
+- Death sequence:
+  - Checks `GameManager.en_transicion` flag - ignores death during transition
+  - Red tint, pause game, reload scene after 1 second
+  - Plays death sound
 - Must be in collision layer 2 ("Jugador") to interact with obstacles
+
+**7. Cinematics** (`scenes/cinematica/`, `scenes/transicion_rancho/`)
+
+**Opening Cinematic** (`cinematica_inicio.gd`):
+- Loads dialogues from `res://data/dialogues/cinematica_inicio.csv`
+- Sequence: Wait → Fade in La Muerte → Show dialogue UI → Start dialogue
+- On dialogue end: transitions to `nivel_pampa.tscn`
+- Ensures Engine.time_scale = 1.0 on startup
+
+**Transition Cinematic** (`transicion_rancho.gd`):
+- Triggered by GameManager when 100 mates collected
+- Loads dialogues from `res://data/dialogues/transicion_rancho.csv`
+- Sequence: Wait → Fade in Rancho → Show dialogue → Fade in La Muerte
+- On dialogue end: fade out → transition to `truco.tscn`
+
+**8. UI Systems**
+- **Pause Menu** (`scenes/pause_menu/`): ESC to pause, options to resume/restart/quit
+- **Score UI** (`scenes/puntaje/ui_puntaje.tscn`): Displays mates collected
+- **Configuration** (`scenes/configuracion/`): Audio/video settings with persistent save
+- **How to Play** (`scenes/como_jugar/`): Game instructions and Truco rules
+- **Congratulations** (`scenes/felicitaciones/`): Victory screen (likely after Truco)
 
 ### Physics Layers
 
@@ -61,28 +189,148 @@ Defined in `project.godot`:
 - **Layer 1**: "Suelo" (Ground)
 - **Layer 2**: "Jugador" (Player)
 
-Obstacles use `collision_layer = 0` and `collision_mask = 2` to only detect player.
+Obstacles and mates use `collision_layer = 0` and `collision_mask = 2` to only detect player.
+
+### Input Actions
+
+Defined in `project.godot`:
+- **salto**: Space, Up Arrow - Player jump
+- **agacharse**: S, Down Arrow - Player crouch
+- **skipear**: Escape, Space - Skip/advance dialogue
 
 ### Critical Implementation Details
 
+**Independent Spawn System**:
+- ObstacleSpawner and MateSpawner work independently
+- No central coordination or balancing
+- Distance-based spawning: accumulate distance traveled, spawn when threshold reached
+- Both respect GameManager's transition signal to stop spawning
+
 **Obstacle Positioning**:
 - Obstacles are positioned by the spawner at the Area2D root level
-- Visual elements (Sprite2D, ColorRect) and CollisionShape2D must be centered at (0,0) relative to the Obstacle root node
-- If visual elements have incorrect offsets, obstacles will spawn but appear in wrong locations
+- Visual elements (AnimatedSprite2D) and CollisionShape2D have y-offsets configured per type
 - The spawner sets `obstacle.position.x` and `obstacle.position.y` directly on the root node
+- Type configuration applied via `set_tipo_aleatorio()` before adding to scene
 
 **Speed Synchronization**:
-- Ground, obstacles, and spawner MUST use the same speed value (200.0 default)
-- Changing speed in one place requires updating all three components
-- Speed is exported separately in each script for independent tweaking if needed
+- All moving elements listen to GameManager's `velocidad_cambiada` signal
+- Ground, obstacles, and spawners update speed simultaneously
+- Maintains consistent game feel across all difficulty levels
+- Speed increases every 10 mates collected
 
 **Camera-Based Spawning**:
-- Spawner uses `get_viewport().get_camera_2d()` to find camera position
+- Both spawners use `get_viewport().get_camera_2d()` to find camera position
 - Spawn X = camera center X + (viewport width / 2) + spawn_offset
-- This ensures obstacles always spawn just outside the visible area
+- This ensures objects always spawn just outside the visible area to the right
+- Fallback to viewport width if camera not found
+
+**Progressive Difficulty**:
+- Current values:
+  - `GameManager.objetivo = 100` (production value)
+  - `GameManager.MATES_POR_NIVEL = 10` (production value)
+  - `GameManager.INCREMENTO_VELOCIDAD = 10.0` (increases 10 px/s per level)
+- Velocity increases every 10 mates
+- No difficulty tiers or spawn balancing - pure independent spawning
+
+**Configuration System**:
+- Settings saved to `user://settings.cfg` using ConfigFile
+- Loaded automatically by GameManager on startup
+- Includes: music volume (Master bus), fullscreen mode
+- Applied in `cargar_y_aplicar_configuracion()`
+
+**Dialogue Data Storage**:
+- Dialogues stored in CSV files in `data/dialogues/`
+- Format: `character,text` with header row
+- Allows easy editing without touching code
+- Loaded at runtime by DialogueLoader
+
+**Transition Protection**:
+- Player cannot die when `GameManager.en_transicion == true`
+- Prevents death during slow-motion sequence
+- Flag set when 100 mates reached, cleared before scene change
+- Checked in `jugador.gd::morir()`
 
 ## File Naming Conventions
 
 - Scripts: lowercase with underscores (e.g., `obstacle_spawner.gd`)
 - Scenes: lowercase with underscores (e.g., `obstacle_spawner.tscn`)
-- Scene folders: named after the component (jugador, obstaculo, suelo, nivel)
+- Scene folders: named after the component (jugador, obstaculo, suelo, nivel, cinematica, etc.)
+- CSV files: lowercase with underscores in `data/dialogues/`
+
+## Key Signals
+
+**GameManager**:
+- `mates_cambiados(nuevos_mates)` - Emitted when mate count changes
+- `objetivo_alcanzado` - Emitted when 100 mates collected
+- `iniciar_transicion_rancho` - Signals spawners to stop
+- `velocidad_cambiada(nueva_velocidad)` - Emitted on difficulty increase (every 10 mates)
+
+**DialogueManager**:
+- `dialogue_started()` - Conversation begins
+- `dialogue_line_started(character_name, text)` - New line starts
+- `dialogue_line_finished()` - Line typing complete
+- `dialogue_ended()` - Entire conversation finished
+- `typing_started()` - Typewriter effect begins
+- `typing_finished()` - Typewriter effect complete
+
+**Obstacles/Mates**:
+- `jugador_muerto` - Emitted on player collision with obstacle
+- `mate_recolectado` - Emitted when mate collected (if used)
+
+## Project Structure
+
+```
+gaucholand/
+├── addons/
+│   └── kanban_tasks/          # Godot plugin for task management
+├── data/
+│   └── dialogues/
+│       ├── cinematica_inicio.csv
+│       └── transicion_rancho.csv
+├── scenes/
+│   ├── cinematica/
+│   │   ├── cinematica_inicio.tscn
+│   │   └── cinematica_inicio.gd
+│   ├── como_jugar/
+│   ├── configuracion/
+│   ├── dialogue_ui/
+│   │   ├── dialogue_ui.tscn
+│   │   └── dialogue_ui.gd
+│   ├── felicitaciones/
+│   ├── jugador/
+│   │   ├── jugador.tscn
+│   │   └── jugador.gd
+│   ├── menu_principal/
+│   ├── nivel/
+│   │   └── nivel.tscn
+│   ├── nivel_pampa/
+│   │   └── nivel_pampa.tscn
+│   ├── obstaculo/
+│   │   ├── obstacle.tscn
+│   │   ├── obstacle.gd
+│   │   ├── obstacle_spawner.tscn
+│   │   └── obstacle_spawner.gd
+│   ├── pause_menu/
+│   ├── puntaje/
+│   │   ├── mate.tscn
+│   │   ├── mate.gd
+│   │   ├── mate_spawner.tscn
+│   │   ├── mate_spawner.gd
+│   │   └── ui_puntaje.tscn
+│   ├── suelo/
+│   │   ├── suelo.tscn
+│   │   └── suelo.gd
+│   ├── transicion_rancho/
+│   │   ├── transicion_rancho.tscn
+│   │   └── transicion_rancho.gd
+│   └── truco/
+│       ├── truco.tscn
+│       ├── truco.gd
+│       ├── carta.tscn
+│       ├── carta.gd
+│       └── mazo.gd
+└── scripts/
+    ├── game_manager.gd (autoload)
+    ├── dialogue_manager.gd
+    └── dialogue_loader.gd (class_name)
+```
