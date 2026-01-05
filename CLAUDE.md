@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Gaucholand** is a Godot 4.5 endless runner game built with GDScript. The game features a player character that runs automatically while jumping over obstacles and collecting mates in a side-scrolling environment. After collecting 100 mates, the player experiences a cinematic transition to a rancho where they face "La Muerte" (Death) in a Truco card game.
+**La Odisea del Gaucho** is a Godot 4.5 endless runner game built with GDScript. The game features a player character that runs automatically while jumping over obstacles and collecting mates in a side-scrolling environment. After collecting 100 mates, the player experiences a cinematic transition to a rancho where they face "La Muerte" (Death) in a Truco card game.
 
 ## Running the Game
 

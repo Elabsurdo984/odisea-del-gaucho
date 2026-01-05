@@ -1,46 +1,46 @@
 extends Node
 
-signal mates_cambiados(nuevos_mates)
-signal vidas_cambiadas(nuevas_vidas)
+signal mates_cambiados(nuevos_mates: int)
+signal vidas_cambiadas(nuevas_vidas: int)
 signal objetivo_alcanzado  # Nueva señal para cuando llegues a 100
 signal iniciar_transicion_rancho  # Señal para iniciar mini-cinemática
-signal velocidad_cambiada(nueva_velocidad)  # Señal para dificultad progresiva
+signal velocidad_cambiada(nueva_velocidad: float)  # Señal para dificultad progresiva
 
-var mates_totales := 0
-var objetivo := 100 # Mates necesarios para ganar
-var objetivo_alcanzado_flag := false  # Para que solo se active una vez
-var en_transicion := false  # Flag para saber si está en transición
+var mates_totales: int = 0
+var objetivo: int = 100 # Mates necesarios para ganar
+var objetivo_alcanzado_flag: bool = false  # Para que solo se active una vez
+var en_transicion: bool = false  # Flag para saber si está en transición
 
 # Sistema de vidas
-const MAX_VIDAS = 3
-var vidas = MAX_VIDAS
+const MAX_VIDAS: int = 3
+var vidas: int = MAX_VIDAS
 var causa_muerte: String = "" # Razón del último Game Over
 
 # Sistema de dificultad progresiva
-const VELOCIDAD_BASE := 200.0
-const INCREMENTO_VELOCIDAD := 10.0  # Aumenta 20 píxeles/seg cada 10 mates
-const MATES_POR_NIVEL := 10
-var velocidad_actual := VELOCIDAD_BASE
-var ultimo_nivel_velocidad := 0  # Último nivel de dificultad alcanzado
+const VELOCIDAD_BASE: float = 200.0
+const INCREMENTO_VELOCIDAD: float = 10.0  # Aumenta 20 píxeles/seg cada 10 mates
+const MATES_POR_NIVEL: int = 10
+var velocidad_actual: float = VELOCIDAD_BASE
+var ultimo_nivel_velocidad: int = 0  # Último nivel de dificultad alcanzado
 
 # Configuración
-const CONFIG_FILE = "user://settings.cfg"
+const CONFIG_FILE: String = "user://settings.cfg"
 
-func _ready():
+func _ready() -> void:
     cargar_y_aplicar_configuracion()
 
-func cargar_y_aplicar_configuracion():
-    var config = ConfigFile.new()
-    var err = config.load(CONFIG_FILE)
+func cargar_y_aplicar_configuracion() -> void:
+    var config := ConfigFile.new()
+    var err: Error = config.load(CONFIG_FILE)
 
     if err == OK:
         # Aplicar volumen de música
-        var volumen_musica = config.get_value("audio", "volumen_musica", 80)
-        var db_musica = linear_to_db(volumen_musica / 100.0)
+        var volumen_musica: int = config.get_value("audio", "volumen_musica", 80)
+        var db_musica: float = linear_to_db(volumen_musica / 100.0)
         AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db_musica)
 
         # Aplicar pantalla completa
-        var pantalla_completa = config.get_value("video", "pantalla_completa", false)
+        var pantalla_completa: bool = config.get_value("video", "pantalla_completa", false)
         if pantalla_completa:
             DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
         else:
@@ -56,14 +56,14 @@ func descontar_vida() -> bool:
     print("💔 Vida perdida. Restantes: ", vidas)
     return vidas > 0
 
-func agregar_mates(cantidad: int):
+func agregar_mates(cantidad: int) -> void:
     mates_totales += cantidad
     mates_cambiados.emit(mates_totales)
     print("Mates recolectados: ", mates_totales)
 
     # Verificar si se debe aumentar la velocidad (cada 10 mates)
     @warning_ignore("integer_division")
-    var nivel_actual = mates_totales / MATES_POR_NIVEL
+    var nivel_actual: int = mates_totales / MATES_POR_NIVEL
     if nivel_actual > ultimo_nivel_velocidad:
         ultimo_nivel_velocidad = nivel_actual
         aumentar_velocidad()
@@ -77,7 +77,7 @@ func agregar_mates(cantidad: int):
         # Iniciar secuencia de transición
         iniciar_secuencia_transicion()
 
-func iniciar_secuencia_transicion():
+func iniciar_secuencia_transicion() -> void:
     print("🎬 GameManager: Iniciando transición al rancho...")
 
     # 1. Detener spawning
@@ -102,12 +102,12 @@ func iniciar_secuencia_transicion():
 
     get_tree().change_scene_to_file("res://scenes/transicion_rancho/transicion_rancho.tscn")
 
-func aumentar_velocidad():
+func aumentar_velocidad() -> void:
     velocidad_actual = VELOCIDAD_BASE + (ultimo_nivel_velocidad * INCREMENTO_VELOCIDAD)
     velocidad_cambiada.emit(velocidad_actual)
     print("🚀 Velocidad aumentada a: ", velocidad_actual, " (Nivel ", ultimo_nivel_velocidad, ")")
 
-func reiniciar_mates():
+func reiniciar_mates() -> void:
     mates_totales = 0
     vidas = MAX_VIDAS
     objetivo_alcanzado_flag = false

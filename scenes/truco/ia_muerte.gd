@@ -30,7 +30,7 @@ static func evaluar_fuerza_mano(cartas: Array) -> float:
     # - Carta más fuerte: 50% del peso
     # - Segunda carta: 30% del peso
     # - Tercera carta: 20% del peso
-    var fuerza_total = 0.0
+    var fuerza_total: float = 0.0
 
     if fuerzas.size() >= 1:
         fuerza_total += fuerzas[0] * 0.5

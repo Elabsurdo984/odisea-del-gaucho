@@ -1,8 +1,8 @@
 extends Area2D
 
-signal jugador_muerto
+signal jugador_muerto()
 
-@export var speed := 200.0  # Misma velocidad que el suelo
+@export var speed: float = 200.0  # Misma velocidad que el suelo
 
 enum TipoObstaculo { CACTUS_ALTO, PIEDRA_BAJA, ARBUSTO_MEDIO, TERO }
 
@@ -11,7 +11,7 @@ var tipo: TipoObstaculo = TipoObstaculo.CACTUS_ALTO
 # Configuración de cada tipo de obstáculo
 # NOTA: Las animaciones ("cactus", "piedra", "arbusto", "tero") deben configurarse
 # en el AnimatedSprite2D desde el editor de Godot
-var config_obstaculos = {
+var config_obstaculos: Dictionary = {
     TipoObstaculo.CACTUS_ALTO: {
         "animacion": "cactus",
         "escala": Vector2(3.22, 3.28),
@@ -38,24 +38,24 @@ var config_obstaculos = {
     }
 }
 
-func _ready():
+func _ready() -> void:
     if not body_entered.is_connected(_on_body_entered):
         body_entered.connect(_on_body_entered)
 
     configurar_tipo()
 
-func set_tipo_aleatorio():
+func set_tipo_aleatorio() -> void:
     # Seleccionar un tipo aleatorio
-    var tipos = [TipoObstaculo.CACTUS_ALTO, TipoObstaculo.PIEDRA_BAJA, TipoObstaculo.ARBUSTO_MEDIO, TipoObstaculo.TERO]
+    var tipos: Array[TipoObstaculo] = [TipoObstaculo.CACTUS_ALTO, TipoObstaculo.PIEDRA_BAJA, TipoObstaculo.ARBUSTO_MEDIO, TipoObstaculo.TERO]
     tipo = tipos[randi() % tipos.size()]
     if is_node_ready():
         configurar_tipo()
 
-func configurar_tipo():
-    var config = config_obstaculos[tipo]
+func configurar_tipo() -> void:
+    var config: Dictionary = config_obstaculos[tipo]
 
     # Configurar AnimatedSprite2D
-    var sprite = $AnimatedSprite2D
+    var sprite: AnimatedSprite2D = $AnimatedSprite2D
     sprite.scale = config["escala"]
     sprite.position.y = config["offset_y"]
 
@@ -64,22 +64,22 @@ func configurar_tipo():
     sprite.play()
 
     # Configurar colisión
-    var collision = $CollisionShape2D
+    var collision: CollisionShape2D = $CollisionShape2D
     collision.shape.size = config["colision_size"]
     collision.position.y = config["offset_y"]
 
-func _process(delta):
+func _process(delta: float) -> void:
     # Mover el obstáculo hacia la izquierda
     position.x -= speed * delta
-    
+
     # Eliminar el obstáculo cuando salga de la pantalla
     if position.x < -580:
         queue_free()
 
-func _on_body_entered(body):
+func _on_body_entered(body: Node2D) -> void:
     if body.is_in_group("player"):
         # Obtener el nombre de la causa según el tipo
-        var nombre_causa = obtener_nombre_causa()
+        var nombre_causa: String = obtener_nombre_causa()
 
         if body.has_method("recibir_dano"):
             body.recibir_dano(nombre_causa)

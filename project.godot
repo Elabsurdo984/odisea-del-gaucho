@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="gaucholand"
+config/name="La Odisea del Gaucho"
+config/version="0.5.1"
 run/main_scene="res://scenes/menu_principal/menu_principal.tscn"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://tres/busses/default_bus_layout.tres"
 
 [autoload]
 

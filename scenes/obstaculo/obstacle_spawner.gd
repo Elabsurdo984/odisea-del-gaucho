@@ -2,15 +2,15 @@
 extends Node2D
 
 @export var obstacle_scene: PackedScene  # Arrastra aquí la escena del obstáculo
-@export var spawn_distance := 300.0  # Distancia entre obstáculos en píxeles
-@export var ground_y := 251.0  # Altura Y del suelo (ajusta según tu juego)
-@export var speed := 200.0  # Misma velocidad que el suelo
-@export var spawn_offset := 200.0  # A qué distancia adelante del borde derecho spawner
+@export var spawn_distance: float = 300.0  # Distancia entre obstáculos en píxeles
+@export var ground_y: float = 251.0  # Altura Y del suelo (ajusta según tu juego)
+@export var speed: float = 200.0  # Misma velocidad que el suelo
+@export var spawn_offset: float = 200.0  # A qué distancia adelante del borde derecho spawner
 
-var distance_since_last_spawn := 0.0
-var spawning_activo := true  # Flag para controlar si se sigue spawneando
+var distance_since_last_spawn: float = 0.0
+var spawning_activo: bool = true  # Flag para controlar si se sigue spawneando
 
-func _ready():
+func _ready() -> void:
     if obstacle_scene == null:
         push_error("⚠️ Asigna la escena del obstáculo en el inspector!")
         return
@@ -25,7 +25,7 @@ func _ready():
         # Sincronizar con la velocidad actual al inicio
         speed = GameManager.obtener_velocidad_actual()
 
-func _process(delta):
+func _process(delta: float) -> void:
     if obstacle_scene == null or not spawning_activo:
         return
 
@@ -37,9 +37,9 @@ func _process(delta):
         spawn_obstacle()
         distance_since_last_spawn = 0.0
 
-func spawn_obstacle():
+func spawn_obstacle() -> void:
     # Crear el obstáculo
-    var obstacle = obstacle_scene.instantiate()
+    var obstacle: Area2D = obstacle_scene.instantiate()
 
     # Configurar tipo aleatorio ANTES de agregar a la escena
     obstacle.set_tipo_aleatorio()
@@ -48,13 +48,13 @@ func spawn_obstacle():
     obstacle.speed = speed
 
     # Obtener la cámara
-    var camera = get_viewport().get_camera_2d()
-    var spawn_x = 0.0
+    var camera: Camera2D = get_viewport().get_camera_2d()
+    var spawn_x: float = 0.0
 
     if camera:
         # Spawnear justo afuera del borde derecho de la cámara
-        var camera_pos = camera.get_screen_center_position()
-        var viewport_width = get_viewport_rect().size.x
+        var camera_pos: Vector2 = camera.get_screen_center_position()
+        var viewport_width: float = get_viewport_rect().size.x
         spawn_x = camera_pos.x + (viewport_width / 2.0) + spawn_offset
         print("📷 Cámara en X: ", camera_pos.x, " | Viewport width: ", viewport_width)
     else:
@@ -72,11 +72,11 @@ func spawn_obstacle():
     print("🎯 Obstáculo spawneado en X: ", spawn_x, " Y: ", ground_y)
 
 #region CALLBACKS
-func _on_transicion_iniciada():
+func _on_transicion_iniciada() -> void:
     print("🛑 ObstacleSpawner: Deteniendo spawning por transición")
     spawning_activo = false
 
-func _on_velocidad_cambiada(nueva_velocidad: float):
+func _on_velocidad_cambiada(nueva_velocidad: float) -> void:
     speed = nueva_velocidad
     print("🎯 ObstacleSpawner: Velocidad actualizada a ", speed)
 #endregion

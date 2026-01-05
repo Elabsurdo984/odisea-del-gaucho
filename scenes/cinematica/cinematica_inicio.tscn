@@ -45,10 +45,10 @@ anchor_left = 0.15
 anchor_top = 0.2
 anchor_right = 0.15
 anchor_bottom = 0.2
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
+offset_left = -104.8
+offset_top = 176.4
+offset_right = 19.199997
+offset_bottom = 296.4
 pivot_offset = Vector2(60, 60)
 color = Color(1, 0.8, 0.3, 1)
 

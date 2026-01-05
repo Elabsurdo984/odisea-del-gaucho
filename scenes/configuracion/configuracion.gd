@@ -13,7 +13,7 @@ extends Control
 #endregion
 
 #region CONFIGURACIÓN
-const CONFIG_FILE = "user://settings.cfg"
+const CONFIG_FILE: String = "user://settings.cfg"
 var config = ConfigFile.new()
 
 # Valores por defecto
