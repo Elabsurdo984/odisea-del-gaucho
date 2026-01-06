@@ -1,16 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://b8v5x4p3k8n2m"]
 
-[ext_resource type="Script" uid="uid://bk33stdackr4c" path="res://scenes/game_over/game_over.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cftptbmxq5syt" path="res://ui/screens/game_over/game_over.gd" id="1_qk5ti"]
 
-[node name="GameOver" type="Control" node_paths=PackedStringArray("titulo_label", "detalle_label", "hora_label", "timer_reinicio", "color_rect", "vbox_container")]
+[node name="GameOver" type="Control" node_paths=PackedStringArray("detalle_label", "hora_label", "timer_reinicio", "color_rect", "vbox_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
-titulo_label = NodePath("ColorRect/VBoxContainer/Titular")
+script = ExtResource("1_qk5ti")
 detalle_label = NodePath("ColorRect/VBoxContainer/Titular")
 hora_label = NodePath("ColorRect/Zocalo/HBoxContainer/Hora")
 timer_reinicio = NodePath("Timer")

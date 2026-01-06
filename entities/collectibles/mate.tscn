@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://datts3t0c7llc"]
 
-[ext_resource type="Script" uid="uid://fn0b5771n1du" path="res://scenes/puntaje/mate.gd" id="1_t8vjp"]
-[ext_resource type="Texture2D" uid="uid://b7ykdf33nwg2h" path="res://assets/mate.png" id="2_74iu0"]
+[ext_resource type="Script" uid="uid://cy06jtqpm3im6" path="res://entities/collectibles/mate.gd" id="1_uafyq"]
+[ext_resource type="Texture2D" uid="uid://b7ykdf33nwg2h" path="res://assets/mate/mate.png" id="2_74iu0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1vj3g"]
 size = Vector2(16.75, 23)
@@ -9,7 +9,7 @@ size = Vector2(16.75, 23)
 [node name="Mate" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_t8vjp")
+script = ExtResource("1_uafyq")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(137.75, 58.75)

@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2vh8nx8yx5uw"]
+[gd_scene load_steps=4 format=3 uid="uid://b4dif1v6rk7da"]
 
-[ext_resource type="Script" uid="uid://c8m815nymxncu" path="res://scenes/pause_menu/pause_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://c0d4x7u6lngd3" path="res://ui/menus/pause_menu/pause_menu.gd" id="1_3a2ww"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.15, 0.2, 0.15, 0.95)
@@ -30,7 +30,7 @@ corner_radius_bottom_left = 10
 
 [node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("panel_pausa", "btn_reanudar", "btn_reiniciar", "btn_menu_principal")]
 process_mode = 3
-script = ExtResource("1_script")
+script = ExtResource("1_3a2ww")
 panel_pausa = NodePath("PanelPausa")
 btn_reanudar = NodePath("PanelPausa/VBoxContainer/BtnReanudar")
 btn_reiniciar = NodePath("PanelPausa/VBoxContainer/BtnReiniciar")

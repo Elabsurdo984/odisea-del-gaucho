@@ -18,5 +18,5 @@ func _ready():
 #region CALLBACKS
 func _on_volver_pressed():
     print("🏠 Volviendo al menú principal...")
-    get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
+    get_tree().change_scene_to_file("res://ui/menus/main_menu/menu_principal.tscn")
 #endregion

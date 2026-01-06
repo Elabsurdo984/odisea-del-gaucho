@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cipy52x56qp8m"]
+[gd_scene load_steps=3 format=3 uid="uid://bvapeiqtgqp03"]
 
-[ext_resource type="Script" uid="uid://c0fea12jwvw2n" path="res://scenes/configuracion/configuracion.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://d32fwinn786s7" path="res://ui/menus/config_menu/configuracion.gd" id="1_5mfs0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.15, 0.2, 0.15, 0.9)
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
+script = ExtResource("1_5mfs0")
 slider_musica = NodePath("ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/MusicaControl/SliderMusica")
 label_musica = NodePath("ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/MusicaControl/HBox/Label")
 slider_efectos = NodePath("ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/EfectosControl/SliderEfectos")

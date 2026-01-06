@@ -1,15 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b63kdsyhv35dw"]
+[gd_scene load_steps=3 format=3 uid="uid://bf6gm2x5vwsfq"]
 
-[ext_resource type="Script" path="res://scripts/dialogue_manager.gd" id="1_dialogue"]
-[ext_resource type="Script" uid="uid://2veswwbulvav" path="res://ui/dialogue/dialogue_ui.gd" id="1_vl8is"]
+[ext_resource type="Script" uid="uid://2veswwbulvav" path="res://ui/dialogue/dialogue_ui.gd" id="1_5hxg5"]
+[ext_resource type="Script" uid="uid://cns006pw7yk01" path="res://systems/dialogue/dialogue_manager.gd" id="2_075ga"]
 
-[node name="DialogueUI" type="CanvasLayer" node_paths=PackedStringArray("panel_dialogo", "nombre_label", "texto_label", "continuar_indicador", "dialogue_manager")]
-script = ExtResource("1_vl8is")
-panel_dialogo = NodePath("PanelDialogo")
-nombre_label = NodePath("PanelDialogo/MarginContainer/VBoxContainer/NombreLabel")
-texto_label = NodePath("PanelDialogo/MarginContainer/VBoxContainer/TextoLabel")
-continuar_indicador = NodePath("PanelDialogo/ContinuarIndicador")
-dialogue_manager = NodePath("DialogueManager")
+[node name="DialogueUI" type="CanvasLayer"]
+script = ExtResource("1_5hxg5")
 
 [node name="PanelDialogo" type="Panel" parent="."]
 anchors_preset = 12
@@ -70,7 +65,7 @@ text = "Presiona enter para continuar"
 horizontal_alignment = 2
 
 [node name="DialogueManager" type="Node" parent="." node_paths=PackedStringArray("name_label", "text_label", "continue_indicator")]
-script = ExtResource("1_dialogue")
+script = ExtResource("2_075ga")
 name_label = NodePath("../PanelDialogo/MarginContainer/VBoxContainer/NombreLabel")
 text_label = NodePath("../PanelDialogo/MarginContainer/VBoxContainer/TextoLabel")
 continue_indicator = NodePath("../PanelDialogo/ContinuarIndicador")

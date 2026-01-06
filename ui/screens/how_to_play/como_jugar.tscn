@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cjphh2byshnfl"]
 
-[ext_resource type="Script" uid="uid://b8q76yg671iky" path="res://scenes/como_jugar/como_jugar.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://wxv20fw0bcei" path="res://ui/screens/how_to_play/como_jugar.gd" id="1_rvcwc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
 bg_color = Color(0.15, 0.2, 0.15, 0.9)
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
+script = ExtResource("1_rvcwc")
 btn_volver = NodePath("BtnVolver")
 
 [node name="Fondo" type="ColorRect" parent="."]

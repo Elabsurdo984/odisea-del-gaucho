@@ -19,7 +19,7 @@ var en_transicion: bool = false
 # ============================================================
 
 ## Cambia a una escena con efecto de fade
-func cambiar_escena_con_fade(ruta: String, duracion_fade: float = 1.0) -> void:
+func cambiar_escena_con_fade(ruta: String, _duracion_fade: float = 1.0) -> void:
     en_transicion = true
     transicion_iniciada.emit()
 

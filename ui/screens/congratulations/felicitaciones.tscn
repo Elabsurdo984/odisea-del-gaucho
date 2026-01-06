@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://blvccr3lw0xgq"]
 
-[ext_resource type="Script" uid="uid://cf7caswmwd2u4" path="res://scenes/felicitaciones/felicitaciones.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bgvaabp0ikmev" path="res://ui/screens/congratulations/felicitaciones.gd" id="1_008kr"]
 
 [node name="Felicitaciones" type="Control" node_paths=PackedStringArray("mates_label", "boton_continuar", "boton_menu_principal")]
 layout_mode = 3
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
+script = ExtResource("1_008kr")
 mates_label = NodePath("VBoxContainer/MatesLabel")
 boton_continuar = NodePath("VBoxContainer/BotonContinuar")
 boton_menu_principal = NodePath("VBoxContainer/BotonMenuPrincipal")

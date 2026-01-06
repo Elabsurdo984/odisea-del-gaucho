@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://c8t72ifsktwrn"]
 
-[ext_resource type="Script" uid="uid://dwdwbiiu5wp3l" path="res://scenes/obstaculo/obstacle.gd" id="1_jewi0"]
+[ext_resource type="Script" uid="uid://dibiirmyothih" path="res://entities/obstacles/obstacle.gd" id="1_cet2u"]
 [ext_resource type="Texture2D" uid="uid://cmme5cnah0lpg" path="res://assets/obstaculos/obstaculo_arbusto.png" id="2_jbj3t"]
 [ext_resource type="Texture2D" uid="uid://bbjlvcr1npayb" path="res://assets/obstaculos/obstaculo_cactus.png" id="2_kdl0i"]
 [ext_resource type="Texture2D" uid="uid://crmfry6hjbfdj" path="res://assets/obstaculos/obstaculo_piedra.png" id="4_5mshb"]
@@ -70,7 +70,7 @@ size = Vector2(16, 58)
 [node name="Obstacle" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_jewi0")
+script = ExtResource("1_cet2u")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(10, -9.5)

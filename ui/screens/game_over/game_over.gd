@@ -112,4 +112,4 @@ func _on_timer_timeout():
     await tween.finished
     
     # Volver al menú
-    get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
+    get_tree().change_scene_to_file("res://ui/menus/main_menu/menu_principal.tscn")

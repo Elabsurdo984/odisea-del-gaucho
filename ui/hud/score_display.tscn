@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://yqwoy367o3ji"]
+[gd_scene load_steps=3 format=3 uid="uid://jogtmqw0kivv"]
 
-[ext_resource type="Script" uid="uid://dw6s2myjornlv" path="res://scenes/puntaje/ui_puntaje.gd" id="1_t7i70"]
+[ext_resource type="Script" uid="uid://c0d034i7llxaj" path="res://ui/hud/score_display.gd" id="1_7ycm8"]
 [ext_resource type="FontFile" uid="uid://csjjboqkpecpn" path="res://assets/fonts/Steelflight.ttf" id="2_bpbd7"]
 
 [node name="UiPuntaje" type="Control" node_paths=PackedStringArray("contador", "hearts_container")]
@@ -14,7 +14,7 @@ offset_right = -589.0
 offset_bottom = -386.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_t7i70")
+script = ExtResource("1_7ycm8")
 contador = NodePath("Label")
 hearts_container = NodePath("HeartsContainer")
 

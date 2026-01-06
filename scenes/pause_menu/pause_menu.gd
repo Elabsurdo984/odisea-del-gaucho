@@ -96,5 +96,5 @@ func _on_menu_principal_pressed():
         GameManager.reiniciar_mates()
 
     # Volver al menú principal
-    get_tree().change_scene_to_file("res://ui/menus/main_menu/menu_principal.tscn")
+    get_tree().change_scene_to_file("res://scenes/menu_principal/menu_principal.tscn")
 #endregion

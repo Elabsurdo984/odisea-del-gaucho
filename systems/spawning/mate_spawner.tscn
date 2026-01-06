@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bh8dlb37dv4dv"]
+[gd_scene load_steps=3 format=3 uid="uid://byp5clqepwugk"]
 
-[ext_resource type="Script" uid="uid://dwsixitlbm0bp" path="res://scenes/puntaje/mate_spawner.gd" id="1_5q838"]
-[ext_resource type="PackedScene" uid="uid://datts3t0c7llc" path="res://scenes/puntaje/mate.tscn" id="2_evrpp"]
+[ext_resource type="Script" uid="uid://bsokuemxikkwo" path="res://systems/spawning/mate_spawner.gd" id="1_bcdrl"]
+[ext_resource type="PackedScene" uid="uid://datts3t0c7llc" path="res://entities/collectibles/mate.tscn" id="2_evrpp"]
 
 [node name="MateSpawner" type="Node2D"]
-script = ExtResource("1_5q838")
+script = ExtResource("1_bcdrl")
 mate_scene = ExtResource("2_evrpp")
 ground_y = 190.0
