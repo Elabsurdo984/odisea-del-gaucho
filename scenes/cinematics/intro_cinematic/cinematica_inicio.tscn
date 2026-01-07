@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://412p70spc33s"]
 
-[ext_resource type="PackedScene" uid="uid://bf6gm2x5vwsfq" path="res://systems/score/dialogue_ui.tscn" id="1_dialogue_ui"]
 [ext_resource type="Script" uid="uid://bcnbmbn8gcjah" path="res://scenes/cinematics/intro_cinematic/cinematica_inicio.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
-[ext_resource type="Script" path="res://scripts/dialogue_manager.gd" id="5_787e2"]
+[ext_resource type="PackedScene" uid="uid://b63kdsyhv35dw" path="res://ui/dialogue/dialogue_ui.tscn" id="5_kw1tm"]
+[ext_resource type="Script" uid="uid://cns006pw7yk01" path="res://systems/dialogue/dialogue_manager.gd" id="5_lklkq"]
 
 [node name="CinematicaInicio" type="Control" node_paths=PackedStringArray("muerte_sprite", "gaucho_sprite", "dialogue_ui_scene", "dialogue_manager")]
 layout_mode = 3
@@ -105,7 +105,7 @@ position = Vector2(742, 380.00003)
 scale = Vector2(0.533, 0.59400004)
 texture = ExtResource("3_muerte")
 
-[node name="DialogueUI" parent="." instance=ExtResource("1_dialogue_ui")]
-
 [node name="DialogueManager" type="Node" parent="."]
-script = ExtResource("5_787e2")
+script = ExtResource("5_lklkq")
+
+[node name="DialogueUI" parent="." instance=ExtResource("5_kw1tm")]
