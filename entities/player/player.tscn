@@ -1,26 +1,24 @@
 [gd_scene load_steps=6 format=3 uid="uid://bdtfhmu4iri7d"]
 
 [ext_resource type="Script" uid="uid://jdnqf73q1f45" path="res://entities/player/player.gd" id="1_bls4j"]
-[ext_resource type="SpriteFrames" uid="uid://b0188hgob6lh1" path="res://scenes/jugador/animacion_jugador.tres" id="2_6bcbl"]
+[ext_resource type="SpriteFrames" uid="uid://cemugkfayrrio" path="res://entities/player/animacion_jugador.tres" id="2_bls4j"]
 [ext_resource type="AudioStream" uid="uid://b5v20vl4cuax0" path="res://assets/sounds/sfx/salto.mp3" id="3_salto"]
 [ext_resource type="AudioStream" uid="uid://c4tmtgg6kymg4" path="res://assets/sounds/sfx/morir.mp3" id="4_morir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8wb3s"]
 size = Vector2(34.5, 85)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("animacion")]
 collision_layer = 2
 script = ExtResource("1_bls4j")
+animacion = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 position = Vector2(-495.55298, 237)
 scale = Vector2(0.89393973, 0.78125)
-sprite_frames = ExtResource("2_6bcbl")
+sprite_frames = ExtResource("2_bls4j")
 animation = &"agacharse"
-autoplay = "correr"
-frame = 2
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-495.05298, 239)

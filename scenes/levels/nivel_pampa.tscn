@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://upalmee8y0v7"]
 
-[ext_resource type="PackedScene" uid="uid://bo6qsr3xp5wro" path="res://scenes/nivel/nivel.tscn" id="1_e1xdh"]
-[ext_resource type="PackedScene" uid="uid://bdtfhmu4iri7d" path="res://scenes/fondo/jugador.tscn" id="2_aeo3s"]
-[ext_resource type="PackedScene" uid="uid://yqwoy367o3ji" path="res://scenes/puntaje/ui_puntaje.tscn" id="3_aeo3s"]
-[ext_resource type="PackedScene" uid="uid://d2vh8nx8yx5uw" path="res://scenes/pause_menu/pause_menu.tscn" id="4_pause"]
+[ext_resource type="PackedScene" uid="uid://bo6qsr3xp5wro" path="res://scenes/levels/nivel.tscn" id="1_e1xdh"]
+[ext_resource type="PackedScene" uid="uid://bdtfhmu4iri7d" path="res://entities/player/player.tscn" id="2_aeo3s"]
+[ext_resource type="PackedScene" path="res://scenes/puntaje/ui_puntaje.tscn" id="3_aeo3s"]
+[ext_resource type="PackedScene" path="res://scenes/pause_menu/pause_menu.tscn" id="4_pause"]
 
 [node name="Node2D" type="Node2D"]
 

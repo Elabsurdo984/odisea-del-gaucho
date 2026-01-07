@@ -28,7 +28,7 @@ func _ready():
 func _on_jugar_pressed():
     print("▶️ Iniciando juego...")
     # Ir a la cinemática de inicio
-    get_tree().change_scene_to_file("res://scenes/cinematica/cinematica_inicio.tscn")
+    get_tree().change_scene_to_file("res://scenes/cinematics/intro_cinematic/cinematica_inicio.tscn")
 
 func _on_como_jugar_pressed():
     print("📖 Mostrando instrucciones...")

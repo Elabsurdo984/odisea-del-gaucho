@@ -74,7 +74,7 @@ func iniciar_secuencia_transicion_rancho() -> void:
     # Resetear flag antes de cambiar escena
     en_transicion = false
 
-    get_tree().change_scene_to_file("res://scenes/transicion_rancho/transicion_rancho.tscn")
+    get_tree().change_scene_to_file("res://scenes/cinematics/rancho_transition/transicion_rancho.tscn")
 
     transicion_completada.emit()
 

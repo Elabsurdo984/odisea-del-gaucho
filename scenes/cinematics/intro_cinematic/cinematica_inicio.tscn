@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://412p70spc33s"]
 
-[ext_resource type="PackedScene" uid="uid://cqm7xv8yx5ugx" path="res://systems/score/dialogue_ui.tscn" id="1_dialogue_ui"]
-[ext_resource type="Script" uid="uid://bcnbmbn8gcjah" path="res://scenes/cinematica/cinematica_inicio.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bf6gm2x5vwsfq" path="res://systems/score/dialogue_ui.tscn" id="1_dialogue_ui"]
+[ext_resource type="Script" uid="uid://bcnbmbn8gcjah" path="res://scenes/cinematics/intro_cinematic/cinematica_inicio.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
 [ext_resource type="Script" path="res://scripts/dialogue_manager.gd" id="5_787e2"]

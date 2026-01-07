@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cd0ydfl8vbpiw"]
 
-[ext_resource type="PackedScene" uid="uid://cqm7xv8yx5ugx" path="res://systems/score/dialogue_ui.tscn" id="1_dialogue_ui"]
-[ext_resource type="Script" uid="uid://tuhka7wgte74" path="res://scenes/transicion_rancho/transicion_rancho.gd" id="1_script"]
+[ext_resource type="PackedScene" uid="uid://bf6gm2x5vwsfq" path="res://systems/score/dialogue_ui.tscn" id="1_dialogue_ui"]
+[ext_resource type="Script" uid="uid://tuhka7wgte74" path="res://scenes/cinematics/rancho_transition/transicion_rancho.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://d3pvjosw4f1gm" path="res://assets/rancho/rancho_frente.png" id="2_f64kd"]
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
