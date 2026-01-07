@@ -1,37 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://csldrx7lxoc66"]
+[gd_scene load_steps=3 format=3 uid="uid://csldrx7lxoc66"]
 
-[ext_resource type="Script" uid="uid://dwuiplns4t0d3" path="res://scenes/truco/truco.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="2_gaucho"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="3_muerte"]
-[ext_resource type="PackedScene" uid="uid://d2vh8nx8yx5uw" path="res://scenes/pause_menu/pause_menu.tscn" id="4_pause"]
 
-[node name="Truco" type="Control" node_paths=PackedStringArray("jugador_cartas_container", "muerte_cartas_container", "mesa_jugador", "mesa_muerte", "placeholder_jugador", "placeholder_muerte", "puntos_jugador_label", "puntos_muerte_label", "btn_envido", "btn_truco", "btn_mazo", "btn_envido_envido", "btn_real_envido", "btn_falta_envido", "btn_quiero", "btn_no_quiero", "mensaje_label", "gaucho_sprite", "muerte_sprite")]
+[node name="Truco" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_script")
-jugador_cartas_container = NodePath("JugadorCartas")
-muerte_cartas_container = NodePath("MuerteCartas")
-mesa_jugador = NodePath("Mesa/CartaJugador")
-mesa_muerte = NodePath("Mesa/CartaMuerte")
-placeholder_jugador = NodePath("Mesa/CartaJugador/Placeholder")
-placeholder_muerte = NodePath("Mesa/CartaMuerte/Placeholder")
-puntos_jugador_label = NodePath("UI/PuntosPanel/PuntosJugador")
-puntos_muerte_label = NodePath("UI/PuntosPanel/PuntosMuerte")
-btn_envido = NodePath("UI/BotonesPanel/BtnEnvido")
-btn_truco = NodePath("UI/BotonesPanel/BtnTruco")
-btn_mazo = NodePath("UI/BotonesPanel/BtnMazo")
-btn_envido_envido = NodePath("UI/BotonesRespuestaEnvido/Fila1/BtnEnvidoEnvido")
-btn_real_envido = NodePath("UI/BotonesRespuestaEnvido/Fila1/BtnRealEnvido")
-btn_falta_envido = NodePath("UI/BotonesRespuestaEnvido/Fila1/BtnFaltaEnvido")
-btn_quiero = NodePath("UI/BotonesRespuestaEnvido/Fila2/BtnQuiero")
-btn_no_quiero = NodePath("UI/BotonesRespuestaEnvido/Fila2/BtnNoQuiero")
-mensaje_label = NodePath("UI/MensajeLabel")
-gaucho_sprite = NodePath("Personajes/Gaucho")
-muerte_sprite = NodePath("Personajes/Muerte")
 
 [node name="Fondo" type="CanvasLayer" parent="."]
 layer = -1
@@ -267,5 +245,3 @@ theme_override_font_sizes/font_size = 24
 text = "Nueva mano"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="PauseMenu" parent="." instance=ExtResource("4_pause")]
