@@ -154,6 +154,28 @@ func animar_carta_a_mesa(carta: Carta, quien: String) -> void:
 	
 	tween.tween_property(carta, "global_position", destino, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+func mostrar_carta_mesa_jugador(carta_data) -> void:
+	# Crear una carta visual en la posición de la mesa del jugador
+	if not posicion_mesa_jugador: return
+
+	var carta = CARTA_SCENE.instantiate()
+	add_child(carta)
+	carta.setup(carta_data["numero"], carta_data["palo"])
+	carta.mostrar_frente()
+	carta.hacer_clickeable(false)
+	carta.global_position = posicion_mesa_jugador.global_position
+
+func mostrar_carta_mesa_muerte(carta_data) -> void:
+	# Crear una carta visual en la posición de la mesa de la muerte
+	if not posicion_mesa_muerte: return
+
+	var carta = CARTA_SCENE.instantiate()
+	add_child(carta)
+	carta.setup(carta_data["numero"], carta_data["palo"])
+	carta.mostrar_frente()
+	carta.hacer_clickeable(false)
+	carta.global_position = posicion_mesa_muerte.global_position
+
 func limpiar_mesa() -> void:
 	# Eliminar cartas que quedaron flotando en la mesa (hijos de TrucoUI que sean cartas)
 	for child in get_children():
@@ -172,6 +194,15 @@ func ocultar_respuestas() -> void:
 # ============================================================
 # PRIVADOS
 # ============================================================
+func obtener_carta_muerte_visual() -> Carta:
+	if not contenedor_cartas_muerte: return null
+	# Retornar la primera carta disponible que no haya sido jugada
+	# (Las cartas jugadas se mueven fuera del contenedor en animar_carta_a_mesa)
+	for child in contenedor_cartas_muerte.get_children():
+		if child is Carta:
+			return child
+	return null
+
 func _limpiar_contenedor(contenedor: Control) -> void:
 	if not contenedor: return
 	for child in contenedor.get_children():

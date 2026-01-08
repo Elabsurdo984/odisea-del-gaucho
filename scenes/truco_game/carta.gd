@@ -83,64 +83,36 @@ func obtener_color_palo() -> Color:
 
 #region LOGICA DEL TRUCO
 func obtener_valor_truco() -> int:
-	# Jerarquía del truco (mayor número = carta más fuerte)
-	# 14: 1 de espadas
-	# 13: 1 de bastos
-	# 12: 7 de espadas
-	# 11: 7 de oros
-	# 10: 3 (todos)
-	# 9: 2 (todos)
-	# 8: 1 de oros/copa (ases falsos)
-	# 7: 12 (rey)
-	# 6: 11 (caballo)
-	# 5: 10 (sota)
-	# 4: 7 de copa/basto
-	# 3: 6
-	# 2: 5
-	# 1: 4
-
-	# Las 4 cartas más fuertes
-	if numero == 1 and palo == Palo.ESPADA:
-		return 14  # Ancho de espadas
-	if numero == 1 and palo == Palo.BASTO:
-		return 13  # Ancho de bastos
-	if numero == 7 and palo == Palo.ESPADA:
-		return 12  # Siete de espadas
-	if numero == 7 and palo == Palo.ORO:
-		return 11  # Siete de oros
-
-	# Cartas por número
-	if numero == 3:
-		return 10
-	if numero == 2:
-		return 9
-	if numero == 1:  # Ases falsos (oro y copa)
-		return 8
-	if numero == 12:  # Rey
-		return 7
-	if numero == 11:  # Caballo
-		return 6
-	if numero == 10:  # Sota
-		return 5
-	if numero == 7:  # Sietes falsos (copa y basto)
-		return 4
-	if numero == 6:
-		return 3
-	if numero == 5:
-		return 2
-	if numero == 4:
-		return 1
-
-	return 0
+	return calcular_valor_truco(numero, palo)
 
 func obtener_valor_envido() -> int:
-	# Figuras valen 0 para el envido
-	if numero >= 10:
-		return 0
-	# Las demás cartas valen su número
-	return numero
-#endregion
+	return calcular_valor_envido(numero)
 
+static func calcular_valor_truco(num: int, p: Palo) -> int:
+	# Las 4 cartas más fuertes
+	if num == 1 and p == Palo.ESPADA: return 14
+	if num == 1 and p == Palo.BASTO: return 13
+	if num == 7 and p == Palo.ESPADA: return 12
+	if num == 7 and p == Palo.ORO: return 11
+
+	# Resto por número
+	match num:
+		3: return 10
+		2: return 9
+		1: return 8 # Ases falsos
+		12: return 7
+		11: return 6
+		10: return 5
+		7: return 4 # Sietes falsos
+		6: return 3
+		5: return 2
+		4: return 1
+	return 0
+
+static func calcular_valor_envido(num: int) -> int:
+	if num >= 10: return 0
+	return num
+#endregion
 #region INTERACCION
 func hacer_clickeable(clickeable: bool):
 	if boton:

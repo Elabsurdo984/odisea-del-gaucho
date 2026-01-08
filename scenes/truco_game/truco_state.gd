@@ -9,8 +9,8 @@ var puntos_muerte: int = 0
 var cartas_jugador: Array = []
 var cartas_muerte: Array = []
 var ronda_actual: int = 1
-var carta_jugada_jugador: Carta = null
-var carta_jugada_muerte: Carta = null
+var carta_jugada_jugador = null # Variant: Carta (Node) or Dictionary
+var carta_jugada_muerte = null  # Variant: Carta (Node) or Dictionary
 
 # Resultados de rondas (0=sin jugar, 1=jugador, 2=muerte, 3=empate)
 var resultados_rondas: Array[int] = [0, 0, 0]
