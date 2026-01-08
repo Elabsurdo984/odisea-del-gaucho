@@ -1,8 +1,8 @@
 extends Node
 class_name AIMuerte
 
-@onready var strategy: AIStrategy = $AIStrategy
-@onready var decision: AIDecision = $AIDecision
+var strategy: AIStrategy
+var decision: AIDecision
 
 # Referencias externas (se inyectan o buscan)
 var truco_state: TrucoState
@@ -23,8 +23,9 @@ func ejecutar_turno() -> void:
 	if not truco_state or not truco_betting:
 		push_error("AIMuerte: Faltan referencias a State o Betting")
 		return
-		
-	var evaluacion = decision.evaluar_mano(truco_state.cartas_muerte)
+
+	# Evaluar con cartas actuales para fuerza, originales para envido
+	var evaluacion = decision.evaluar_mano(truco_state.cartas_muerte, truco_state.cartas_originales_muerte)
 	var estrategia_actual = strategy.elegir_estrategia(evaluacion, truco_state)
 	
 	var accion = decision.decidir_accion_turno(

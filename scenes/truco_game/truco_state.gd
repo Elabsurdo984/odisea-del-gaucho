@@ -8,6 +8,8 @@ var puntos_muerte: int = 0
 # Estado de la mano
 var cartas_jugador: Array = []
 var cartas_muerte: Array = []
+var cartas_originales_jugador: Array = []  # Copia de las cartas iniciales para calcular envido
+var cartas_originales_muerte: Array = []   # Copia de las cartas iniciales para calcular envido
 var ronda_actual: int = 1
 var carta_jugada_jugador = null # Variant: Carta (Node) or Dictionary
 var carta_jugada_muerte = null  # Variant: Carta (Node) or Dictionary
@@ -33,6 +35,8 @@ func registrar_resultado_ronda(ganador: int) -> void:
 func resetear_mano() -> void:
 	cartas_jugador.clear()
 	cartas_muerte.clear()
+	cartas_originales_jugador.clear()
+	cartas_originales_muerte.clear()
 	ronda_actual = 1
 	resultados_rondas = [0, 0, 0]
 	carta_jugada_jugador = null

@@ -4,16 +4,19 @@ class_name AIDecision
 # Decidir acción
 # Retorna Dictionary con { "tipo": String, ...params }
 
-func evaluar_mano(cartas: Array) -> Dictionary:
-	var fuerza = calcular_fuerza_mano(cartas)
+func evaluar_mano(cartas_actuales: Array, cartas_originales: Array = []) -> Dictionary:
+	# Si no se pasan cartas originales, usar las actuales para ambos cálculos
+	var cartas_para_envido = cartas_originales if not cartas_originales.is_empty() else cartas_actuales
+
+	var fuerza = calcular_fuerza_mano(cartas_actuales)
 	var envido_sys = EnvidoSystem.new()
-	var envido = envido_sys.calcular_envido(cartas)
+	var envido = envido_sys.calcular_envido(cartas_para_envido)
 	envido_sys.free()
-	
+
 	return {
 		"fuerza": fuerza,
 		"envido": envido,
-		"cantidad_cartas": cartas.size()
+		"cantidad_cartas": cartas_actuales.size()
 	}
 
 func calcular_fuerza_mano(cartas: Array) -> float:

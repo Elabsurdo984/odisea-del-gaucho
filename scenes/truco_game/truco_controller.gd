@@ -55,10 +55,14 @@ func comenzar_nueva_mano() -> void:
 	# Lógica de Mazo
 	deck.reiniciar()
 	deck.barajar()
-	
+
 	state.cartas_jugador = deck.repartir(3)
 	state.cartas_muerte = deck.repartir(3)
-	
+
+	# Guardar copias de las cartas originales para calcular envido correctamente
+	state.cartas_originales_jugador = state.cartas_jugador.duplicate(true)
+	state.cartas_originales_muerte = state.cartas_muerte.duplicate(true)
+
 	# Actualizar UI
 	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
 	ui.mostrar_cartas_jugador(state.cartas_jugador)
@@ -280,8 +284,9 @@ func _on_player_responde_envido(acepta: bool) -> void:
 		ui.mostrar_mensaje("¡Quiero!", 2.5)
 		await get_tree().create_timer(2.5).timeout
 
-		var pts_jug = envido_sys.calcular_envido(state.cartas_jugador)
-		var pts_muerte = envido_sys.calcular_envido(state.cartas_muerte)
+		# Usar las cartas originales para calcular envido (incluye cartas ya jugadas)
+		var pts_jug = envido_sys.calcular_envido(state.cartas_originales_jugador)
+		var pts_muerte = envido_sys.calcular_envido(state.cartas_originales_muerte)
 
 		# Mostrar los puntos de cada uno con más tiempo
 		ui.mostrar_mensaje("Tu envido: %d" % pts_jug, 3.5)
@@ -334,8 +339,9 @@ func _on_ai_responde_envido(acepta: bool) -> void:
 		ui.mostrar_mensaje("La Muerte dijo: ¡Quiero!", 2.5)
 		await get_tree().create_timer(2.5).timeout
 
-		var pts_jug = envido_sys.calcular_envido(state.cartas_jugador)
-		var pts_muerte = envido_sys.calcular_envido(state.cartas_muerte)
+		# Usar las cartas originales para calcular envido (incluye cartas ya jugadas)
+		var pts_jug = envido_sys.calcular_envido(state.cartas_originales_jugador)
+		var pts_muerte = envido_sys.calcular_envido(state.cartas_originales_muerte)
 
 		# Mostrar los puntos de cada uno con más tiempo
 		ui.mostrar_mensaje("Tu envido: %d" % pts_jug, 3.5)
