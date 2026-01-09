@@ -11,7 +11,6 @@ extends Control
 @export var background: Control  # Fondo de pampa (puede ser TextureRect o ColorRect)
 @export var vignette: ColorRect  # Viñeta oscura en los bordes
 @export var particles_container: Control  # Contenedor de partículas de mates
-@export var gaucho_silhouette: TextureRect  # Silueta del gaucho
 
 @export_group("Overlay de Fundido")
 @export var fade_overlay: ColorRect  # Para fundidos suaves
@@ -73,13 +72,6 @@ func _ready() -> void:
 	if vignette:
 		vignette.color = Color(0, 0, 0, 0.6)  # Negro semi-transparente
 		vignette.modulate.a = 0.0
-
-	# Configurar silueta del gaucho
-	if gaucho_silhouette:
-		gaucho_silhouette.modulate = Color(0, 0, 0, 0.8)  # Silueta oscura
-		gaucho_silhouette.pivot_offset = gaucho_silhouette.size / 2
-		gaucho_silhouette.scale = Vector2(0.8, 0.8)
-		gaucho_silhouette.modulate.a = 0.0
 
 	# Crear partículas de mates flotantes
 	if particles_container:
@@ -153,16 +145,6 @@ func fade_out_final() -> void:
 
 #region ANIMACIONES DE ELEMENTOS
 func animacion_entrada_elementos() -> void:
-	# 1. Silueta del gaucho aparece desde abajo
-	if gaucho_silhouette:
-		var original_y = gaucho_silhouette.position.y
-		gaucho_silhouette.position.y += 100
-
-		var tween1 = create_tween().set_parallel(true)
-		tween1.tween_property(gaucho_silhouette, "modulate:a", 1.0, 0.5)\
-			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-		tween1.tween_property(gaucho_silhouette, "position:y", original_y, 0.5)\
-			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 	# 2. Texto "CAPÍTULO X" aparece con slide desde arriba
 	if lbl_capitulo:
@@ -170,7 +152,7 @@ func animacion_entrada_elementos() -> void:
 		lbl_capitulo.position.y -= 50
 
 		var tween2 = create_tween().set_parallel(true)
-		tween2.tween_property(lbl_capitulo, "modulate:a", 1.0, 0.6)\
+		tween2.tween_property(lbl_capitulo, "modulate:a", 1.0, 0.2)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tween2.tween_property(lbl_capitulo, "position:y", original_pos_y, 0.6)\
 			.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
@@ -183,7 +165,7 @@ func animacion_entrada_elementos() -> void:
 		lbl_nombre.scale = Vector2(0.8, 0.8)
 
 		var tween3 = create_tween().set_parallel(true)
-		tween3.tween_property(lbl_nombre, "modulate:a", 1.0, 0.7)\
+		tween3.tween_property(lbl_nombre, "modulate:a", 1.0, 0.3)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tween3.tween_property(lbl_nombre, "scale", Vector2(1.0, 1.0), 0.7)\
 			.set_trans(Tween.TRANS_ELASTIC).set_ease(Tween.EASE_OUT)
@@ -203,10 +185,6 @@ func animacion_salida_elementos() -> void:
 
 	if lbl_nombre:
 		tween.tween_property(lbl_nombre, "modulate:a", 0.0, 0.6)\
-			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
-
-	if gaucho_silhouette:
-		tween.tween_property(gaucho_silhouette, "modulate:a", 0.0, 0.6)\
 			.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 
 	# Desactivar partículas

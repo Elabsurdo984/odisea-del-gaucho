@@ -3,9 +3,8 @@
 [ext_resource type="Script" uid="uid://cygphb2n0vsrp" path="res://scenes/chapter_transition/chapter_transition.gd" id="1_ka5nh"]
 [ext_resource type="Material" uid="uid://csc4vxhdu4yst" path="res://tres/shaders/shader-vignette.tres" id="3_j6r7k"]
 [ext_resource type="FontFile" uid="uid://cabidt0o0hf4a" path="res://assets/fonts/Snowbell-Wp4g9.ttf" id="4_dnngc"]
-[ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="5_5i64q"]
 
-[node name="ChapterTransition" type="Control" unique_id=1856029389 node_paths=PackedStringArray("lbl_capitulo", "lbl_nombre", "background", "vignette", "particles_container", "gaucho_silhouette", "fade_overlay")]
+[node name="ChapterTransition" type="Control" unique_id=1856029389 node_paths=PackedStringArray("lbl_capitulo", "lbl_nombre", "background", "vignette", "particles_container", "fade_overlay")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +17,6 @@ lbl_nombre = NodePath("CenterContainer/VBoxContainer/LabelNombre")
 background = NodePath("Background")
 vignette = NodePath("Vignette")
 particles_container = NodePath("ParticlesContainer")
-gaucho_silhouette = NodePath("GauchoSilhouette")
 fade_overlay = NodePath("FadeOverlay")
 
 [node name="Background" type="TextureRect" parent="." unique_id=1714329657]
@@ -76,24 +74,6 @@ theme_override_fonts/font = ExtResource("4_dnngc")
 theme_override_font_sizes/font_size = 64
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="GauchoSilhouette" type="TextureRect" parent="." unique_id=215224598]
-modulate = Color(0, 0, 0, 0.85490197)
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -202.0
-offset_top = -202.0
-offset_right = -2.0
-offset_bottom = -2.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("5_5i64q")
-stretch_mode = 5
 
 [node name="FadeOverlay" type="ColorRect" parent="." unique_id=2101786948]
 modulate = Color(0, 0, 0, 1)
