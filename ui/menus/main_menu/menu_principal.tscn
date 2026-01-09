@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cg8qfwclqtgqg"]
+[gd_scene format=3 uid="uid://cg8qfwclqtgqg"]
 
 [ext_resource type="Script" uid="uid://bkko3fma0py56" path="res://ui/menus/main_menu/menu_principal.gd" id="1_script"]
 [ext_resource type="AudioStream" uid="uid://bjt47j7c6qoog" path="res://assets/sounds/music/menu_music.mp3" id="2_8pqr8"]
@@ -63,7 +63,7 @@ shadow_color = Color(1, 0.8, 0.3, 0.4)
 shadow_size = 6
 shadow_offset = Vector2(0, 2)
 
-[node name="MenuPrincipal" type="Control" node_paths=PackedStringArray("btn_jugar", "btn_como_jugar", "btn_configuracion", "btn_salir")]
+[node name="MenuPrincipal" type="Control" unique_id=65395969 node_paths=PackedStringArray("btn_jugar", "btn_como_jugar", "btn_configuracion", "btn_salir")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -76,10 +76,10 @@ btn_como_jugar = NodePath("BotonesPanel/VBoxContainer/BtnComoJugar")
 btn_configuracion = NodePath("BotonesPanel/VBoxContainer/BtnConfiguracion")
 btn_salir = NodePath("BotonesPanel/VBoxContainer/BtnSalir")
 
-[node name="Fondo" type="CanvasLayer" parent="."]
+[node name="Fondo" type="CanvasLayer" parent="." unique_id=1177090457]
 layer = -1
 
-[node name="Cielo" type="ColorRect" parent="Fondo"]
+[node name="Cielo" type="ColorRect" parent="Fondo" unique_id=1168522182]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -87,7 +87,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.4, 0.6, 0.85, 1)
 
-[node name="CieloGradiente" type="ColorRect" parent="Fondo"]
+[node name="CieloGradiente" type="ColorRect" parent="Fondo" unique_id=1763561040]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -96,7 +96,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.95, 0.7, 0.4, 1)
 
-[node name="Sol" type="ColorRect" parent="Fondo"]
+[node name="Sol" type="ColorRect" parent="Fondo" unique_id=1809242211]
 anchors_preset = -1
 anchor_left = 0.15
 anchor_top = 0.15
@@ -109,7 +109,7 @@ offset_bottom = 79.799995
 pivot_offset = Vector2(70, 70)
 color = Color(1, 0.9, 0.3, 1)
 
-[node name="SolGlow" type="ColorRect" parent="Fondo/Sol"]
+[node name="SolGlow" type="ColorRect" parent="Fondo/Sol" unique_id=1862946799]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -124,7 +124,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 0.8, 0.2, 0.3)
 
-[node name="Horizonte" type="ColorRect" parent="Fondo"]
+[node name="Horizonte" type="ColorRect" parent="Fondo" unique_id=84381462]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -134,7 +134,7 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.15, 0.25, 0.1, 1)
 
-[node name="Pampa" type="ColorRect" parent="Fondo"]
+[node name="Pampa" type="ColorRect" parent="Fondo" unique_id=991159262]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -144,7 +144,7 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.2, 0.35, 0.15, 1)
 
-[node name="PampaSombra" type="ColorRect" parent="Fondo"]
+[node name="PampaSombra" type="ColorRect" parent="Fondo" unique_id=579438610]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -154,18 +154,18 @@ grow_horizontal = 2
 grow_vertical = 0
 color = Color(0.15, 0.25, 0.1, 1)
 
-[node name="Decoracion1" type="Polygon2D" parent="Fondo"]
+[node name="Decoracion1" type="Polygon2D" parent="Fondo" unique_id=1084086639]
 position = Vector2(150, 420)
 color = Color(0.1, 0.15, 0.08, 0.7)
 polygon = PackedVector2Array(0, 0, -8, 80, -12, 120, -4, 120, 0, 150, 4, 120, 12, 120, 8, 80, 4, 40, 15, 15, 12, -8, 4, -4, 0, -15, -4, -4, -12, -8, -15, 15, -4, 40)
 
-[node name="Decoracion2" type="Polygon2D" parent="Fondo"]
+[node name="Decoracion2" type="Polygon2D" parent="Fondo" unique_id=1562831453]
 position = Vector2(950, 440)
 scale = Vector2(0.8, 0.8)
 color = Color(0.1, 0.15, 0.08, 0.7)
 polygon = PackedVector2Array(0, 0, -8, 80, -12, 120, -4, 120, 0, 150, 4, 120, 12, 120, 8, 80, 4, 40, 15, 15, 12, -8, 4, -4, 0, -15, -4, -4, -12, -8, -15, 15, -4, 40)
 
-[node name="TituloContainer" type="VBoxContainer" parent="."]
+[node name="TituloContainer" type="VBoxContainer" parent="." unique_id=1440596916]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -180,7 +180,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="Titulo" type="Label" parent="TituloContainer"]
+[node name="Titulo" type="Label" parent="TituloContainer" unique_id=1554511686]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.4, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.9764706)
@@ -191,7 +191,7 @@ theme_override_font_sizes/font_size = 72
 text = "La Odisea del Gaucho "
 horizontal_alignment = 1
 
-[node name="Subtitulo" type="Label" parent="TituloContainer"]
+[node name="Subtitulo" type="Label" parent="TituloContainer" unique_id=1069948430]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -200,7 +200,7 @@ theme_override_font_sizes/font_size = 22
 text = "Una aventura gaucha contra la Muerte"
 horizontal_alignment = 1
 
-[node name="Demo" type="Label" parent="TituloContainer"]
+[node name="Demo" type="Label" parent="TituloContainer" unique_id=946408879]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 0.24313726, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -209,7 +209,7 @@ theme_override_font_sizes/font_size = 30
 text = "DEMO VERSION"
 horizontal_alignment = 1
 
-[node name="BotonesPanel" type="Panel" parent="."]
+[node name="BotonesPanel" type="Panel" parent="." unique_id=578511465]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -224,7 +224,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BotonesPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="BotonesPanel" unique_id=1841839003]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -235,11 +235,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 18
 
-[node name="Margin" type="Control" parent="BotonesPanel/VBoxContainer"]
+[node name="Margin" type="Control" parent="BotonesPanel/VBoxContainer" unique_id=765191910]
 custom_minimum_size = Vector2(0, 15)
 layout_mode = 2
 
-[node name="BtnJugar" type="Button" parent="BotonesPanel/VBoxContainer"]
+[node name="BtnJugar" type="Button" parent="BotonesPanel/VBoxContainer" unique_id=1413132813]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -254,7 +254,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "JUGAR"
 
-[node name="BtnComoJugar" type="Button" parent="BotonesPanel/VBoxContainer"]
+[node name="BtnComoJugar" type="Button" parent="BotonesPanel/VBoxContainer" unique_id=1160448226]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -269,7 +269,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "COMO JUGAR"
 
-[node name="BtnConfiguracion" type="Button" parent="BotonesPanel/VBoxContainer"]
+[node name="BtnConfiguracion" type="Button" parent="BotonesPanel/VBoxContainer" unique_id=1982345611]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -284,7 +284,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "CONFIGURACION"
 
-[node name="BtnSalir" type="Button" parent="BotonesPanel/VBoxContainer"]
+[node name="BtnSalir" type="Button" parent="BotonesPanel/VBoxContainer" unique_id=223153469]
 custom_minimum_size = Vector2(360, 55)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -299,7 +299,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_pressed")
 theme_override_styles/hover = SubResource("StyleBoxFlat_btn_hover")
 text = "SALIR"
 
-[node name="Version" type="Label" parent="."]
+[node name="Version" type="Label" parent="." unique_id=200579545]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -314,10 +314,10 @@ grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
 theme_override_font_sizes/font_size = 14
-text = "v0.7.11a"
+text = "v0.8.1a"
 horizontal_alignment = 2
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=637416682]
 stream = ExtResource("2_8pqr8")
 autoplay = true
 bus = &"Music"

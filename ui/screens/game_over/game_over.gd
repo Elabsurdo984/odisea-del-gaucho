@@ -93,6 +93,8 @@ func configurar_texto():
 			texto_placa = "CONFUSIÓN EN EL CAMPO:\nSE LLEVÓ PUESTO UN YUYO"
 		"tero":
 			texto_placa = "ATAQUE AÉREO:\nTERO DEFIENDE SU NIDO"
+		"truco":
+			texto_placa = "DERROTA EN EL TRUCO:\nLA MUERTE SE LLEVÓ SU ALMA"
 		_:
 			if causa != "":
 				texto_placa = causa.to_upper()

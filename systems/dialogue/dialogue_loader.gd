@@ -13,15 +13,13 @@ extends RefCounted
 static func load_from_csv(file_path: String) -> Array:
     var dialogues: Array = []
 
-    # Verificar que el archivo existe
-    if not FileAccess.file_exists(file_path):
-        push_error("❌ DialogueLoader: Archivo no encontrado: " + file_path)
-        return dialogues
+    print("🔍 DialogueLoader: Intentando cargar: ", file_path)
 
-    # Abrir archivo
+    # Abrir archivo directamente (file_exists no funciona en ejecutables exportados)
     var file = FileAccess.open(file_path, FileAccess.READ)
     if file == null:
-        push_error("❌ DialogueLoader: No se pudo abrir el archivo: " + file_path)
+        var error = FileAccess.get_open_error()
+        push_error("❌ DialogueLoader: No se pudo abrir el archivo: " + file_path + " (Error: " + str(error) + ")")
         return dialogues
 
     # Leer header (primera línea)

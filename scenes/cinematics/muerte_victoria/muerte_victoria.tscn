@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://pr5rd4oudkim"]
+
+[ext_resource type="Script" uid="uid://cy4itwocd1gis" path="res://scenes/cinematics/muerte_victoria/muerte_victoria.gd" id="1_qrvkj"]
+[ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="2_jg1gj"]
+[ext_resource type="PackedScene" uid="uid://c5mpyrx5lka41" path="res://systems/dialogue/dialogue_ui.tscn" id="3_jabcv"]
+[ext_resource type="Script" uid="uid://cns006pw7yk01" path="res://systems/dialogue/dialogue_manager.gd" id="4_jg1gj"]
+
+[node name="MuerteVictoria" type="Control" unique_id=384938792 node_paths=PackedStringArray("muerte_sprite", "dialogue_ui_scene", "dialogue_manager")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qrvkj")
+muerte_sprite = NodePath("MuerteSprite")
+dialogue_ui_scene = NodePath("DialogueUI")
+dialogue_manager = NodePath("DialogueManager")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1936578033]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MuerteSprite" type="Sprite2D" parent="." unique_id=775933749]
+position = Vector2(530.125, 246.24998)
+scale = Vector2(0.31549987, 0.31899998)
+texture = ExtResource("2_jg1gj")
+
+[node name="DialogueUI" parent="." unique_id=2055404236 instance=ExtResource("3_jabcv")]
+
+[node name="DialogueManager" type="Node" parent="." unique_id=1280444963]
+script = ExtResource("4_jg1gj")

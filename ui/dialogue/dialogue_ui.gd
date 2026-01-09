@@ -19,13 +19,22 @@ func get_dialogue_manager() -> Node:
 
 ## Muestra el panel de diálogo
 func mostrar() -> void:
-	panel_dialogo.visible = true
+	if panel_dialogo:
+		panel_dialogo.visible = true
+	else:
+		visible = true
 
 ## Oculta el panel de diálogo
 func ocultar() -> void:
-	panel_dialogo.visible = false
+	if panel_dialogo:
+		panel_dialogo.visible = false
+	else:
+		visible = false
 
 ## Verifica si el panel está visible
 func esta_visible() -> bool:
-	return panel_dialogo.visible
+	if panel_dialogo:
+		return panel_dialogo.visible
+	else:
+		return visible
 #endregion
