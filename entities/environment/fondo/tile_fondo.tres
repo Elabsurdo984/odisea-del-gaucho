@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://ckcttcxat0bej"]
+[gd_resource type="TileSet" format=3 uid="uid://ckcttcxat0bej"]
 
 [ext_resource type="Texture2D" uid="uid://dw3j3wfjoign7" path="res://assets/kenney_pixel-platformer/Tilemap/tilemap-backgrounds_packed.png" id="1_3pu8t"]
 

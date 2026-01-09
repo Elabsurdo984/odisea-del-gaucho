@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://csc4vxhdu4yst"]
+
+[ext_resource type="Shader" uid="uid://wbyvn8byrwhh" path="res://tres/shaders/shader-vignette.gdshader" id="1_a2rmp"]
+
+[resource]
+shader = ExtResource("1_a2rmp")

@@ -11,6 +11,7 @@ extends Control
 
 #region INICIALIZACIÓN
 func _ready():
+
 	# Conectar botones
 	if btn_jugar:
 		btn_jugar.pressed.connect(_on_jugar_pressed)
@@ -21,14 +22,14 @@ func _ready():
 	if btn_salir:
 		btn_salir.pressed.connect(_on_salir_pressed)
 
-	print("🎮 Menú principal cargado")
+	print("🎮 Menú principal cargado (DEMO)")
 #endregion
 
 #region CALLBACKS
 func _on_jugar_pressed():
-	print("▶️ Iniciando juego...")
-	# Ir a la cinemática de inicio
-	get_tree().change_scene_to_file("res://scenes/cinematics/intro_cinematic/cinematica_inicio.tscn")
+	print("▶️ Iniciando Capítulo 1...")
+	# Ir a la pantalla de transición del capítulo 1
+	get_tree().change_scene_to_file("res://scenes/chapter_transition/chapter_transition.tscn")
 
 func _on_como_jugar_pressed():
 	print("📖 Mostrando instrucciones...")

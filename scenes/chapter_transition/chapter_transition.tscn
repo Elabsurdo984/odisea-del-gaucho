@@ -1,0 +1,106 @@
+[gd_scene format=3 uid="uid://bt7himb0amglp"]
+
+[ext_resource type="Script" uid="uid://cygphb2n0vsrp" path="res://scenes/chapter_transition/chapter_transition.gd" id="1_ka5nh"]
+[ext_resource type="Material" uid="uid://csc4vxhdu4yst" path="res://tres/shaders/shader-vignette.tres" id="3_j6r7k"]
+[ext_resource type="FontFile" uid="uid://cabidt0o0hf4a" path="res://assets/fonts/Snowbell-Wp4g9.ttf" id="4_dnngc"]
+[ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="5_5i64q"]
+
+[node name="ChapterTransition" type="Control" unique_id=1856029389 node_paths=PackedStringArray("lbl_capitulo", "lbl_nombre", "background", "vignette", "particles_container", "gaucho_silhouette", "fade_overlay")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ka5nh")
+lbl_capitulo = NodePath("CenterContainer/VBoxContainer/LabelCapitulo")
+lbl_nombre = NodePath("CenterContainer/VBoxContainer/LabelNombre")
+background = NodePath("Background")
+vignette = NodePath("Vignette")
+particles_container = NodePath("ParticlesContainer")
+gaucho_silhouette = NodePath("GauchoSilhouette")
+fade_overlay = NodePath("FadeOverlay")
+
+[node name="Background" type="TextureRect" parent="." unique_id=1714329657]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="ColorRect" parent="." unique_id=498332530]
+material = ExtResource("3_j6r7k")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0018410678, 0.0018410682, 0.0018410678, 1)
+
+[node name="ParticlesContainer" type="Control" parent="." unique_id=1232657626]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1922962705]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=2105475727]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LabelCapitulo" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1828120020]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.84313726, 0, 1)
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="LabelNombre" type="Label" parent="CenterContainer/VBoxContainer" unique_id=521807559]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("4_dnngc")
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GauchoSilhouette" type="TextureRect" parent="." unique_id=215224598]
+modulate = Color(0, 0, 0, 0.85490197)
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -202.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("5_5i64q")
+stretch_mode = 5
+
+[node name="FadeOverlay" type="ColorRect" parent="." unique_id=2101786948]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

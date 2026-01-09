@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=12 format=3 uid="uid://cemugkfayrrio"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cemugkfayrrio"]
 
 [ext_resource type="Texture2D" uid="uid://bbtgdybvbhnjy" path="res://assets/personajes/gaucho/gaucho_agache.png" id="1_1tnws"]
 [ext_resource type="Texture2D" uid="uid://b1cbd481u0a5e" path="res://assets/personajes/gaucho/gaucho_run.png" id="1_p3tex"]
