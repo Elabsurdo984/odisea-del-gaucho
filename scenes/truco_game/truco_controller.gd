@@ -141,6 +141,9 @@ func procesar_jugada(quien: String, carta) -> void:
 				state.cartas_muerte.remove_at(i)
 				break
 
+		# Eliminar visualmente una carta del dorso de la muerte
+		ui.eliminar_carta_muerte_dorso()
+
 		# Si ambos jugaron, evaluar la ronda
 		if state.carta_jugada_jugador != null:
 			await get_tree().create_timer(1.5).timeout

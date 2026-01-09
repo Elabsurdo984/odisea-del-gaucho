@@ -133,6 +133,15 @@ func mostrar_cartas_muerte_dorso(cantidad: int = 3) -> void:
 		carta.mostrar_dorso()
 		carta.hacer_clickeable(false)
 
+func eliminar_carta_muerte_dorso() -> void:
+	# Elimina una carta del dorso de la mano de la muerte
+	if not contenedor_cartas_muerte: return
+
+	var cartas = contenedor_cartas_muerte.get_children()
+	if cartas.size() > 0:
+		# Eliminar la última carta del contenedor
+		cartas[cartas.size() - 1].queue_free()
+
 func animar_carta_a_mesa(carta: Carta, quien: String) -> void:
 	# Reparentar carta a la escena principal o un nodo superior para moverla libremente
 	# O simplemente moverla desde su contenedor actual hacia el marker
