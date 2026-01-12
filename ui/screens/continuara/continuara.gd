@@ -46,13 +46,14 @@ func iniciar_secuencia():
 	# Esperar que el usuario vea el mensaje
 	await get_tree().create_timer(5.0).timeout
 
-	# Fade out final
-	var tween_final = create_tween()
-	tween_final.tween_property(self, "modulate:a", 0.0, 2.0)
-	await tween_final.finished
-
-	# Volver al menú principal
-	get_tree().change_scene_to_file("res://ui/menus/main_menu/menu_principal.tscn")
+	# Transición al menú principal usando TransitionManager
+	await TransitionManager.transition_to_scene(
+		self,
+		"res://ui/menus/main_menu/menu_principal.tscn",
+		null,
+		2.0,
+		0.0
+	)
 #endregion
 
 #region INPUT
@@ -60,9 +61,10 @@ func _input(event):
 	# Permitir saltear con cualquier tecla/click
 	if event is InputEventKey or event is InputEventMouseButton:
 		if event.is_pressed():
-			# Fade out rápido y salir
-			var tween = create_tween()
-			tween.tween_property(self, "modulate:a", 0.0, 0.5)
-			await tween.finished
-			get_tree().change_scene_to_file("res://ui/menus/main_menu/menu_principal.tscn")
+			# Fade out rápido y salir usando TransitionManager
+			await TransitionManager.quick_fade_to_scene(
+				self,
+				"res://ui/menus/main_menu/menu_principal.tscn",
+				0.5
+			)
 #endregion

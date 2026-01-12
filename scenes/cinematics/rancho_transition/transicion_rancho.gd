@@ -69,10 +69,8 @@ func iniciar_transicion():
 	# 1. Esperar un momento
 	await get_tree().create_timer(0.5).timeout
 
-	# 2. Hacer aparecer el rancho al fondo (fade in lento)
-	if rancho_sprite:
-		var tween1 = create_tween()
-		tween1.tween_property(rancho_sprite, "modulate:a", 1.0, 2.0)
+	# 2. Hacer aparecer el rancho al fondo usando TransitionManager
+	TransitionManager.fade_in_sprite(rancho_sprite, 2.0, 0.0, 1.0)
 
 	# 3. Esperar un poco mientras aparece el rancho
 	await get_tree().create_timer(1.0).timeout
@@ -91,10 +89,8 @@ func iniciar_transicion():
 	aparecer_muerte()
 
 func aparecer_muerte():
-	# Fade in de la Muerte
-	if muerte_sprite and is_instance_valid(muerte_sprite):
-		var tween = create_tween()
-		tween.tween_property(muerte_sprite, "modulate:a", 1.0, 1.5)
+	# Fade in de la Muerte usando TransitionManager
+	await TransitionManager.fade_in_sprite(muerte_sprite, 1.5, 0.0, 1.0)
 #endregion
 
 #region CALLBACKS
@@ -104,12 +100,12 @@ func _on_dialogue_line_started(character_name: String, text: String):
 func _on_dialogue_ended():
 	print("🎴 Transición terminada - Yendo a la escena del truco...")
 
-	# Fade out
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 1.0)
-	await tween.finished
-
-	# Ir a la escena del truco
-	await get_tree().create_timer(0.5).timeout
-	get_tree().change_scene_to_file("res://scenes/truco_game/truco.tscn")
+	# Transición al Truco usando TransitionManager
+	await TransitionManager.transition_to_scene(
+		self,
+		"res://scenes/truco_game/truco.tscn",
+		null,
+		1.0,
+		0.5
+	)
 #endregion

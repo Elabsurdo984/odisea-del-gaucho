@@ -79,18 +79,12 @@ func iniciar_cinematica():
 func _on_dialogue_ended():
 	print("🎊 Jugador Victoria - Transicionando a pantalla de Continuará...")
 
-	# Ocultar UI de diálogo
-	if dialogue_ui_scene and is_instance_valid(dialogue_ui_scene):
-		dialogue_ui_scene.ocultar()
-
-	# Esperar un momento antes de transicionar
-	await get_tree().create_timer(0.5).timeout
-
-	# Fade out épico
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 2.0)
-	await tween.finished
-
-	# Transición a pantalla de "Continuará..."
-	get_tree().change_scene_to_file("res://ui/screens/continuara/continuara.tscn")
+	# Transición épica a pantalla de "Continuará..." usando TransitionManager
+	await TransitionManager.transition_to_scene(
+		self,
+		"res://ui/screens/continuara/continuara.tscn",
+		dialogue_ui_scene,
+		2.0,  # Fade más largo para efecto épico
+		0.5
+	)
 #endregion

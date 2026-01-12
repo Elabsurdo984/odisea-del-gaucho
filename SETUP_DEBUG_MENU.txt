@@ -1,0 +1,34 @@
+🔧 CONFIGURACIÓN DEL DEBUG MENU
+================================
+
+El Debug Menu NO funcionará hasta que lo configures como Autoload en Godot.
+
+PASOS PARA CONFIGURAR (2 minutos):
+
+1. Abrí Godot
+2. Andá a: Project > Project Settings
+3. Seleccioná la pestaña "Autoload"
+4. Hacé click en el ícono de carpeta (📁) al lado de "Path:"
+5. Navegá a: res://systems/debug/debug_menu.tscn
+6. En "Node Name" poné: DebugMenu
+7. Hacé click en "Add"
+8. Cerrá Project Settings
+
+¡LISTO! Ahora presioná F5 y después F12 para ver el menú.
+
+NOTA: Si ya lo hiciste y no funciona:
+- Verificá que en la lista de Autoload aparezca "DebugMenu"
+- Cerrá y volvé a abrir Godot
+- Ejecutá el juego con F5 y presioná F12
+
+================================
+
+ALTERNATIVA RÁPIDA (Sin configurar):
+
+Si querés probar las cinemáticas sin configurar nada:
+
+1. Abrí: scenes/cinematics/test_scenes/test_cinematics_runner.tscn
+2. Presioná F6 (Play Scene)
+3. Usá teclas [1], [2], [3], [4], [5] para ver cinemáticas
+
+Esta escena funciona sin configuración adicional.

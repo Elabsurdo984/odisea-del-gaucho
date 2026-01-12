@@ -17,6 +17,9 @@ This is a Godot project. Open it in Godot Editor (version 4.5+) and press F5 to 
 3. **Gameplay** (`nivel_pampa.tscn`) → Endless runner with obstacles and mates
 4. **Transition Cinematic** (`transicion_rancho.tscn`) → When 100 mates collected
 5. **Truco Card Game** (`truco.tscn`) → Final challenge against La Muerte
+6. **Victory/Defeat**:
+   - **If Player Wins**: Victory Cinematic (`jugador_victoria.tscn`) → "Continuará..." Screen → Main Menu
+   - **If Player Loses**: Defeat Cinematic (`muerte_victoria.tscn`) → Game Over Screen
 
 ## Project Architecture
 
@@ -51,10 +54,12 @@ This is a Godot project. Open it in Godot Editor (version 4.5+) and press F5 to 
 - Loads dialogues from `data/dialogues/transicion_rancho.csv`
 - Transitions to Truco card game
 
-**Truco Card Game**: `scenes/truco/truco.tscn`
+**Truco Card Game**: `scenes/truco_game/truco.tscn`
 - Turn-based card game against "La Muerte"
 - Uses Argentine Truco rules
-- Victory condition: First to 30 points wins
+- Victory condition: First to reach `_puntos_ganar` points (default: 30, configurable for testing)
+- **Victory Flow**: When player reaches target points → Victory message → Victory cinematic
+- **Defeat Flow**: When La Muerte reaches target points → Defeat message → Defeat cinematic
 
 ### Core Systems
 
@@ -162,26 +167,56 @@ This is a Godot project. Open it in Godot Editor (version 4.5+) and press F5 to 
   - Plays death sound
 - Must be in collision layer 2 ("Jugador") to interact with obstacles
 
-**7. Cinematics** (`scenes/cinematica/`, `scenes/transicion_rancho/`)
+**7. Cinematics** (`scenes/cinematics/`)
 
-**Opening Cinematic** (`cinematica_inicio.gd`):
+**Opening Cinematic** (`intro_cinematic/cinematica_inicio.gd`):
 - Loads dialogues from `res://data/dialogues/cinematica_inicio.csv`
 - Sequence: Wait → Fade in La Muerte → Show dialogue UI → Start dialogue
 - On dialogue end: transitions to `nivel_pampa.tscn`
 - Ensures Engine.time_scale = 1.0 on startup
 
-**Transition Cinematic** (`transicion_rancho.gd`):
+**Transition Cinematic** (`rancho_transition/transicion_rancho.gd`):
 - Triggered by GameManager when 100 mates collected
 - Loads dialogues from `res://data/dialogues/transicion_rancho.csv`
 - Sequence: Wait → Fade in Rancho → Show dialogue → Fade in La Muerte
 - On dialogue end: fade out → transition to `truco.tscn`
 
-**8. UI Systems**
+**Victory Cinematic** (`jugador_victoria/jugador_victoria.gd`):
+- Triggered when player wins Truco game (reaches target points first)
+- Loads dialogues from `res://data/dialogues/jugador_gana_truco.csv`
+- **Epic Dialogue**: La Muerte acknowledges defeat and warns the journey continues
+- Visual: Nocturnal scene with moon, stars, Gaucho and La Muerte face-to-face
+- Sequence: Wait → Show dialogue UI → Start dialogue → Fade out
+- On dialogue end: transitions to "Continuará..." screen
+
+**Defeat Cinematic** (`muerte_victoria/muerte_victoria.gd`):
+- Triggered when La Muerte wins Truco game
+- Loads dialogues from `res://data/dialogues/muerte_gana_truco.csv`
+- On dialogue end: transitions to Game Over screen
+
+**8. TransitionManager** (`systems/transitions/transition_manager.gd`)
+- Centralized utility class for scene transitions and fade effects
+- Eliminates code duplication across cinematics and UI screens
+- **Static Methods**:
+  - `transition_to_scene()`: Complete transition (hide UI → wait → fade out → change scene)
+  - `quick_fade_to_scene()`: Fast fade for skipping screens
+  - `fade_in_sprite()`: Fade in a sprite with configurable duration and alpha values
+  - `fade_out_sprite()`: Fade out a sprite
+- **Usage**: All cinematics and UI screens use TransitionManager for consistent transitions
+- **Benefits**: Single source of truth, easier maintenance, consistent timing
+
+**9. UI Systems**
 - **Pause Menu** (`scenes/pause_menu/`): ESC to pause, options to resume/restart/quit
 - **Score UI** (`scenes/puntaje/ui_puntaje.tscn`): Displays mates collected
 - **Configuration** (`scenes/configuracion/`): Audio/video settings with persistent save
 - **How to Play** (`scenes/como_jugar/`): Game instructions and Truco rules
-- **Congratulations** (`scenes/felicitaciones/`): Victory screen (likely after Truco)
+- **"Continuará..." Screen** (`ui/screens/continuara/`):
+  - Epic ending screen shown after victory cinematic
+  - Displays "CONTINUARÁ..." with dramatic fade effects and pulsing animation
+  - Stars background for atmospheric effect
+  - Auto-advances to main menu after 5 seconds
+  - Can be skipped by pressing any key or clicking
+  - Indicates this is a demo and the story will continue
 
 ### Physics Layers
 
@@ -286,21 +321,26 @@ gaucholand/
 ├── data/
 │   └── dialogues/
 │       ├── cinematica_inicio.csv
-│       └── transicion_rancho.csv
+│       ├── transicion_rancho.csv
+│       ├── jugador_gana_truco.csv  # Victory dialogues
+│       └── muerte_gana_truco.csv   # Defeat dialogues
 ├── scenes/
-│   ├── cinematica/
-│   │   ├── cinematica_inicio.tscn
-│   │   └── cinematica_inicio.gd
-│   ├── como_jugar/
-│   ├── configuracion/
-│   ├── dialogue_ui/
-│   │   ├── dialogue_ui.tscn
-│   │   └── dialogue_ui.gd
-│   ├── felicitaciones/
+│   ├── cinematics/
+│   │   ├── intro_cinematic/
+│   │   │   ├── cinematica_inicio.tscn
+│   │   │   └── cinematica_inicio.gd
+│   │   ├── rancho_transition/
+│   │   │   ├── transicion_rancho.tscn
+│   │   │   └── transicion_rancho.gd
+│   │   ├── jugador_victoria/      # NEW: Victory cinematic
+│   │   │   ├── jugador_victoria.tscn
+│   │   │   └── jugador_victoria.gd
+│   │   └── muerte_victoria/       # Defeat cinematic
+│   │       ├── muerte_victoria.tscn
+│   │       └── muerte_victoria.gd
 │   ├── jugador/
 │   │   ├── jugador.tscn
 │   │   └── jugador.gd
-│   ├── menu_principal/
 │   ├── nivel/
 │   │   └── nivel.tscn
 │   ├── nivel_pampa/
@@ -310,7 +350,6 @@ gaucholand/
 │   │   ├── obstacle.gd
 │   │   ├── obstacle_spawner.tscn
 │   │   └── obstacle_spawner.gd
-│   ├── pause_menu/
 │   ├── puntaje/
 │   │   ├── mate.tscn
 │   │   ├── mate.gd
@@ -320,19 +359,84 @@ gaucholand/
 │   ├── suelo/
 │   │   ├── suelo.tscn
 │   │   └── suelo.gd
-│   ├── transicion_rancho/
-│   │   ├── transicion_rancho.tscn
-│   │   └── transicion_rancho.gd
-│   └── truco/
+│   └── truco_game/
 │       ├── truco.tscn
-│       ├── truco.gd
-│       ├── carta.tscn
-│       ├── carta.gd
-│       └── mazo.gd
-└── scripts/
-    ├── game_manager.gd (autoload)
-    ├── dialogue_manager.gd
-    └── dialogue_loader.gd (class_name)
+│       ├── truco_controller.gd
+│       ├── truco_state.gd
+│       ├── truco_rules.gd
+│       ├── truco_ui.gd
+│       └── ... (other Truco components)
+├── ui/
+│   ├── screens/
+│   │   └── continuara/           # NEW: "To be continued" screen
+│   │       ├── continuara.tscn
+│   │       └── continuara.gd
+│   └── menus/
+│       └── main_menu/
+│           └── menu_principal.tscn
+└── systems/
+    ├── dialogue/
+    │   ├── dialogue_ui.tscn
+    │   ├── dialogue_manager.gd
+    │   └── dialogue_loader.gd (class_name)
+    ├── transitions/
+    │   └── transition_manager.gd  (NEW: Centralized transition utility)
+    └── ... (other systems)
 ```
+## Testing y Debug
+
+### Debug Menu (F12)
+Sistema completo para testing rápido sin jugar todo el juego desde el inicio.
+
+**Acceso:** Presionar F12 en cualquier momento (solo modo debug)
+
+**Características:**
+- Saltar a cualquier cinemática instantáneamente
+- Cargar nivel de gameplay o Truco directamente
+- Ver estado del GameManager
+- Reset del GameManager
+- Test del TransitionManager
+
+**Archivo:** `systems/debug/debug_menu.tscn` (autoload)
+
+### Test Cinematics Runner
+Escena especial para testing de cinemáticas.
+
+**Uso:**
+1. Abrir `scenes/cinematics/test_scenes/test_cinematics_runner.tscn`
+2. Presionar F6 (Play Scene)
+3. Usar teclas numéricas [1-5] para cargar cinemáticas
+
+**Ventajas:**
+- Configura automáticamente el GameManager
+- No requiere jugar el juego completo
+- Ideal para revisar diálogos y timing
+
+### Comandos Debug en Truco
+Comandos especiales durante el juego de Truco (solo modo debug):
+
+- **F9** - Ganar instantáneamente → Cinemática de victoria
+- **F10** - Perder instantáneamente → Cinemática de derrota
+- **F11** - +10 puntos al jugador
+
+**Implementación:** `scenes/truco_game/truco_controller.gd` (líneas 417-450)
+
+### Ejecutar Escenas Directamente
+Método profesional de Godot para testing:
+
+1. Abrir la escena a testear en el editor
+2. Presionar F6 (Play Scene) en lugar de F5
+3. La escena se ejecuta inmediatamente
+
+**Escenas útiles:**
+- `scenes/cinematics/*/[nombre].tscn` - Cinemáticas
+- `scenes/truco_game/truco.tscn` - Truco
+- `ui/screens/continuara/continuara.tscn` - Pantalla final
+
+### Notas Importantes
+- Todo el sistema de debug se desactiva automáticamente en builds de release
+- `OS.is_debug_build()` controla la disponibilidad de comandos
+- Los comandos debug NO aparecen en el build final del juego
+
 ## Buenas Practicas
 Siempre utiliza el archivo BUENAS_PRACTICAS.md en docs/BUENAS_PRACTICAS.md para hacer cualquier cosa en el proyecto

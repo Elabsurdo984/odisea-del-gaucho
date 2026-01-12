@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqv5m8k7x3pqn"]
+
+[ext_resource type="Script" path="res://scenes/cinematics/test_scenes/test_cinematics_runner.gd" id="1_runner"]
+
+[node name="TestCinematicsRunner" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_runner")
+
+[node name="Fondo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Titulo" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "🎬 TEST CINEMATICS RUNNER"
+horizontal_alignment = 1
+
+[node name="Instrucciones" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Presiona el número para cargar la cinemática:
+
+[1] - Cinemática Intro
+[2] - Transición Rancho
+[3] - Victoria Jugador
+[4] - Victoria Muerte
+[5] - Pantalla Continuará
+
+[ESC] - Salir"
+horizontal_alignment = 1
+
+[node name="Info" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
+theme_override_font_sizes/font_size = 14
+text = "GameManager se configura automáticamente
+para que las transiciones funcionen correctamente"
+horizontal_alignment = 1

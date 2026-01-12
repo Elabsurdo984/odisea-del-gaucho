@@ -16,16 +16,29 @@ var es_turno_jugador: bool = true
 var estado_respuesta_pendiente: String = "" # "envido", "truco", ""
 
 # ============================================================
+# PRIVATE VARIABLES
+# ============================================================
+var _puntos_ganar: int = 3
+
+
+# ============================================================
 # LIFECYCLE
 # ============================================================
 func _ready() -> void:
 	# Inyectar dependencias en la IA
 	ai.truco_state = state
 	ai.truco_betting = betting
-	
+
 	deck = Deck.new()
 	conectar_senales()
 	comenzar_nueva_mano()
+
+	# Mostrar comandos de debug si estamos en modo debug
+	if OS.is_debug_build():
+		print("🔧 COMANDOS DEBUG TRUCO:")
+		print("   [F9] - Ganar instantáneamente")
+		print("   [F10] - Perder instantáneamente")
+		print("   [F11] - +10 puntos al jugador")
 
 func conectar_senales() -> void:
 	# Conexiones de UI (Botones y Cartas)
@@ -191,13 +204,13 @@ func finalizar_mano() -> void:
 	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
 
 	# Verificar si alguien ganó la partida (30 puntos)
-	if state.puntos_jugador >= 30:
+	if state.puntos_jugador >= _puntos_ganar:
 		ui.mostrar_mensaje("¡VICTORIA! Derrotaste a La Muerte", 6.0)
 		await get_tree().create_timer(6.0).timeout
 		# Transicionar a la cinemática de victoria
 		get_tree().change_scene_to_file("res://scenes/cinematics/jugador_victoria/jugador_victoria.tscn")
 		return
-	elif state.puntos_muerte >= 30:
+	elif state.puntos_muerte >= _puntos_ganar:
 		ui.mostrar_mensaje("DERROTA... La Muerte te venció", 3.0)
 		await get_tree().create_timer(3.0).timeout
 		# Transicionar a la cinemática de derrota
@@ -216,7 +229,6 @@ func _nombre_palo(palo: int) -> String:
 		Carta.Palo.BASTO: return "Basto"
 	return ""
 
-# ... (rest of file)
 
 # ============================================================
 # MANEJO DE IA
@@ -399,6 +411,40 @@ func _on_envido_resuelto(ganador: String, puntos: int) -> void:
 func _on_apuesta_aceptada() -> void: pass
 func _on_apuesta_rechazada() -> void: pass
 
-func game_over() -> void:
-	print("FIN DEL JUEGO")
-	# Llamar a SceneManager para ir a creditos o menu
+# ============================================================
+# DEBUG COMMANDS (Solo en modo debug)
+# ============================================================
+func _input(event: InputEvent) -> void:
+	if not OS.is_debug_build():
+		return
+
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_F9:
+				_debug_ganar_instantaneamente()
+			KEY_F10:
+				_debug_perder_instantaneamente()
+			KEY_F11:
+				_debug_agregar_puntos_jugador(10)
+
+func _debug_ganar_instantaneamente() -> void:
+	print("🎉 DEBUG: Ganando instantáneamente...")
+	state.puntos_jugador = _puntos_ganar
+	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
+	ui.mostrar_mensaje("¡VICTORIA! (DEBUG)", 3.0)
+	await get_tree().create_timer(3.0).timeout
+	get_tree().change_scene_to_file("res://scenes/cinematics/jugador_victoria/jugador_victoria.tscn")
+
+func _debug_perder_instantaneamente() -> void:
+	print("💀 DEBUG: Perdiendo instantáneamente...")
+	state.puntos_muerte = _puntos_ganar
+	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
+	ui.mostrar_mensaje("DERROTA (DEBUG)", 3.0)
+	await get_tree().create_timer(3.0).timeout
+	get_tree().change_scene_to_file("res://scenes/cinematics/muerte_victoria/muerte_victoria.tscn")
+
+func _debug_agregar_puntos_jugador(puntos: int) -> void:
+	print("⚡ DEBUG: +%d puntos al jugador" % puntos)
+	state.agregar_puntos_jugador(puntos)
+	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
+	ui.mostrar_mensaje("DEBUG: +%d puntos" % puntos, 2.0)

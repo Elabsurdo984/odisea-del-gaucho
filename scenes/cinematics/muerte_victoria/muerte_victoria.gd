@@ -75,21 +75,15 @@ func iniciar_cinematica():
 func _on_dialogue_ended():
 	print("☠️ Muerte Victoria - Transicionando a Game Over...")
 
-	# Ocultar UI de diálogo
-	if dialogue_ui_scene and is_instance_valid(dialogue_ui_scene):
-		dialogue_ui_scene.ocultar()
-
-	# Esperar un momento antes de transicionar
-	await get_tree().create_timer(0.5).timeout
-
 	# Establecer causa de muerte para la pantalla de Game Over
 	GameManager.causa_muerte = "truco"
 
-	# Fade out
-	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 0.0, 1.0)
-	await tween.finished
-
-	# Transición a Game Over
-	get_tree().change_scene_to_file("res://ui/screens/game_over/game_over.tscn")
+	# Transición a Game Over usando TransitionManager
+	await TransitionManager.transition_to_scene(
+		self,
+		"res://ui/screens/game_over/game_over.tscn",
+		dialogue_ui_scene,
+		1.0,
+		0.5
+	)
 #endregion

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://csldrx7lxoc66"]
+[gd_scene format=3 uid="uid://csldrx7lxoc66"]
 
 [ext_resource type="Script" uid="uid://blr6kjarghul8" path="res://scenes/truco_game/truco_controller.gd" id="1_controller"]
 [ext_resource type="Script" uid="uid://1scit2erw1y3" path="res://scenes/truco_game/truco_state.gd" id="2_state"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cgn75kp8wndqb" path="res://assets/personajes/gaucho/personaje.png" id="10_gaucho_img"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="11_muerte_img"]
 
-[node name="TrucoGame" type="Control"]
+[node name="TrucoGame" type="Control" unique_id=1439151243]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,33 +20,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="--- LOGIC SYSTEMS ---" type="Node" parent="."]
+[node name="--- LOGIC SYSTEMS ---" type="Node" parent="." unique_id=1491800891]
 
-[node name="TrucoController" type="Node" parent="."]
+[node name="TrucoController" type="Node" parent="." unique_id=733609756]
 script = ExtResource("1_controller")
 
-[node name="TrucoState" type="Node" parent="."]
+[node name="TrucoState" type="Node" parent="." unique_id=921233958]
 script = ExtResource("2_state")
 
-[node name="TrucoRules" type="Node" parent="."]
+[node name="TrucoRules" type="Node" parent="." unique_id=1128445268]
 script = ExtResource("3_rules")
 
-[node name="EnvidoSystem" type="Node" parent="."]
+[node name="EnvidoSystem" type="Node" parent="." unique_id=2103683113]
 script = ExtResource("4_envido")
 
-[node name="TrucoBetting" type="Node" parent="."]
+[node name="TrucoBetting" type="Node" parent="." unique_id=1845947244]
 script = ExtResource("5_betting")
 
-[node name="AIMuerte" type="Node" parent="."]
+[node name="AIMuerte" type="Node" parent="." unique_id=1266854533]
 script = ExtResource("7_ai")
 
-[node name="AIStrategy" type="Node" parent="AIMuerte"]
+[node name="AIStrategy" type="Node" parent="AIMuerte" unique_id=1041825801]
 script = ExtResource("8_strategy")
 
-[node name="AIDecision" type="Node" parent="AIMuerte"]
+[node name="AIDecision" type="Node" parent="AIMuerte" unique_id=1213709422]
 script = ExtResource("9_decision")
 
-[node name="TrucoUI" type="Node" parent="." node_paths=PackedStringArray("contenedor_cartas_jugador", "contenedor_cartas_muerte", "posicion_mesa_jugador", "posicion_mesa_muerte", "lbl_puntos_jugador", "lbl_puntos_muerte", "lbl_mensaje", "lbl_resultado_ronda", "btn_envido", "btn_truco", "btn_irse", "contenedor_respuestas", "btn_quiero", "btn_no_quiero")]
+[node name="TrucoUI" type="Node" parent="." unique_id=1326515175 node_paths=PackedStringArray("contenedor_cartas_jugador", "contenedor_cartas_muerte", "posicion_mesa_jugador", "posicion_mesa_muerte", "lbl_puntos_jugador", "lbl_puntos_muerte", "lbl_mensaje", "lbl_resultado_ronda", "btn_envido", "btn_truco", "btn_irse", "contenedor_respuestas", "btn_quiero", "btn_no_quiero")]
 script = ExtResource("6_ui")
 contenedor_cartas_jugador = NodePath("../AreaJugador/ManoContainer")
 contenedor_cartas_muerte = NodePath("../AreaMuerte/ManoMuerteContainer")
@@ -63,10 +63,10 @@ contenedor_respuestas = NodePath("../HUD/RespuestasContainer")
 btn_quiero = NodePath("../HUD/RespuestasContainer/VBox/BtnQuiero")
 btn_no_quiero = NodePath("../HUD/RespuestasContainer/VBox/BtnNoQuiero")
 
-[node name="--- VISUALS ---" type="CanvasLayer" parent="."]
+[node name="--- VISUALS ---" type="CanvasLayer" parent="." unique_id=1463147469]
 layer = -1
 
-[node name="FondoMesa" type="ColorRect" parent="."]
+[node name="FondoMesa" type="ColorRect" parent="." unique_id=1243545033]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -74,7 +74,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.105882, 0.45098, 0.235294, 1)
 
-[node name="Mesa" type="Control" parent="."]
+[node name="Mesa" type="Control" parent="." unique_id=365289071]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -83,7 +83,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="DecoracionCentro" type="ColorRect" parent="Mesa"]
+[node name="DecoracionCentro" type="ColorRect" parent="Mesa" unique_id=551666569]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -98,13 +98,13 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.117647)
 
-[node name="PosicionCartaJugador" type="Marker2D" parent="Mesa"]
+[node name="PosicionCartaJugador" type="Marker2D" parent="Mesa" unique_id=1805178424]
 position = Vector2(512, 380)
 
-[node name="PosicionCartaMuerte" type="Marker2D" parent="Mesa"]
+[node name="PosicionCartaMuerte" type="Marker2D" parent="Mesa" unique_id=1710532522]
 position = Vector2(640, 260)
 
-[node name="AreaMuerte" type="Control" parent="."]
+[node name="AreaMuerte" type="Control" parent="." unique_id=1035536499]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -112,7 +112,7 @@ offset_bottom = 200.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="AvatarMuerte" type="TextureRect" parent="AreaMuerte"]
+[node name="AvatarMuerte" type="TextureRect" parent="AreaMuerte" unique_id=1381689345]
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
@@ -129,7 +129,7 @@ texture = ExtResource("11_muerte_img")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ManoMuerteContainer" type="HBoxContainer" parent="AreaMuerte"]
+[node name="ManoMuerteContainer" type="HBoxContainer" parent="AreaMuerte" unique_id=2137658664]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -142,7 +142,7 @@ grow_horizontal = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AreaJugador" type="Control" parent="."]
+[node name="AreaJugador" type="Control" parent="." unique_id=1418911877]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -153,7 +153,7 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="AvatarGaucho" type="TextureRect" parent="AreaJugador"]
+[node name="AvatarGaucho" type="TextureRect" parent="AreaJugador" unique_id=1274891426]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -167,7 +167,7 @@ texture = ExtResource("10_gaucho_img")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ManoContainer" type="HBoxContainer" parent="AreaJugador"]
+[node name="ManoContainer" type="HBoxContainer" parent="AreaJugador" unique_id=14667499]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -183,7 +183,7 @@ grow_vertical = 0
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="AccionesContainer" type="HBoxContainer" parent="AreaJugador"]
+[node name="AccionesContainer" type="HBoxContainer" parent="AreaJugador" unique_id=252956206]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -199,31 +199,31 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 2
 
-[node name="BtnEnvido" type="Button" parent="AreaJugador/AccionesContainer"]
+[node name="BtnEnvido" type="Button" parent="AreaJugador/AccionesContainer" unique_id=2022880658]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "ENVIDO"
 
-[node name="BtnTruco" type="Button" parent="AreaJugador/AccionesContainer"]
+[node name="BtnTruco" type="Button" parent="AreaJugador/AccionesContainer" unique_id=88295460]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 text = "TRUCO"
 
-[node name="BtnMazo" type="Button" parent="AreaJugador/AccionesContainer"]
+[node name="BtnMazo" type="Button" parent="AreaJugador/AccionesContainer" unique_id=21431610]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 text = "IRSE"
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1844287258]
 
-[node name="Anotador" type="Panel" parent="HUD"]
+[node name="Anotador" type="Panel" parent="HUD" unique_id=1901240034]
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 220.0
 offset_bottom = 120.0
 mouse_filter = 2
 
-[node name="Titulo" type="Label" parent="HUD/Anotador"]
+[node name="Titulo" type="Label" parent="HUD/Anotador" unique_id=1845655928]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -233,7 +233,7 @@ text = "ANOTADOR"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="VBox" type="HBoxContainer" parent="HUD/Anotador"]
+[node name="VBox" type="HBoxContainer" parent="HUD/Anotador" unique_id=1484525653]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -243,23 +243,23 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="PuntosJugador" type="Label" parent="HUD/Anotador/VBox"]
+[node name="PuntosJugador" type="Label" parent="HUD/Anotador/VBox" unique_id=1282532057]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Nos: 0"
 horizontal_alignment = 1
 
-[node name="Separador" type="VSeparator" parent="HUD/Anotador/VBox"]
+[node name="Separador" type="VSeparator" parent="HUD/Anotador/VBox" unique_id=2357294]
 layout_mode = 2
 
-[node name="PuntosMuerte" type="Label" parent="HUD/Anotador/VBox"]
+[node name="PuntosMuerte" type="Label" parent="HUD/Anotador/VBox" unique_id=565707934]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.486275, 0.486275, 1)
 text = "Ellos: 0"
 horizontal_alignment = 1
 
-[node name="Notificaciones" type="Control" parent="HUD"]
+[node name="Notificaciones" type="Control" parent="HUD" unique_id=197462522]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -272,7 +272,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MensajeLabel" type="Label" parent="HUD/Notificaciones"]
+[node name="MensajeLabel" type="Label" parent="HUD/Notificaciones" unique_id=2089345130]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -293,7 +293,7 @@ text = "¡QUIERO VALE CUATRO!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResultadoLabel" type="Label" parent="HUD/Notificaciones"]
+[node name="ResultadoLabel" type="Label" parent="HUD/Notificaciones" unique_id=1583864721]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -314,7 +314,7 @@ theme_override_font_sizes/font_size = 24
 text = "Ganaste la ronda"
 horizontal_alignment = 1
 
-[node name="RespuestasContainer" type="PanelContainer" parent="HUD"]
+[node name="RespuestasContainer" type="PanelContainer" parent="HUD" unique_id=70385193]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -328,36 +328,36 @@ offset_bottom = 150.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBox" type="VBoxContainer" parent="HUD/RespuestasContainer"]
+[node name="VBox" type="VBoxContainer" parent="HUD/RespuestasContainer" unique_id=1357476602]
 layout_mode = 2
 theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Titulo" type="Label" parent="HUD/RespuestasContainer/VBox"]
+[node name="Titulo" type="Label" parent="HUD/RespuestasContainer/VBox" unique_id=1629902495]
 layout_mode = 2
 text = "¿Qué respondés?"
 horizontal_alignment = 1
 
-[node name="BtnQuiero" type="Button" parent="HUD/RespuestasContainer/VBox"]
+[node name="BtnQuiero" type="Button" parent="HUD/RespuestasContainer/VBox" unique_id=758789866]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "¡QUIERO!"
 
-[node name="BtnNoQuiero" type="Button" parent="HUD/RespuestasContainer/VBox"]
+[node name="BtnNoQuiero" type="Button" parent="HUD/RespuestasContainer/VBox" unique_id=807585565]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "NO QUIERO"
 
-[node name="HBoxEnvidos" type="HBoxContainer" parent="HUD/RespuestasContainer/VBox"]
+[node name="HBoxEnvidos" type="HBoxContainer" parent="HUD/RespuestasContainer/VBox" unique_id=501267316]
 layout_mode = 2
 alignment = 1
 
-[node name="BtnEnvido" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos"]
+[node name="BtnEnvido" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos" unique_id=2106715425]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Envido"
 
-[node name="BtnReal" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos"]
+[node name="BtnReal" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos" unique_id=1788972038]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Real"
