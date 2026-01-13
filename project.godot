@@ -32,6 +32,7 @@ ConfigManager="*res://core/config_manager.gd"
 SceneManager="*res://core/scene_manager.gd"
 ScoreManager="*res://systems/score/score_manager.gd"
 LivesManager="*res://systems/lives/lives_manager.gd"
+SaveManager="*res://core/save_manager.gd"
 DebugMenu="*res://systems/debug/debug_menu.tscn"
 
 [display]

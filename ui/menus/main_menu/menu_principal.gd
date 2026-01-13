@@ -4,6 +4,7 @@ extends Control
 
 #region REFERENCIAS
 @export var btn_jugar: Button
+@export var btn_cargar: Button
 @export var btn_como_jugar: Button
 @export var btn_configuracion: Button
 @export var btn_salir: Button
@@ -15,6 +16,13 @@ func _ready():
 	# Conectar botones
 	if btn_jugar:
 		btn_jugar.pressed.connect(_on_jugar_pressed)
+	if btn_cargar:
+		btn_cargar.pressed.connect(_on_cargar_pressed)
+		# Deshabilitar si no hay partida guardada
+		if SaveManager and not SaveManager.has_save():
+			btn_cargar.disabled = true
+			btn_cargar.modulate.a = 0.5 # Hacerlo semi-transparente
+	
 	if btn_como_jugar:
 		btn_como_jugar.pressed.connect(_on_como_jugar_pressed)
 	if btn_configuracion:
@@ -30,6 +38,10 @@ func _on_jugar_pressed():
 	print("▶️ Iniciando Capítulo 1...")
 	# Ir a la pantalla de transición del capítulo 1
 	get_tree().change_scene_to_file("res://scenes/chapter_transition/chapter_transition.tscn")
+
+func _on_cargar_pressed():
+	if SaveManager:
+		SaveManager.load_game()
 
 func _on_como_jugar_pressed():
 	print("📖 Mostrando instrucciones...")
