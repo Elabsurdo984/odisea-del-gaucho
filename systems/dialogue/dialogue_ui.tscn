@@ -71,6 +71,7 @@ horizontal_alignment = 2
 
 [node name="DialogueManager" type="Node" parent="." unique_id=1841123721 node_paths=PackedStringArray("name_label", "text_label", "continue_indicator")]
 script = ExtResource("2_075ga")
+typing_speed = 60.0
 name_label = NodePath("../PanelDialogo/MarginContainer/VBoxContainer/NombreLabel")
 text_label = NodePath("../PanelDialogo/MarginContainer/VBoxContainer/TextoLabel")
 continue_indicator = NodePath("../PanelDialogo/ContinuarIndicador")

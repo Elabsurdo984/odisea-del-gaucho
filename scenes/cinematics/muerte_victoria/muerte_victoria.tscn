@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cy4itwocd1gis" path="res://scenes/cinematics/muerte_victoria/muerte_victoria.gd" id="1_qrvkj"]
 [ext_resource type="Texture2D" uid="uid://b7sc77ig5pli5" path="res://assets/personajes/muerte/muerte.png" id="2_jg1gj"]
+[ext_resource type="Texture2D" uid="uid://chnepslcm6cjh" path="res://assets/personajes/muerte/muerte-guadaña-arriba.png" id="3_guadaña"]
 [ext_resource type="PackedScene" uid="uid://c5mpyrx5lka41" path="res://systems/dialogue/dialogue_ui.tscn" id="3_jabcv"]
 
-[node name="MuerteVictoria" type="Control" unique_id=384938792 node_paths=PackedStringArray("muerte_sprite", "dialogue_ui_scene")]
+[node name="MuerteVictoria" type="Control" unique_id=384938792 node_paths=PackedStringArray("muerte_sprite", "muerte_guadaña_sprite", "dialogue_ui_scene")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qrvkj")
 muerte_sprite = NodePath("MuerteSprite")
+"muerte_guadaña_sprite" = NodePath("MuerteGuadañaSprite")
 dialogue_ui_scene = NodePath("DialogueUI")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1936578033]
@@ -28,5 +30,11 @@ color = Color(0, 0, 0, 1)
 position = Vector2(556.625, 270.75)
 scale = Vector2(0.42149997, 0.417)
 texture = ExtResource("2_jg1gj")
+
+[node name="MuerteGuadañaSprite" type="Sprite2D" parent="." unique_id=1555403255]
+visible = false
+position = Vector2(556.625, 270.75)
+scale = Vector2(0.42149997, 0.417)
+texture = ExtResource("3_guadaña")
 
 [node name="DialogueUI" parent="." unique_id=2055404236 instance=ExtResource("3_jabcv")]
