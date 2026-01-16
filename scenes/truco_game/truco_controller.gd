@@ -58,6 +58,7 @@ func conectar_senales() -> void:
 	# Conexiones de Respuesta UI
 	ui.respuesta_envido.connect(_on_player_responde_envido)
 	ui.respuesta_truco.connect(_on_player_responde_truco)
+	ui.contra_envido.connect(_on_player_contra_envido)
 	
 	# Conexiones de Sistemas
 	ai.accion_tomada.connect(_on_ai_accion)
@@ -400,6 +401,63 @@ func _on_player_responde_truco(acepta: bool) -> void:
 		ui.mostrar_mensaje("La Muerte gana %d puntos" % pts, 4.0)
 		await get_tree().create_timer(4.0).timeout
 		finalizar_mano()
+
+func _on_player_contra_envido(tipo_envido: int) -> void:
+	if estado_respuesta_pendiente != "envido": return
+
+	# Limpiar estado de respuesta pendiente
+	estado_respuesta_pendiente = ""
+	ui.ocultar_respuestas()
+
+	# Determinar nombre del contra-canto
+	var nombre_canto = ""
+	match tipo_envido:
+		EnvidoSystem.TipoEnvido.ENVIDO_ENVIDO:
+			nombre_canto = "Envido"
+		EnvidoSystem.TipoEnvido.REAL_ENVIDO:
+			nombre_canto = "Real Envido"
+		EnvidoSystem.TipoEnvido.FALTA_ENVIDO:
+			nombre_canto = "Falta Envido"
+
+	# Acumular puntos del contra-canto
+	envido_sys.cantar_envido(tipo_envido, "jugador")
+	ui.mostrar_mensaje("¡%s!" % nombre_canto, 2.5)
+	await get_tree().create_timer(2.5).timeout
+
+	# La muerte decide si acepta el contra-canto
+	var envido_muerte = envido_sys.calcular_envido(state.cartas_originales_muerte)
+	# Umbral más alto para aceptar contra-cantos
+	var umbral = 27 if tipo_envido == EnvidoSystem.TipoEnvido.FALTA_ENVIDO else 25
+	var acepta = envido_muerte >= umbral
+
+	if acepta:
+		ui.mostrar_mensaje("La Muerte dijo: ¡Quiero!", 2.5)
+		await get_tree().create_timer(2.5).timeout
+
+		# Resolver envido
+		var pts_jug = envido_sys.calcular_envido(state.cartas_originales_jugador)
+		var pts_muerte = envido_sys.calcular_envido(state.cartas_originales_muerte)
+
+		ui.mostrar_mensaje("Tu envido: %d" % pts_jug, 3.5)
+		await get_tree().create_timer(3.5).timeout
+		ui.mostrar_mensaje("Envido de La Muerte: %d" % pts_muerte, 3.5)
+		await get_tree().create_timer(3.5).timeout
+
+		envido_sys.resolver_envido(pts_jug, pts_muerte)
+		await get_tree().create_timer(2.0).timeout
+	else:
+		ui.mostrar_mensaje("La Muerte dijo: No quiero", 2.5)
+		await get_tree().create_timer(2.5).timeout
+		# El jugador gana los puntos acumulados hasta antes del contra-canto
+		var puntos_ganados = envido_sys.puntos_acumulados - envido_sys.puntos_por_tipo[tipo_envido]
+		if puntos_ganados < 1: puntos_ganados = 1
+		state.agregar_puntos_jugador(puntos_ganados)
+		ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
+		ui.mostrar_mensaje("Ganaste %d punto%s" % [puntos_ganados, "s" if puntos_ganados > 1 else ""], 3.5)
+		await get_tree().create_timer(3.5).timeout
+
+	# Continuar con el juego
+	iniciar_turno()
 
 # --- RESPUESTAS DE IA (Simuladas por ahora) ---
 func _on_ai_responde_envido(acepta: bool) -> void:

@@ -46,7 +46,7 @@ script = ExtResource("8_strategy")
 [node name="AIDecision" type="Node" parent="AIMuerte" unique_id=1213709422]
 script = ExtResource("9_decision")
 
-[node name="TrucoUI" type="Node" parent="." unique_id=1326515175 node_paths=PackedStringArray("contenedor_cartas_jugador", "contenedor_cartas_muerte", "posicion_mesa_jugador", "posicion_mesa_muerte", "lbl_puntos_jugador", "lbl_puntos_muerte", "lbl_mensaje", "lbl_resultado_ronda", "btn_envido", "btn_truco", "btn_irse", "contenedor_respuestas", "btn_quiero", "btn_no_quiero")]
+[node name="TrucoUI" type="Node" parent="." unique_id=1326515175 node_paths=PackedStringArray("contenedor_cartas_jugador", "contenedor_cartas_muerte", "posicion_mesa_jugador", "posicion_mesa_muerte", "lbl_puntos_jugador", "lbl_puntos_muerte", "lbl_mensaje", "lbl_resultado_ronda", "btn_envido", "btn_truco", "btn_irse", "contenedor_respuestas", "btn_quiero", "btn_no_quiero", "btn_contra_envido", "btn_real_envido", "btn_falta_envido", "contenedor_contra_envido")]
 script = ExtResource("6_ui")
 contenedor_cartas_jugador = NodePath("../AreaJugador/ManoContainer")
 contenedor_cartas_muerte = NodePath("../AreaMuerte/ManoMuerteContainer")
@@ -62,6 +62,10 @@ btn_irse = NodePath("../AreaJugador/AccionesContainer/BtnMazo")
 contenedor_respuestas = NodePath("../HUD/RespuestasContainer")
 btn_quiero = NodePath("../HUD/RespuestasContainer/VBox/BtnQuiero")
 btn_no_quiero = NodePath("../HUD/RespuestasContainer/VBox/BtnNoQuiero")
+btn_contra_envido = NodePath("../HUD/RespuestasContainer/VBox/HBoxEnvidos/BtnEnvido")
+btn_real_envido = NodePath("../HUD/RespuestasContainer/VBox/HBoxEnvidos/BtnReal")
+btn_falta_envido = NodePath("../HUD/RespuestasContainer/VBox/HBoxEnvidos/BtnFalta")
+contenedor_contra_envido = NodePath("../HUD/RespuestasContainer/VBox/HBoxEnvidos")
 
 [node name="--- VISUALS ---" type="CanvasLayer" parent="." unique_id=1463147469]
 layer = -1
@@ -361,3 +365,8 @@ text = "Envido"
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Real"
+
+[node name="BtnFalta" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Falta"

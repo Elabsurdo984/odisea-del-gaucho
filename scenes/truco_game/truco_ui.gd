@@ -10,6 +10,7 @@ signal boton_irse_presionado()
 signal carta_jugada(carta: Carta)
 signal respuesta_envido(acepta: bool)
 signal respuesta_truco(acepta: bool)
+signal contra_envido(tipo: int)  # EnvidoSystem.TipoEnvido
 
 # ============================================================
 # REFERENCIAS UI (Asignar en Editor)
@@ -35,11 +36,16 @@ signal respuesta_truco(acepta: bool)
 @export var contenedor_respuestas: Control
 @export var btn_quiero: Button
 @export var btn_no_quiero: Button
+@export var btn_contra_envido: Button
+@export var btn_real_envido: Button
+@export var btn_falta_envido: Button
+@export var contenedor_contra_envido: Control
 
 # ============================================================
 # VARIABLES
 # ============================================================
 const CARTA_SCENE = preload("res://scenes/truco_game/carta.tscn") # Usamos la carta existente
+var _respondiendo_a: String = ""  # "envido" o "truco"
 
 # ============================================================
 # LIFECYCLE
@@ -49,10 +55,15 @@ func _ready() -> void:
 	if btn_envido: btn_envido.pressed.connect(func(): boton_envido_presionado.emit())
 	if btn_truco: btn_truco.pressed.connect(func(): boton_truco_presionado.emit())
 	if btn_irse: btn_irse.pressed.connect(func(): boton_irse_presionado.emit())
-	
+
 	if btn_quiero: btn_quiero.pressed.connect(func(): _responder(true))
 	if btn_no_quiero: btn_no_quiero.pressed.connect(func(): _responder(false))
-	
+
+	# Conectar botones de contra-envido
+	if btn_contra_envido: btn_contra_envido.pressed.connect(func(): _contra_envido(EnvidoSystem.TipoEnvido.ENVIDO_ENVIDO))
+	if btn_real_envido: btn_real_envido.pressed.connect(func(): _contra_envido(EnvidoSystem.TipoEnvido.REAL_ENVIDO))
+	if btn_falta_envido: btn_falta_envido.pressed.connect(func(): _contra_envido(EnvidoSystem.TipoEnvido.FALTA_ENVIDO))
+
 	ocultar_respuestas()
 	lbl_mensaje.text = ""
 	lbl_resultado_ronda.text = ""
@@ -198,11 +209,17 @@ func limpiar_mesa() -> void:
 			child.queue_free()
 
 func mostrar_dialogo_respuesta(tipo: String) -> void:
+	_respondiendo_a = tipo
 	if contenedor_respuestas:
 		contenedor_respuestas.visible = true
 		lbl_mensaje.text = "La Muerte cantó " + tipo
 
+	# Mostrar botones de contra-envido solo si es respuesta a envido
+	if contenedor_contra_envido:
+		contenedor_contra_envido.visible = (tipo == "envido")
+
 func ocultar_respuestas() -> void:
+	_respondiendo_a = ""
 	if contenedor_respuestas:
 		contenedor_respuestas.visible = false
 
@@ -233,10 +250,14 @@ func _on_carta_clickeada(carta: Carta) -> void:
 	carta_jugada.emit(carta)
 
 func _responder(acepta: bool) -> void:
+	var tipo = _respondiendo_a
 	ocultar_respuestas()
-	# Aquí falta saber qué se está respondiendo, idealmente el controller gestiona el estado
-	# O emitimos señales genéricas
-	# Por simplificación asumimos que el controller sabe qué se preguntó
-	# Emitimos ambas señales y el controller decide cual escuchar o usamos una genérica
-	respuesta_envido.emit(acepta) 
-	respuesta_truco.emit(acepta)
+	# Emitir la señal correcta según lo que se estaba respondiendo
+	if tipo == "envido":
+		respuesta_envido.emit(acepta)
+	elif tipo == "truco":
+		respuesta_truco.emit(acepta)
+
+func _contra_envido(tipo_envido: int) -> void:
+	ocultar_respuestas()
+	contra_envido.emit(tipo_envido)
