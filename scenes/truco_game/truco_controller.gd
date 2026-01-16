@@ -319,8 +319,11 @@ func _on_ui_truco() -> void:
 	ui.mostrar_mensaje("¡Cantaste Truco!", 2.5)
 	await get_tree().create_timer(2.5).timeout
 
-	# La IA decide si acepta o no (por ahora siempre acepta)
-	_on_ai_responde_truco(true)
+	# La IA evalúa la fuerza de su mano y decide si acepta
+	var fuerza_muerte = ai.decision.calcular_fuerza_mano(state.cartas_muerte)
+	# Acepta si tiene fuerza >= 0.5 (mano decente)
+	var acepta_truco = fuerza_muerte >= 0.5
+	_on_ai_responde_truco(acepta_truco)
 
 func _on_ui_irse_al_mazo() -> void:
 	# El jugador se rinde y la muerte gana los puntos en juego
