@@ -55,8 +55,10 @@ func _debe_cantar_envido(estrategia: int, puntos_envido: int) -> bool:
 	return false
 
 func _debe_cantar_truco(estrategia: int, fuerza: float, betting: TrucoBetting) -> bool:
+	# No cantar si la muerte ya cantó y está esperando respuesta o ya se aceptó
 	if betting.ultimo_apostador == "muerte": return false
-	if betting.nivel_actual >= TrucoBetting.NivelApuesta.VALE_CUATRO: return false
+	# No cantar truco si ya hay un truco activo (solo se puede subir a retruco/vale4)
+	if betting.nivel_actual >= TrucoBetting.NivelApuesta.TRUCO: return false
 	
 	var umbral = 0.6
 	match estrategia:
