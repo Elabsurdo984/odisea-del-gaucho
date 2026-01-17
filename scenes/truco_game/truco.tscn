@@ -369,21 +369,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Real"
 
-[node name="BtnFalta" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos"]
+[node name="BtnFalta" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxEnvidos" unique_id=2141672730]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Falta"
 
-[node name="HBoxTruco" type="HBoxContainer" parent="HUD/RespuestasContainer/VBox"]
+[node name="HBoxTruco" type="HBoxContainer" parent="HUD/RespuestasContainer/VBox" unique_id=1802072328]
 layout_mode = 2
 alignment = 1
 
-[node name="BtnRetruco" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxTruco"]
+[node name="BtnRetruco" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxTruco" unique_id=1396862398]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Retruco"
 
-[node name="BtnValeCuatro" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxTruco"]
+[node name="BtnValeCuatro" type="Button" parent="HUD/RespuestasContainer/VBox/HBoxTruco" unique_id=1651550890]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Vale 4"

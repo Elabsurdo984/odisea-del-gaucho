@@ -118,7 +118,7 @@ func animar_cambio_a_guadaña():
 
 	# Guardar escala y posición original
 	var scale_original = muerte_guadaña_sprite.scale
-	var pos_original = muerte_guadaña_sprite.position
+	var _pos_original = muerte_guadaña_sprite.position
 
 	# Fade out del sprite normal
 	var tween_out = create_tween()
