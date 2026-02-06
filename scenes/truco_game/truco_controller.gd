@@ -14,6 +14,7 @@ class_name TrucoController
 var deck: Deck
 var es_turno_jugador: bool = true
 var estado_respuesta_pendiente: String = "" # "envido", "truco", ""
+var _ganador_mano_anterior: String = "" # "jugador", "muerte", "" (primera mano)
 
 # ============================================================
 # PRIVATE VARIABLES
@@ -93,8 +94,23 @@ func comenzar_nueva_mano() -> void:
 	ui.mostrar_cartas_muerte_dorso(3)
 	ui.limpiar_mesa()
 	
-	# Iniciar turno (Por ahora siempre empieza jugador para simplificar)
-	es_turno_jugador = true
+	# Determinar quién es "mano" (quién empieza)
+	if _ganador_mano_anterior == "":
+		# Primera mano: aleatorio
+		es_turno_jugador = randf() < 0.5
+		var quien_empieza = "El Jugador" if es_turno_jugador else "La Muerte"
+		ui.mostrar_mensaje("Primera mano - Empieza: %s" % quien_empieza, 3.0)
+		if OS.is_debug_build():
+			print("🎲 Primera mano - Empieza: %s" % quien_empieza)
+	else:
+		# El ganador de la mano anterior es "mano"
+		es_turno_jugador = (_ganador_mano_anterior == "jugador")
+		var quien_empieza = "Tú" if es_turno_jugador else "La Muerte"
+		ui.mostrar_mensaje("%s es mano (gano la anterior)" % quien_empieza, 3.0)
+		if OS.is_debug_build():
+			print("🎴 %s es mano (ganó la mano anterior)" % quien_empieza)
+
+	await get_tree().create_timer(3.0).timeout
 	iniciar_turno()
 
 func iniciar_turno() -> void:
@@ -217,11 +233,14 @@ func finalizar_mano() -> void:
 	var ganador_mano = rules.determinar_ganador_mano(state.resultados_rondas)
 	var puntos_ganados = betting.puntos_en_juego
 
+	# Guardar ganador para determinar quién es "mano" en la siguiente
 	match ganador_mano:
 		TrucoRules.GANADOR_JUGADOR:
+			_ganador_mano_anterior = "jugador"
 			state.agregar_puntos_jugador(puntos_ganados)
 			ui.mostrar_mensaje("¡Ganaste la mano! (+%d puntos)" % puntos_ganados, 5.0)
 		TrucoRules.GANADOR_MUERTE:
+			_ganador_mano_anterior = "muerte"
 			state.agregar_puntos_muerte(puntos_ganados)
 			ui.mostrar_mensaje("La Muerte ganó la mano (+%d puntos)" % puntos_ganados, 5.0)
 
@@ -272,6 +291,7 @@ func _on_ai_accion(accion: Dictionary) -> void:
 			estado_respuesta_pendiente = "truco"
 			ui.mostrar_dialogo_respuesta("truco", betting.nivel_actual)
 		"irse_al_mazo":
+			_ganador_mano_anterior = "jugador"  # El jugador ganó porque la muerte se fue al mazo
 			state.agregar_puntos_jugador(betting.puntos_en_juego)
 			finalizar_mano()
 
@@ -332,6 +352,7 @@ func _on_ui_irse_al_mazo() -> void:
 
 	# La muerte gana los puntos en juego (mínimo 1)
 	var puntos = max(betting.puntos_en_juego, 1)
+	_ganador_mano_anterior = "muerte"  # La muerte ganó esta mano
 	state.agregar_puntos_muerte(puntos)
 	ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
 	ui.mostrar_mensaje("La Muerte gana %d punto%s" % [puntos, "s" if puntos > 1 else ""], 3.0)
@@ -402,6 +423,7 @@ func _on_player_responde_truco(acepta: bool) -> void:
 		await get_tree().create_timer(2.5).timeout
 
 		var pts = betting.rechazar_apuesta()
+		_ganador_mano_anterior = "muerte"  # La muerte ganó porque el jugador no quiso
 		state.agregar_puntos_muerte(pts)
 		ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
 		ui.mostrar_mensaje("La Muerte gana %d puntos" % pts, 4.0)
@@ -507,6 +529,7 @@ func _on_player_contra_truco(nivel: int) -> void:
 		await get_tree().create_timer(2.5).timeout
 		# El jugador gana los puntos del nivel anterior
 		var puntos_ganados = betting.rechazar_apuesta()
+		_ganador_mano_anterior = "jugador"  # El jugador ganó porque la muerte no quiso
 		state.agregar_puntos_jugador(puntos_ganados)
 		ui.actualizar_puntos(state.puntos_jugador, state.puntos_muerte)
 		ui.mostrar_mensaje("Ganaste %d punto%s" % [puntos_ganados, "s" if puntos_ganados > 1 else ""], 3.5)
@@ -563,6 +586,7 @@ func _on_ai_responde_truco(acepta: bool) -> void:
 		ui.habilitar_controles(state, betting)
 	else:
 		var puntos_ganados = betting.rechazar_apuesta()
+		_ganador_mano_anterior = "jugador"  # El jugador ganó porque la muerte no quiso
 		ui.mostrar_mensaje("La Muerte dijo: No quiero", 2.5)
 		await get_tree().create_timer(2.5).timeout
 		state.agregar_puntos_jugador(puntos_ganados)
