@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvapeiqtgqp03"]
+[gd_scene load_steps=9 format=3 uid="uid://bvapeiqtgqp03"]
 
 [ext_resource type="Script" uid="uid://d32fwinn786s7" path="res://ui/menus/config_menu/configuracion.gd" id="1_5mfs0"]
 
@@ -13,6 +13,82 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_bg"]
+bg_color = Color(0.2, 0.25, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.5, 0.3, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_grabber"]
+bg_color = Color(0.6, 0.5, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8, 0.7, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slider_grabber_highlight"]
+bg_color = Color(0.8, 0.7, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.9, 0.4, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 6
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox_normal"]
+bg_color = Color(0.2, 0.25, 0.2, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4, 0.5, 0.3, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox_checked"]
+bg_color = Color(0.5, 0.6, 0.3, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7, 0.8, 0.4, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_checkbox_hover"]
+bg_color = Color(0.3, 0.35, 0.25, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.6, 0.7, 0.4, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Configuracion" type="Control" node_paths=PackedStringArray("slider_musica", "label_valor_musica", "slider_efectos", "label_valor_efectos", "check_pantalla_completa", "btn_volver", "btn_restablecer")]
 layout_mode = 3
@@ -124,6 +200,10 @@ horizontal_alignment = 1
 [node name="SliderMusica" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/MusicaControl"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_bg")
+theme_override_icon_sizes/grabber_icon_size = 20
 value = 80.0
 tick_count = 11
 ticks_on_borders = true
@@ -152,6 +232,10 @@ horizontal_alignment = 1
 [node name="SliderEfectos" type="HSlider" parent="ScrollContainer/VBoxContainer/AudioPanel/MarginContainer/VBox/EfectosControl"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_slider_bg")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_slider_bg")
+theme_override_icon_sizes/grabber_icon_size = 20
 value = 80.0
 tick_count = 11
 ticks_on_borders = true
@@ -198,7 +282,14 @@ text = "Pantalla Completa:"
 
 [node name="CheckPantallaCompleta" type="CheckBox" parent="ScrollContainer/VBoxContainer/VideoPanel/MarginContainer/VBox/PantallaCompleta"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_hover_color = Color(1, 0.9, 0.4, 1)
+theme_override_colors/font_pressed_color = Color(1, 0.9, 0.4, 1)
 theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_checkbox_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_checkbox_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_checkbox_checked")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_checkbox_checked")
 
 [node name="BtnRestablecer" type="Button" parent="ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
