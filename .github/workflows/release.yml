@@ -43,27 +43,24 @@ jobs:
         run: |
           echo "Exporting for Windows..."
           godot --headless --export-release "Windows Desktop"
-          mv build/la_odisea_del_gaucho-win.zip build/${EXPORT_NAME}-windows.zip
 
       - name: Export Linux
         run: |
           echo "Exporting for Linux..."
           godot --headless --export-release "Linux"
-          mv build/la_odisea_del_gaucho-linux.zip build/${EXPORT_NAME}-linux.zip
 
       - name: Export macOS
         run: |
           echo "Exporting for macOS..."
           godot --headless --export-release "macOS"
-          mv build/la_odisea_del_gaucho_mac.zip build/${EXPORT_NAME}-macos.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            build/${{ env.EXPORT_NAME }}-windows.zip
-            build/${{ env.EXPORT_NAME }}-linux.zip
-            build/${{ env.EXPORT_NAME }}-macos.zip
+            build/la_odisea_del_gaucho-win.zip
+            build/la_odisea_del_gaucho-linux.zip
+            build/la_odisea_del_gaucho_mac.zip
           draft: false
           prerelease: false
           generate_release_notes: true
@@ -71,17 +68,17 @@ jobs:
             ## La Odisea del Gaucho - ${{ github.ref_name }}
 
             ### Descargas
-            - **Windows**: `${{ env.EXPORT_NAME }}-windows.zip`
-            - **Linux**: `${{ env.EXPORT_NAME }}-linux.zip`
-            - **macOS**: `${{ env.EXPORT_NAME }}-macos.zip`
+            - **Windows**: `la_odisea_del_gaucho-win.zip`
+            - **Linux**: `la_odisea_del_gaucho-linux.zip`
+            - **macOS**: `la_odisea_del_gaucho_mac.zip`
 
             ### Instrucciones
             1. Descarga el archivo ZIP de tu plataforma
             2. Extrae el contenido
             3. Ejecuta el juego:
-               - **Windows**: Doble click en `${{ env.EXPORT_NAME }}.exe`
-               - **Linux**: Ejecuta `${{ env.EXPORT_NAME }}.x86_64` (puede requerir `chmod +x`)
-               - **macOS**: Abre `${{ env.EXPORT_NAME }}.app`
+               - **Windows**: Doble click en `la_odisea_del_gaucho.exe`
+               - **Linux**: Ejecuta `la_odisea_del_gaucho.x86_64` (puede requerir `chmod +x`)
+               - **macOS**: Abre `la_odisea_del_gaucho.app`
 
             ¡Disfruta la aventura gaucha! 🧉
         env:
